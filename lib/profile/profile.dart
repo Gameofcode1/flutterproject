@@ -6,7 +6,7 @@ class MyProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
-   
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -16,26 +16,29 @@ class MyProfile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0, left: 10.0),
-                  child: Icon(Icons.arrow_back, size: data.size.width / 9),
+                  padding: EdgeInsets.only(
+                      top: data.size.width / 44, left: data.size.width / 29),
+                  child:
+                      Icon(Icons.arrow_back_ios, size: data.size.height / 29),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+                  padding: EdgeInsets.only(
+                      top: data.size.width / 44, right: data.size.width / 29),
                   child: Icon(Icons.store_mall_directory,
-                      size: data.size.width / 9),
+                      size: data.size.height / 27),
                 )
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 2.0),
+              padding: EdgeInsets.only(top: data.size.height / 105),
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20.0),
+                      margin: EdgeInsets.only(top: data.size.height / 65),
                       width: data.size.width / 4,
-                      height: 2.0,
+                      height: data.size.height/300,
                       color: kActiveIconColor,
                     ),
                     CircleAvatar(
@@ -45,9 +48,9 @@ class MyProfile extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 20.0),
+                      margin: EdgeInsets.only(top: data.size.height / 65),
                       width: data.size.width / 4,
-                      height: 2.0,
+                     height: data.size.height/300,
                       color: kActiveIconColor,
                     ),
                   ],
@@ -55,51 +58,76 @@ class MyProfile extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(top: data.size.height / 95),
               child: Text("New User",
                   style: TextStyle(
-                      fontSize: data.size.height / 27,
-                      fontWeight: FontWeight.bold)),
+                    fontFamily: "RoboroM",
+                    letterSpacing: 1.8,
+                    fontSize: data.size.height / 32,
+                    fontWeight: FontWeight.w100,
+                  )),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.email),
-                SizedBox(width: data.size.width / 33),
-                Text("Pudasaini.saugatt@gmail.com")
+                Icon(
+                  Icons.email,
+                  size: data.size.height / 47,
+                ),
+                SizedBox(width: data.size.width / 73),
+                Text(
+                  "theNewusers@gmail.com",
+                  style: TextStyle(
+                    fontFamily: "Roboro",
+                    fontSize: data.size.height / 80,
+                    letterSpacing: 1.3,
+                  ),
+                )
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.phone),
-                SizedBox(width: data.size.width / 33),
-                Text("9845362828")
+                Icon(Icons.phone, size: data.size.height / 47),
+                SizedBox(width: data.size.width /93),
+                Text("9090909090",
+                    style: TextStyle(
+                      fontFamily: "Roboro",
+                      fontSize: data.size.height / 86,
+                      letterSpacing: 1.2,
+                    ))
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 18, bottom: 17.0),
+              padding: EdgeInsets.only(
+                  top: data.size.height / 95, bottom: data.size.height / 45),
               child: Card(
-                elevation: 7.0,
-                shape: kCardShape,
+                elevation: 3.0,
+                shape: kEditshape,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
                     color: Colors.white,
                   ),
-                  width: data.size.width / 2.5,
+                  width: data.size.width / 3,
                   height: data.size.height / 19,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.edit),
-                      SizedBox(width: data.size.width / 95),
+                      Icon(
+                        Icons.edit,
+                        size: data.size.height / 33,
+                        color: kActiveIconColor,
+                      ),
+                      SizedBox(width: data.size.width / 105),
                       Text(
-                        "Edit Profile",
+                        "Edit Profle",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: data.size.height / 42),
-                      )
+                            fontFamily: "RoboroM",
+                            fontWeight: FontWeight.w300,
+                            letterSpacing: 1.5,
+                            fontSize: data.size.height / 62),
+                      ),
                     ],
                   ),
                 ),

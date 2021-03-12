@@ -15,43 +15,44 @@ class NewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding:  EdgeInsets.all(data.size.height/145,),
       child: Card(
-        shape: kCardShape,
-        elevation: 10.0,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 5.0),
-          child: Container(
-            width: data.size.width / 1.2,
-            height: data.size.height / 17,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left:15.0),
-                  child: FaIcon(icons),
-                ),
-                Text(
-                  text,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: data.size.height / 52),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FaIcon(
-                    
-                    nexticons,
-                    size: data.size.width/12,
-                    color: kActiveIconColor,
-                  ),
-                ),
-              ],
+          shape: kCardShape,
+          elevation: 1.0,
+          child: Padding(
+            padding: EdgeInsets.only(top:data.size.height/165),
+
+            child: Container(
+              width: data.size.width / 1.2,
+                  height: data.size.height / 17,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left:data.size.height/70,top:data.size.height/80,bottom:data.size.height/77 ),
+            child: FaIcon(icons,size: data.size.height/52,),
+          ),
+          Text(
+            text,
+            style: TextStyle(
+               
+                fontFamily: "Roboro",
+                fontSize: data.size.height / 59,letterSpacing:2,fontWeight: FontWeight.w300),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right:data.size.height/77,top:data.size.height/70,bottom:data.size.height/77 ),
+            child: Icon(
+              Icons.arrow_forward_ios,
+              size: data.size.height/42,
+              color: kActiveIconColor,
+            ),
+          ),
+        ],
+      ),
             ),
           ),
         ),
-      ),
     );
   }
 }
