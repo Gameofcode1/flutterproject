@@ -15,7 +15,7 @@ class NewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
     return Padding(
-      padding:  EdgeInsets.all(data.size.height/145,),
+      padding:  EdgeInsets.all(data.size.height/455,),
       child: Card(
           shape: kCardShape,
           elevation: 1.0,
@@ -30,7 +30,7 @@ class NewCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(left:data.size.height/70,top:data.size.height/80,bottom:data.size.height/77 ),
+            padding: EdgeInsets.only(left:data.size.height/50,top:data.size.height/80,bottom:data.size.height/77 ),
             child: FaIcon(icons,size: data.size.height/52,),
           ),
           Text(
@@ -38,7 +38,7 @@ class NewCard extends StatelessWidget {
             style: TextStyle(
                
                 fontFamily: "Roboro",
-                fontSize: data.size.height / 59,letterSpacing:2,fontWeight: FontWeight.w300),
+                fontSize: data.size.height / 59,letterSpacing:2,fontWeight: FontWeight.w400),
           ),
           Padding(
             padding: EdgeInsets.only(right:data.size.height/77,top:data.size.height/70,bottom:data.size.height/77 ),

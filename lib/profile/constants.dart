@@ -7,11 +7,10 @@ const kActiveIconColor = Color(0xFFEF7215);
 
 const kCardShape=RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-            
-                topLeft: Radius.circular(15.0),
-                topRight: Radius.circular(15.0),
-                bottomLeft: Radius.circular(15.0),
-                bottomRight: Radius.circular(15.0)));
+                topLeft: Radius.circular(5.0),
+                topRight: Radius.circular(5.0),
+                bottomLeft: Radius.circular(5.0),
+                bottomRight: Radius.circular(5.0)));
 
 const kEditshape=RoundedRectangleBorder(
             borderRadius: BorderRadius.only(

@@ -19,13 +19,13 @@ class MyProfile extends StatelessWidget {
                   padding: EdgeInsets.only(
                       top: data.size.width / 44, left: data.size.width / 29),
                   child:
-                      Icon(Icons.arrow_back_ios, size: data.size.height / 29),
+                      Icon(Icons.arrow_back_ios, size: data.size.height / 35),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
                       top: data.size.width / 44, right: data.size.width / 29),
                   child: Icon(Icons.store_mall_directory,
-                      size: data.size.height / 27),
+                      size: data.size.height / 35),
                 )
               ],
             ),
@@ -38,7 +38,7 @@ class MyProfile extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: data.size.height / 65),
                       width: data.size.width / 4,
-                      height: data.size.height/300,
+                      height: data.size.height/900,
                       color: kActiveIconColor,
                     ),
                     CircleAvatar(
@@ -50,7 +50,7 @@ class MyProfile extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: data.size.height / 65),
                       width: data.size.width / 4,
-                     height: data.size.height/300,
+                      height: data.size.height/900,
                       color: kActiveIconColor,
                     ),
                   ],
@@ -100,7 +100,7 @@ class MyProfile extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(
-                  top: data.size.height / 95, bottom: data.size.height / 45),
+                  top: data.size.height / 95, bottom: data.size.height / 37),
               child: Card(
                 elevation: 3.0,
                 shape: kEditshape,
@@ -116,7 +116,7 @@ class MyProfile extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.edit,
-                        size: data.size.height / 33,
+                        size: data.size.height / 43,
                         color: kActiveIconColor,
                       ),
                       SizedBox(width: data.size.width / 105),
