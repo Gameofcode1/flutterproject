@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '/profile/constants.dart';
+import '../constants.dart';
 
 
 class NewCard extends StatelessWidget {
@@ -21,7 +21,6 @@ class NewCard extends StatelessWidget {
           elevation: 1.0,
           child: Padding(
             padding: EdgeInsets.only(top:data.size.height/165),
-
             child: Container(
               width: data.size.width / 1.2,
                   height: data.size.height / 17,
@@ -39,7 +38,9 @@ class NewCard extends StatelessWidget {
                
                 fontFamily: "Roboro",
                 fontSize: data.size.height / 59,letterSpacing:2,fontWeight: FontWeight.w400),
+                
           ),
+          
           Padding(
             padding: EdgeInsets.only(right:data.size.height/77,top:data.size.height/70,bottom:data.size.height/77 ),
             child: Icon(

@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:myprofile/editpage/edit.dart';
 import './methods/allcard.dart';
 import 'constants.dart';
+import 'package:myprofile/notification/notification.dart';
 
 class MyProfile extends StatefulWidget {
-
-  
   static const String id = 'MyProfile';
   final String sname;
   final String semail;
   final String snumber;
-  MyProfile({this.sname,this.semail,this.snumber});
+  MyProfile({this.sname, this.semail, this.snumber});
 
   @override
   _MyProfileState createState() => _MyProfileState();
@@ -24,35 +23,32 @@ class _MyProfileState extends State<MyProfile> {
   String phone = "9845445580";
   bool condition;
 
-  checkname(){
-    if(widget.sname==null){
-      return condition=true;
-    }
-    else{
-      return condition= false;
-    }
-  }
-   checkemail(){
-    if(widget.semail==null){
-      return condition=true;
-    }
-    else{
-      return condition= false;
+  checkname() {
+    if (widget.sname == null) {
+      return condition = true;
+    } else {
+      return condition = false;
     }
   }
 
- checkphone(){
-    if(widget.snumber==null){
-      return condition=true;
-    }
-    else{
-      return condition= false;
+  checkemail() {
+    if (widget.semail == null) {
+      return condition = true;
+    } else {
+      return condition = false;
     }
   }
 
+  checkphone() {
+    if (widget.snumber == null) {
+      return condition = true;
+    } else {
+      return condition = false;
+    }
+  }
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     checkname();
     checkemail();
@@ -80,8 +76,16 @@ class _MyProfileState extends State<MyProfile> {
                   Padding(
                     padding: EdgeInsets.only(
                         top: data.size.width / 44, right: data.size.width / 29),
-                    child: Icon(Icons.store_mall_directory,
-                        size: data.size.height / 35),
+                    child: IconButton(
+                      icon: Icon(Icons.notifications,
+                          size: data.size.height / 35),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NotificationSystem()));
+                      },
+                    ),
                   )
                 ],
               ),
@@ -116,7 +120,7 @@ class _MyProfileState extends State<MyProfile> {
               Padding(
                 padding: EdgeInsets.only(top: data.size.height / 95),
                 child: Text(
-                  condition?username:widget.sname,
+                  condition ? username : widget.sname,
                   style: TextStyle(
                     fontFamily: "RoboroM",
                     letterSpacing: 1.8,
@@ -134,7 +138,7 @@ class _MyProfileState extends State<MyProfile> {
                   ),
                   SizedBox(width: data.size.width / 73),
                   Text(
-                    condition?email:widget.semail,
+                    condition ? email : widget.semail,
                     style: TextStyle(
                       fontFamily: "Roboro",
                       fontSize: data.size.height / 80,
@@ -149,7 +153,7 @@ class _MyProfileState extends State<MyProfile> {
                   Icon(Icons.phone, size: data.size.height / 47),
                   SizedBox(width: data.size.width / 93),
                   Text(
-                    condition?phone.toString():widget.snumber,
+                    condition ? phone.toString() : widget.snumber,
                     style: TextStyle(
                       fontFamily: "Roboro",
                       fontSize: data.size.height / 86,
