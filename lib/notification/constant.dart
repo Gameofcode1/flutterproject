@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const kNotification = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 20.0,
+  fontSize: 22.0,
   fontFamily: "RoboroM",
   letterSpacing: 0.5,
 );
@@ -12,6 +12,7 @@ const kFoodDeal = TextStyle(
   fontFamily: "RoboroM",
   letterSpacing: 0.5,
 );
+
 const kFoodDealDes = TextStyle(
   fontSize: 9.0,
   fontWeight: FontWeight.normal,

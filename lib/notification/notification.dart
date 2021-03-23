@@ -4,7 +4,6 @@ import 'constant.dart';
 import './models/notificationadder.dart';
 import 'package:intl/intl.dart';
 import './widgets/buttons.dart';
-
 import './models/addedresturents.dart';
 
 class NotificationSystem extends StatelessWidget {
@@ -17,7 +16,7 @@ class NotificationSystem extends StatelessWidget {
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.only(
-            top: height / 45,
+            top: height / 120,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -30,27 +29,28 @@ class NotificationSystem extends StatelessWidget {
                     padding: EdgeInsets.only(left: width / 15),
                     child: Icon(
                       Icons.arrow_back_ios,
-                      size: height / 40,
+                      size: height / 39,
                     ),
                   ),
-                  Text("Notifications", style: kNotification),
+                  Text("Notifications",
+                      style: kNotification.copyWith(fontSize: height / 35)),
                   SizedBox(
                     width: width / 7,
                   )
                 ],
               ),
               Container(
-                  margin: EdgeInsets.only(top: height / 27, left: width / 30),
-                  height: height / 3.8,
+                  margin: EdgeInsets.only(top: height / 130, left: width / 30),
+                  height: height / 3.5,
                   width: double.infinity,
                   child: NotificationAdder()),
               Container(
-                  margin: EdgeInsets.only(left: width / 8, top: height / 120),
+                  margin: EdgeInsets.only(left: width / 8, top: height / 140),
                   child: NewButton(
                     titlee: "Explore >",
                   ),
-                  height: height / 30,
-                  width: width / 6,
+                  height: height / 28,
+                  width: width / 5,
                   decoration: BoxDecoration(
                     color: Colors.orange[600],
                     borderRadius: BorderRadius.circular(5.0),
@@ -81,60 +81,63 @@ class NotificationSystem extends StatelessWidget {
                         width: 10.0,
                       ),
                       Text("food deal near you",
-                          style: kFoodDeal.copyWith(fontSize: height / 70)),
+                          style: kFoodDeal.copyWith(fontSize: height / 58)),
                     ]),
               ),
               Container(
                 margin: EdgeInsets.only(left: width / 10, bottom: height / 130),
-                height: height / 5.5,
-                width: MediaQuery.of(context).size.width,
+                height: height / 5,
+                width: width,
                 child: FoodDealsAdder(),
               ),
               Container(
                 margin: EdgeInsets.only(
-                    left: width / 7, bottom: height / 90, top: height / 140),
+                    left: width / 7, bottom: height / 105, top: height / 200),
                 child: Text(
                     DateFormat.MMMMd().add_jms().format(
                           DateTime.now(),
                         ),
-                    style: kDateAndTime),
+                    style: kDateAndTime.copyWith(fontSize: height / 80)),
               ),
               Container(
                   margin: EdgeInsets.only(left: width / 8, bottom: height / 50),
                   child: NewButton(
                     titlee: "See All >",
                   ),
-                  height: height / 30,
-                  width: width / 6,
+                  height: height / 28,
+                  width: width / 5,
                   decoration: BoxDecoration(
                     color: Colors.orange[600],
                     borderRadius: BorderRadius.circular(5.0),
                   )),
               Container(
-                margin: EdgeInsets.only(left: width / 45),
+                margin: EdgeInsets.only(left: width / 30),
                 child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      (CircleAvatar(
-                        radius: 11.0,
-                        backgroundColor: Colors.orange[50],
-                        child: Icon(
-                          Icons.notifications_none,
-                          color: Colors.orange[600],
-                          size: height / 47,
-                        ),
-                      )),
-                      SizedBox(
-                        width: 10.0,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    (CircleAvatar(
+                      radius: height / 65,
+                      backgroundColor: Colors.orange[50],
+                      child: Icon(
+                        Icons.notifications_none,
+                        size: height / 47,
+                        color: Colors.orange[600],
                       ),
-                      Text("Newly added Restaurants in your town",
-                          style: kFoodDeal),
-                    ]),
+                    )),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Text("Newly added Restaurants in your town",
+                        style: kFoodDeal.copyWith(
+                            fontSize: height / 58, letterSpacing: 0.3)),
+                  ],
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(left: width / 9),
-                height: 90.0,
-                width: MediaQuery.of(context).size.width,
+                height: height / 10,
+                width: width,
                 child: AddedResturent(),
               ),
               Container(
@@ -144,15 +147,15 @@ class NotificationSystem extends StatelessWidget {
                     DateFormat.MMMMd().add_jms().format(
                           DateTime.now(),
                         ),
-                    style: kDateAndTime),
+                    style: kDateAndTime.copyWith(fontSize: height / 80)),
               ),
               Container(
-                  margin: EdgeInsets.only(left: width / 8, bottom: height / 70),
+                  margin: EdgeInsets.only(left: width / 8),
                   child: NewButton(
                     titlee: "See All >",
                   ),
-                  height: height / 30,
-                  width: width / 6,
+                  height: height / 28,
+                  width: width / 5,
                   decoration: BoxDecoration(
                     color: Colors.orange[600],
                     borderRadius: BorderRadius.circular(5.0),

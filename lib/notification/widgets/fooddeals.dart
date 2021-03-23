@@ -19,11 +19,11 @@ class FoodDeal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final  height=MediaQuery.of(context).size.height;
-   final width=MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
 
     return Container(
-      margin: EdgeInsets.only(left:width/45),
+      margin: EdgeInsets.only(left: width / 45),
       child: Card(
         elevation: 1,
         shape: RoundedRectangleBorder(
@@ -33,58 +33,60 @@ class FoodDeal extends StatelessWidget {
                 bottomLeft: Radius.circular(5.0),
                 bottomRight: Radius.circular(5.0))),
         child: Container(
-          
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
-                  child: Image(
+                child: Image(
                   fit: BoxFit.cover,
                   image: images,
-                  height:height/11,
-                  width: width/3.3,
+                  height: height / 11,
                 ),
               ),
-              
               Padding(
-                padding: EdgeInsets.only(top: height/150,left: width/40),
-                child: Text(
-                  headings,
-                  style:kFoodDealDes.copyWith(fontSize: height/76,letterSpacing: 0)
-                ),
+                padding: EdgeInsets.only(top: height / 150, left: width / 40),
+                child: Text(headings,
+                    style: kFoodDealDes.copyWith(
+                        fontSize: height / 70, letterSpacing: 0.8)),
               ),
               Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: height/190,left: width/40),
+                    padding:
+                        EdgeInsets.only(top: height / 190, left: width / 40),
                     child: Text(
                       "NRP $prices/-".toString(),
-                     style:kFoodDealDes.copyWith(fontSize: height/110, color: Colors.orange[700],fontWeight: FontWeight.bold),
+                      style: kFoodDealDes.copyWith(
+                          fontSize: height / 85,
+                          color: Colors.orange[700],
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: height/150,left: width/70),
-                    child: Text(
-                      "$previousprice/-".toString(),
-                      style:kFoodDealDes.copyWith(fontSize: height/110,decoration:TextDecoration.lineThrough)),
+                    padding:
+                        EdgeInsets.only(top: height / 230, left: width / 70),
+                    child: Text("$previousprice/-".toString(),
+                        style: kFoodDealDes.copyWith(
+                            fontSize: height / 90,
+                            decoration: TextDecoration.lineThrough)),
                   ),
-                  
                 ],
               ),
               Padding(
-               padding: EdgeInsets.only(top: height/180,left: width/40),
+                padding: EdgeInsets.only(top: height / 300, left: width / 40),
                 child: Text(
                   resturents,
-                 style:kFoodDeal.copyWith(fontSize: height/80,
-                  ),
+                  style: kFoodDeal.copyWith(
+                      fontSize: height / 75, letterSpacing: 0.5),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: height/150,left: width/40),
+                padding: EdgeInsets.only(top: height / 250, left: width / 40),
                 child: Text(
                   "$distance M away".toString(),
-                  style:kFoodDealDes.copyWith(fontSize: height/130,letterSpacing: 0),
+                  style: kFoodDealDes.copyWith(
+                      fontSize: height / 95, letterSpacing: 0),
                 ),
               ),
             ],
