@@ -27,9 +27,14 @@ class NotificationSystem extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: width / 15),
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      size: height / 39,
+                    child: IconButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        size: height / 39,
+                      ),
                     ),
                   ),
                   Text("Notifications",

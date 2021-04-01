@@ -30,7 +30,7 @@ class NewCard extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(left:data.size.height/50,top:data.size.height/80,bottom:data.size.height/77 ),
-            child: FaIcon(icons,size: data.size.height/52,),
+            child: FaIcon(icons,size: data.size.height/52,color: Colors.black,),
           ),
           Text(
             text,

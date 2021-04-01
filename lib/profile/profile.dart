@@ -4,6 +4,8 @@ import './methods/allcard.dart';
 import 'constants.dart';
 import 'package:myprofile/notification/notification.dart';
 
+
+
 class MyProfile extends StatefulWidget {
   static const String id = 'MyProfile';
   final String sname;

@@ -28,6 +28,8 @@ flutter:
   assets:
     - images/katherine.jpg
     - images/fruits.jpg
+    - images/bicycle.jpg
+    
 
   #   - images/a_dot_ham.jpeg
 
