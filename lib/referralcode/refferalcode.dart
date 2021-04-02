@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import './constant.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import './widgets/invites.dart';
 
 class Referralcode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -16,23 +18,32 @@ class Referralcode extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(Icons.arrow_back_ios),
+                        Padding(
+                          padding: EdgeInsets.all(height / 130),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              size: height / 30,
+                            ),
+                          ),
                         )
                       ],
                     ),
                     Container(
-                        height: 250.0,
+                        height: height / 3.5,
                         width: double.infinity,
                         child: Image(image: AssetImage('images/bicycle.jpg'))),
-                    Text("Text your friend oripari", style: kRefferOfferFont),
-                    Text("app and earn \$25", style: kRefferOfferFont),
+                    Text("Text your friend oripari",
+                        style:
+                            kRefferOfferFont.copyWith(fontSize: height / 26)),
+                    Text("app and earn \$100", style: kRefferOfferFont),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 15.0),
-                      child: Text("Terms & Conditions", style: kTermsFonts),
+                      padding: EdgeInsets.symmetric(vertical: height / 60),
+                      child: Text("Terms & Conditions",
+                          style: kTermsFonts.copyWith(fontSize: height / 60)),
                     ),
                   ],
                 ),
@@ -49,91 +60,36 @@ class Referralcode extends StatelessWidget {
                         showModalBottomSheet(
                           context: context,
                           builder: (context) => Container(
-                            margin: EdgeInsets.only(top: 30.0),
+                            margin: EdgeInsets.only(top: height / 40),
                             height: MediaQuery.of(context).size.height / 3,
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                      child: Text("Invites friends",
-                                          style: kRefferOfferFont)),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: 10.0,
-                                        right: 10.0,
-                                        top: 10.0,
-                                        bottom: 10.0),
-                                    decoration: kNBoxDecoration,
-                                    child: Row(
-                                      children: [
-                                        Expanded(child: SizedBox()),
-                                        Expanded(
-                                            child: FaIcon(FontAwesomeIcons
-                                                .facebook,size: 40.0,)),
-                                        Expanded(
-                                            child: FaIcon(FontAwesomeIcons
-                                                .facebookMessenger,size: 40.0)),
-                                        Expanded(
-                                            child: FaIcon(FontAwesomeIcons
-                                                .instagram,size: 40.0)),
-                                        Expanded(
-                                            child: FaIcon(FontAwesomeIcons
-                                                .whatsapp,size: 40.0)),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                      width: double.infinity,
-                                      height: 50.0,
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: 25.0, horizontal: 30.0),
-                                      color: Color(0xffCD6E0F),
-                                      child: Center(
-                                        child: Text(
-                                          "Invites Friends",
-                                          textAlign: TextAlign.center,
-                                          style: kRefferOfferFont.copyWith(
-                                              fontSize: 25.0,
-                                              color: Colors.white),
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            ),
+                            child: InvitesFriends(),
                           ),
                         );
                       },
                       child: Container(
                           width: double.infinity,
-                          height: 50.0,
+                          height: height / 17,
                           margin: EdgeInsets.symmetric(
-                              vertical: 25.0, horizontal: 30.0),
+                              vertical: height / 40, horizontal: width / 20),
                           color: Color(0xffCD6E0F),
                           child: Center(
                             child: Text(
                               "Invites Friends",
                               textAlign: TextAlign.center,
                               style: kRefferOfferFont.copyWith(
-                                  fontSize: 25.0, color: Colors.white),
+                                  fontSize: height / 32, color: Colors.white),
                             ),
                           )),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30.0),
+                      margin: EdgeInsets.symmetric(horizontal: width / 15),
                       child: Row(
                         children: [
                           Expanded(
                             flex: 4,
                             child: Container(
                               color: Color(0xffAFAFAF),
-                              height: 1.0,
+                              height: height / 850,
                             ),
                           ),
                           Expanded(
@@ -142,27 +98,27 @@ class Referralcode extends StatelessWidget {
                                   child: Text(
                                 "or",
                                 style: TextStyle(
-                                  color: Color(0xff838383),
-                                ),
+                                    color: Color(0xff838383),
+                                    fontSize: height / 70),
                               ))),
                           Expanded(
                             flex: 4,
                             child: Container(
                               color: Color(0xffAFAFAF),
-                              height: 1.0,
+                              height: height / 850,
                             ),
                           ),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                      padding: EdgeInsets.symmetric(vertical: height / 50),
                       child: Text(
                         "Share your link",
                         style: TextStyle(
-                          fontFamily: 'Robotom',
-                          color: Color(0xff838383),
-                        ),
+                            fontFamily: 'Robotom',
+                            color: Color(0xff838383),
+                            fontSize: height / 70),
                       ),
                     ),
                     Row(
@@ -171,8 +127,9 @@ class Referralcode extends StatelessWidget {
                           flex: 10,
                           child: Container(
                               width: double.infinity,
-                              height: 50.0,
-                              margin: EdgeInsets.only(left: 30.0, right: 10.0),
+                              height: height / 17,
+                              margin: EdgeInsets.only(
+                                  left: width / 18, right: width / 50),
                               color: Colors.white,
                               child: Center(
                                 child: Text(
@@ -189,8 +146,8 @@ class Referralcode extends StatelessWidget {
                           flex: 2,
                           child: Container(
                             width: double.infinity,
-                            height: 50.0,
-                            margin: EdgeInsets.only(right: 25.0),
+                            height: height / 17,
+                            margin: EdgeInsets.only(right: width / 18),
                             color: Colors.white,
                             child: Center(
                               child: Icon(
@@ -203,18 +160,21 @@ class Referralcode extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 30.0, left: 25, right: 25),
+                      margin: EdgeInsets.only(
+                          top: 30.0, left: width / 18, right: width / 18),
                       color: Color(0xffAFAFAF),
-                      height: 1.0,
+                      height: height / 850,
                       width: double.infinity,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 18.0),
-                      child: Text("View Past invites",
-                          style: kTermsFonts.copyWith(
-                            fontSize: 15.0,
-                            color: Color(0xffCD6E0F),
-                          )),
+                      padding: EdgeInsets.only(top: height / 50),
+                      child: Text(
+                        "View Past invites",
+                        style: kTermsFonts.copyWith(
+                          fontSize: height/60,
+                          color: Color(0xffCD6E0F),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -225,6 +185,4 @@ class Referralcode extends StatelessWidget {
       ),
     );
   }
-
-  widget({FaIcon child}) {}
 }
