@@ -10,6 +10,7 @@ class Referralcode extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          
           children: [
             Expanded(
               flex: 15,
@@ -67,17 +68,24 @@ class Referralcode extends StatelessWidget {
                         );
                       },
                       child: Container(
+                        decoration: BoxDecoration(
+                           color: Color(0xffCD6E0F),
+                           borderRadius: BorderRadius.circular(10.0)
+
+                        ),
                           width: double.infinity,
                           height: height / 17,
                           margin: EdgeInsets.symmetric(
                               vertical: height / 40, horizontal: width / 20),
-                          color: Color(0xffCD6E0F),
+                         
                           child: Center(
                             child: Text(
                               "Invites Friends",
                               textAlign: TextAlign.center,
                               style: kRefferOfferFont.copyWith(
-                                  fontSize: height / 32, color: Colors.white),
+                                  fontSize: height /40, color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                  letterSpacing: 0.4),
                             ),
                           )),
                     ),

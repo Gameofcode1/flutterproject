@@ -14,6 +14,9 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: "Robotm"
+      ),
       home: MyProfile(),
       initialRoute: MyProfile.id,
        routes: {

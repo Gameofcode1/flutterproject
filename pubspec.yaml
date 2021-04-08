@@ -15,6 +15,10 @@ dependencies:
   cupertino_icons: ^0.1.2
   font_awesome_flutter: ^8.11.0 
   intl: ^0.15.8
+  carousel_slider: ^3.0.0
+  
+
+  
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +33,12 @@ flutter:
     - images/katherine.jpg
     - images/fruits.jpg
     - images/bicycle.jpg
+    - images/shoe.jpg
+    - images/shoe3.jpg
+    - images/shoe2.jpg
+    - images/esawa.jpg
+    - images/fonepay.png
+
     
 
   #   - images/a_dot_ham.jpeg
