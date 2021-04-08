@@ -16,7 +16,7 @@ class ColorSelect extends StatelessWidget {
         padding: EdgeInsets.all(6.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(width: 2.0, color: Colors.black45)),
+            border: Border.all(width: 1.0, color: Colors.black45)),
         child: Row(
           children: [
             CircleAvatar(

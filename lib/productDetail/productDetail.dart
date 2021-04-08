@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'constant.dart';
@@ -27,6 +25,33 @@ class _ProductDetailState extends State<ProductDetail> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                color: Colors.white,
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(icon:Icon(Icons.arrow_back_ios),
+                    onPressed: (){
+                      Navigator.pop(context);
+
+                    }, ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                           Icon(Icons.favorite_rounded),
+                           SizedBox(width: 10.0,),
+                      Icon(Icons.share)
+                        ],
+                      ),
+                    )
+                   
+
+
+
+                  ],
+                )
+              ),
               CarouselSlider(
                   options: CarouselOptions(
                     onPageChanged: (index, reason) {
@@ -34,7 +59,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         currentindex = index;
                       });
                     },
-                    height: 250.0,
+                    height: 220.0,
                     enlargeCenterPage: true,
                     autoPlay: true,
                     autoPlayCurve: Curves.fastOutSlowIn,
@@ -123,7 +148,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 child: Text(
                   "Sold By",
                   style: kTitleDesc.copyWith(
-                      fontSize: 16, fontWeight: FontWeight.w600),
+                      fontSize: 14, fontWeight: FontWeight.w600),
                 ),
               ),
               Container(
@@ -145,14 +170,14 @@ class _ProductDetailState extends State<ProductDetail> {
                         Text(
                           "Sold By",
                           style: kTitleDesc.copyWith(
-                              fontSize: 17, fontWeight: FontWeight.w800),
+                              fontSize: 15, fontWeight: FontWeight.w800),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 5.0),
                           child: Text(
                             "4km away -durbarmagh, kathmandu",
                             style: kTitleDesc.copyWith(
-                                fontWeight: FontWeight.w300, fontSize: 15.0),
+                                fontWeight: FontWeight.w300, fontSize: 13.0),
                           ),
                         ),
                         Padding(
@@ -160,7 +185,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           child: Text(
                             "Verified",
                             style: kTitleDesc.copyWith(
-                                fontSize: 13,
+                                fontSize: 11,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.green),
                           ),
@@ -170,7 +195,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           child: Text(
                             "Payment Accepted",
                             style: kTitleDesc.copyWith(
-                                fontWeight: FontWeight.w700, fontSize: 15.0),
+                                fontWeight: FontWeight.w700, fontSize: 13.0),
                           ),
                         ),
                         Container(
@@ -184,18 +209,18 @@ class _ProductDetailState extends State<ProductDetail> {
                                 image: AssetImage(
                                   "images/esawa.jpg",
                                 ),
-                                height: 23.0,
-                                width: 25.0,
+                                height: 20.0,
+                                width: 23.0,
                               )),
                               Text(
                                 "Sawa",
-                                style: kTitleDesc,
+                                style: kTitleDesc.copyWith(fontSize: 16.0),
                               ),
                               SizedBox(
                                 width: 8.0,
                               ),
                               Container(
-                                  height: 25.0,
+                                  height: 22.0,
                                   width: 50.0,
                                   child: Image(
                                       image: AssetImage(
@@ -215,7 +240,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 height: 60.0,
                 child: Padding(
                   padding: EdgeInsets.only(
-                      top: 10.0, bottom: 10.0, left: 100.0, right: 100.0),
+                      top: 13.0, bottom: 10.0, left: 80.0, right: 80.0),
                   child: Container(
                       decoration: BoxDecoration(
                           color: Color(0xffF2684A),
@@ -223,7 +248,8 @@ class _ProductDetailState extends State<ProductDetail> {
                       child: Center(
                           child: Text(
                         "Chat With Seller",
-                        style: kTitleDesc.copyWith(color: Colors.white),textAlign: TextAlign.center,
+                        style: kTitleDesc.copyWith(color: Colors.white),
+                        textAlign: TextAlign.center,
                       ))),
                 ),
               )
