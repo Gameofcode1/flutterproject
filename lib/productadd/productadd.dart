@@ -18,10 +18,13 @@ class _ProductAddState extends State<ProductAdd> {
     });
   }
 
+  List<io.File> images = [];
+
   Future getImagefromGallery() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       _image = image;
+      images.add(_image);
     });
   }
 
@@ -107,8 +110,10 @@ class _ProductAddState extends State<ProductAdd> {
                                   EdgeInsets.only(left: 4.0, right: 4, top: 4),
                               child: FormBuilderTextField(
                                 name: "Textfield",
-                                decoration:
-                                    InputDecoration(hintText: "catagoroes"),
+                                decoration: InputDecoration(
+                                    hintText: "catagoroes",
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none),
                               )),
                           Container(
                               margin: EdgeInsets.only(right: 18.0, top: 8.0),
@@ -119,8 +124,10 @@ class _ProductAddState extends State<ProductAdd> {
                                   EdgeInsets.only(left: 4.0, right: 4, top: 4),
                               child: FormBuilderTextField(
                                 name: "Textfield",
-                                decoration:
-                                    InputDecoration(hintText: "ProductTitle"),
+                                decoration: InputDecoration(
+                                    hintText: "ProductTitle",
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none),
                               )),
                           Container(
                               margin: EdgeInsets.only(right: 18.0, top: 8.0),
@@ -131,8 +138,10 @@ class _ProductAddState extends State<ProductAdd> {
                                   EdgeInsets.only(left: 4.0, right: 4, top: 4),
                               child: FormBuilderTextField(
                                 name: "Textfield",
-                                decoration:
-                                    InputDecoration(hintText: "Regularform"),
+                                decoration: InputDecoration(
+                                    hintText: "Regularform",
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none),
                               )),
                           Container(
                             margin: EdgeInsets.only(top: 17.0),
@@ -145,7 +154,9 @@ class _ProductAddState extends State<ProductAdd> {
                                     child: Icon(Icons.check)),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text("OfferProce"),
+                                  child: Text(
+                                    "OfferProce",
+                                  ),
                                 )
                               ],
                             ),
@@ -159,8 +170,10 @@ class _ProductAddState extends State<ProductAdd> {
                                   EdgeInsets.only(left: 4.0, right: 4, top: 4),
                               child: FormBuilderTextField(
                                 name: "Textfield",
-                                decoration:
-                                    InputDecoration(hintText: "OfferPrice"),
+                                decoration: InputDecoration(
+                                    hintText: "OfferPrice",
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none),
                               )),
                           Row(
                             children: [
@@ -174,7 +187,9 @@ class _ProductAddState extends State<ProductAdd> {
                                     child: FormBuilderTextField(
                                       name: "Textfield",
                                       decoration: InputDecoration(
-                                          hintText: "StartDate"),
+                                          hintText: "StartDate",
+                                          enabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none),
                                     )),
                               ),
                               Expanded(
@@ -186,8 +201,11 @@ class _ProductAddState extends State<ProductAdd> {
                                             width: 2.0, color: Colors.black38)),
                                     child: FormBuilderTextField(
                                       name: "Textfield",
-                                      decoration:
-                                          InputDecoration(hintText: "EndDate"),
+                                      decoration: InputDecoration(
+                                          hintText: "EndDate",
+                                          enabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none),
+                                      autofocus: false,
                                     )),
                               ),
                             ],
@@ -211,40 +229,42 @@ class _ProductAddState extends State<ProductAdd> {
                               ],
                             ),
                           ),
-                            Container(
-                width: double.infinity,
-               
-                height: 60.0,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: 13.0, bottom: 10.0, left: 130.0, right: 130.0),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xffF2684A),
-                          borderRadius: BorderRadius.circular(10.0)),
-                      child: Center(
-                          child: Text(
-                        "Save",
-                        style: kTitleDesc.copyWith(color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ))),
-                ),
-              )
+                          Container(
+                            width: double.infinity,
+                            height: 60.0,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: 13.0,
+                                  bottom: 10.0,
+                                  left: 130.0,
+                                  right: 130.0),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffF2684A),
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                  child: Center(
+                                      child: Text(
+                                    "Save",
+                                    style: kTitleDesc.copyWith(
+                                        color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ))),
+                            ),
+                          )
                         ],
                       ),
-                    )
-                    // Padding(
-                    //   padding: const EdgeInsets.all(16.0),
-                    //   child: Container(
-                    //     width: MediaQuery.of(context).size.width,
-                    //     height: 200.0,
-                    //     child: Center(
-                    //       child: _image == null
-                    //           ? Text("No Image is picked")
-                    //           : Image.file(_image),
-                    //     ),
-                    //   ),
-                    // ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 100.0,
+                          child: Center(
+                              child: _image == null
+                                  ? Text("No Image is picked")
+                                  : Image.file(_image))),
+                    ),
                   ],
                 ),
               ),
