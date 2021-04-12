@@ -69,7 +69,7 @@ class SlaesForm extends StatelessWidget {
                                           BorderRadius.circular(10.0)),
                                   child: Center(
                                       child: Text(
-                                    "Save",
+                                    "send",
                                     style: kTitleDesc.copyWith(
                                         color: Colors.white),
                                     textAlign: TextAlign.center,
