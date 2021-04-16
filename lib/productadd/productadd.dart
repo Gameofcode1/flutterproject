@@ -1,8 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io' as io;
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:myprofile/productDetail/constant.dart';
+
 
 class ProductAdd extends StatefulWidget {
   @override
@@ -10,15 +11,25 @@ class ProductAdd extends StatefulWidget {
 }
 
 class _ProductAddState extends State<ProductAdd> {
-  io.File _image;
+  File _image;
   Future getImagefromcamera() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = image;
+      images.add(_image);
     });
   }
 
-  List<io.File> images = [];
+  List<double> cheight = [
+    120.0,
+    110.0,
+    90.0,
+    80.0,
+    60.0,
+    40.0,
+  ];
+
+  List<File> images = [];
 
   Future getImagefromGallery() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -63,38 +74,239 @@ class _ProductAddState extends State<ProductAdd> {
                       style: TextStyle(fontSize: 18.0),
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 10.0),
-                          color: Color(0xffF3F3F3),
-                          padding: EdgeInsets.only(
-                              top: 35.0, left: 53.0, right: 53.0, bottom: 35.0),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.search,
-                            ),
-                            onPressed: getImagefromGallery,
-                          ),
-                        ),
+                        images.length <= 4
+                            ? Expanded(
+                                child: Container(
+                                  height: cheight[images.length],
+                                  margin: EdgeInsets.only(top: 10.0),
+                                  color: Color(0xffF3F3F3),
+                                  child: IconButton(
+                                    icon: Center(
+                                      child: Icon(
+                                        Icons.search,
+                                      ),
+                                    ),
+                                    onPressed: getImagefromGallery,
+                                  ),
+                                ),
+                              )
+                            : SizedBox.shrink(),
                         SizedBox(
                           width: 10.0,
                         ),
-                        Container(
-                            margin: EdgeInsets.only(top: 10.0),
-                            color: Color(0xffF3F3F3),
-                            padding: EdgeInsets.only(
-                                top: 27.0,
-                                left: 37.0,
-                                right: 37.0,
-                                bottom: 27.0),
-                            child: Column(
-                              children: [
-                                IconButton(
-                                    icon: Icon(Icons.add_rounded),
-                                    onPressed: getImagefromcamera),
-                                Text("Add More")
-                              ],
-                            ))
+                        images.length <= 4
+                            ? Expanded(
+                                child: Container(
+                                  height: cheight[images.length],
+                                  margin: EdgeInsets.only(top: 10.0),
+                                  color: Color(0xffF3F3F3),
+                                  child: Column(
+                                    children: [
+                                      IconButton(
+                                          alignment: Alignment.center,
+                                          icon: Center(
+                                              child: Icon(Icons.add_rounded)),
+                                          onPressed: () {
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder: (context) => Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            3,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text("Sleect Image"),
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      top: 5.0,
+                                                                      left:
+                                                                          40.0),
+                                                              color: Color(
+                                                                  0xffF3F3F3),
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 35.0,
+                                                                      left:
+                                                                          53.0,
+                                                                      right:
+                                                                          53.0,
+                                                                      bottom:
+                                                                          35.0),
+                                                              child: IconButton(
+                                                                icon: Icon(
+                                                                  Icons.album,
+                                                                ),
+                                                                onPressed:
+                                                                    getImagefromGallery,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 10.0,
+                                                            ),
+                                                            Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      top: 5.0),
+                                                              color: Color(
+                                                                  0xffF3F3F3),
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 35.0,
+                                                                      left:
+                                                                          53.0,
+                                                                      right:
+                                                                          53.0,
+                                                                      bottom:
+                                                                          35.0),
+                                                              child: IconButton(
+                                                                icon: Icon(
+                                                                  Icons.camera,
+                                                                ),
+                                                                onPressed:
+                                                                    getImagefromcamera,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    )));
+                                          })
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                        Expanded(
+                            flex: images.length + 1,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 100.0,
+                              child: Center(
+                                  child: _image == null
+                                      ? Text("No Image is picked")
+                                      : ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          physics: ScrollPhysics(),
+                                          itemCount: images.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Container(
+                                                margin:
+                                                    EdgeInsets.only(left: 4.0),
+                                                child:
+                                                    Image.file(images[index]));
+                                          })),
+                            )),
+                        images.length == 5
+                            ? Expanded(
+                                child: Container(
+                                  height: cheight[images.length],
+                                  margin: EdgeInsets.only(top: 10.0),
+                                  color: Color(0xffF3F3F3),
+                                  child: Column(
+                                    children: [
+                                      IconButton(
+                                          icon: Icon(Icons.add_rounded),
+                                          onPressed: () {
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder: (context) => Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            3,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text("Sleect Image"),
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      top: 5.0,
+                                                                      left:
+                                                                          40.0),
+                                                              color: Color(
+                                                                  0xffF3F3F3),
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 35.0,
+                                                                      left:
+                                                                          53.0,
+                                                                      right:
+                                                                          53.0,
+                                                                      bottom:
+                                                                          35.0),
+                                                              child: IconButton(
+                                                                icon: Icon(
+                                                                  Icons.album,
+                                                                ),
+                                                                onPressed:
+                                                                    getImagefromGallery,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 10.0,
+                                                            ),
+                                                            Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      top: 5.0),
+                                                              color: Color(
+                                                                  0xffF3F3F3),
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 35.0,
+                                                                      left:
+                                                                          53.0,
+                                                                      right:
+                                                                          53.0,
+                                                                      bottom:
+                                                                          35.0),
+                                                              child: IconButton(
+                                                                icon: Icon(
+                                                                  Icons.camera,
+                                                                ),
+                                                                onPressed:
+                                                                    getImagefromcamera,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    )));
+                                          }),
+                                      Text(
+                                        "Add More",
+                                        textAlign: TextAlign.center,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : SizedBox.shrink()
                       ],
                     ),
                     FormBuilder(
@@ -102,47 +314,50 @@ class _ProductAddState extends State<ProductAdd> {
                       child: Column(
                         children: [
                           Container(
-                              margin: EdgeInsets.only(right: 18.0, top: 18.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2.0, color: Colors.black38)),
-                              padding:
-                                  EdgeInsets.only(left: 4.0, right: 4, top: 4),
-                              child: FormBuilderTextField(
-                                name: "Textfield",
-                                decoration: InputDecoration(
-                                    hintText: "catagoroes",
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none),
-                              )),
+                            margin: EdgeInsets.only(right: 18.0, top: 18.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 2.0, color: Colors.black38)),
+                            padding:
+                                EdgeInsets.only(left: 4.0, right: 4, top: 4),
+                            child: FormBuilderTextField(
+                              name: "Textfield",
+                              decoration: InputDecoration(
+                                  hintText: "catagoroes",
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none),
+                            ),
+                          ),
                           Container(
-                              margin: EdgeInsets.only(right: 18.0, top: 8.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2.0, color: Colors.black38)),
-                              padding:
-                                  EdgeInsets.only(left: 4.0, right: 4, top: 4),
-                              child: FormBuilderTextField(
-                                name: "Textfield",
-                                decoration: InputDecoration(
-                                    hintText: "ProductTitle",
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none),
-                              )),
+                            margin: EdgeInsets.only(right: 18.0, top: 8.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 2.0, color: Colors.black38)),
+                            padding:
+                                EdgeInsets.only(left: 4.0, right: 4, top: 4),
+                            child: FormBuilderTextField(
+                              name: "Textfield",
+                              decoration: InputDecoration(
+                                  hintText: "ProductTitle",
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none),
+                            ),
+                          ),
                           Container(
-                              margin: EdgeInsets.only(right: 18.0, top: 8.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2.0, color: Colors.black38)),
-                              padding:
-                                  EdgeInsets.only(left: 4.0, right: 4, top: 4),
-                              child: FormBuilderTextField(
-                                name: "Textfield",
-                                decoration: InputDecoration(
-                                    hintText: "Regularform",
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none),
-                              )),
+                            margin: EdgeInsets.only(right: 18.0, top: 8.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 2.0, color: Colors.black38)),
+                            padding:
+                                EdgeInsets.only(left: 4.0, right: 4, top: 4),
+                            child: FormBuilderTextField(
+                              name: "Textfield",
+                              decoration: InputDecoration(
+                                  hintText: "Regularform",
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none),
+                            ),
+                          ),
                           Container(
                             margin: EdgeInsets.only(top: 17.0),
                             child: Row(
@@ -157,56 +372,59 @@ class _ProductAddState extends State<ProductAdd> {
                                   child: Text(
                                     "OfferProce",
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
                           Container(
-                              margin: EdgeInsets.only(right: 18.0, top: 18.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2.0, color: Colors.black38)),
-                              padding:
-                                  EdgeInsets.only(left: 4.0, right: 4, top: 4),
-                              child: FormBuilderTextField(
-                                name: "Textfield",
-                                decoration: InputDecoration(
-                                    hintText: "OfferPrice",
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none),
-                              )),
+                            margin: EdgeInsets.only(right: 18.0, top: 18.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 2.0, color: Colors.black38)),
+                            padding:
+                                EdgeInsets.only(left: 4.0, right: 4, top: 4),
+                            child: FormBuilderTextField(
+                              name: "Textfield",
+                              decoration: InputDecoration(
+                                  hintText: "OfferPrice",
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none),
+                            ),
+                          ),
                           Row(
                             children: [
                               Expanded(
                                 child: Container(
-                                    margin:
-                                        EdgeInsets.only(right: 18.0, top: 8.0),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 2.0, color: Colors.black38)),
-                                    child: FormBuilderTextField(
-                                      name: "Textfield",
-                                      decoration: InputDecoration(
-                                          hintText: "StartDate",
-                                          enabledBorder: InputBorder.none,
-                                          focusedBorder: InputBorder.none),
-                                    )),
+                                  margin:
+                                      EdgeInsets.only(right: 18.0, top: 8.0),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 2.0, color: Colors.black38)),
+                                  child: FormBuilderTextField(
+                                    name: "Textfield",
+                                    decoration: InputDecoration(
+                                        hintText: "StartDate",
+                                        enabledBorder: InputBorder.none,
+                                        focusedBorder: InputBorder.none),
+                                  ),
+                                ),
                               ),
                               Expanded(
                                 child: Container(
-                                    margin:
-                                        EdgeInsets.only(right: 18.0, top: 8.0),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 2.0, color: Colors.black38)),
-                                    child: FormBuilderTextField(
-                                      name: "Textfield",
-                                      decoration: InputDecoration(
-                                          hintText: "EndDate",
-                                          enabledBorder: InputBorder.none,
-                                          focusedBorder: InputBorder.none),
-                                      autofocus: false,
-                                    )),
+                                  margin:
+                                      EdgeInsets.only(right: 18.0, top: 8.0),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 2.0, color: Colors.black38)),
+                                  child: FormBuilderTextField(
+                                    name: "Textfield",
+                                    decoration: InputDecoration(
+                                        hintText: "EndDate",
+                                        enabledBorder: InputBorder.none,
+                                        focusedBorder: InputBorder.none),
+                                    autofocus: false,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -239,31 +457,22 @@ class _ProductAddState extends State<ProductAdd> {
                                   left: 130.0,
                                   right: 130.0),
                               child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Color(0xffF2684A),
-                                      borderRadius:
-                                          BorderRadius.circular(10.0)),
-                                  child: Center(
-                                      child: Text(
+                                decoration: BoxDecoration(
+                                    color: Color(0xffF2684A),
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                child: Center(
+                                  child: Text(
                                     "Save",
                                     style: kTitleDesc.copyWith(
                                         color: Colors.white),
                                     textAlign: TextAlign.center,
-                                  ))),
+                                  ),
+                                ),
+                              ),
                             ),
                           )
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 100.0,
-                          child: Center(
-                              child: _image == null
-                                  ? Text("No Image is picked")
-                                  : Image.file(_image))),
                     ),
                   ],
                 ),
