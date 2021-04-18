@@ -18,20 +18,18 @@ class NotificationSystem extends StatelessWidget {
           margin: EdgeInsets.only(
             top: height / 120,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: width / 15),
+                    padding: EdgeInsets.only(left: width / 40),
                     child: IconButton(
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pop(context);
                       },
-                                      icon: Icon(
+                      icon: Icon(
                         Icons.arrow_back_ios,
                         size: height / 39,
                       ),
@@ -50,7 +48,8 @@ class NotificationSystem extends StatelessWidget {
                   width: double.infinity,
                   child: NotificationAdder()),
               Container(
-                  margin: EdgeInsets.only(left: width / 8, top: height / 140),
+                  margin: EdgeInsets.only(
+                      left: width / 8, top: height / 140, right: width / 1.6),
                   child: NewButton(
                     titlee: "Explore >",
                   ),
@@ -105,7 +104,8 @@ class NotificationSystem extends StatelessWidget {
                     style: kDateAndTime.copyWith(fontSize: height / 80)),
               ),
               Container(
-                  margin: EdgeInsets.only(left: width / 8, bottom: height / 50),
+                  margin: EdgeInsets.only(
+                      left: width / 8, bottom: height / 50, right: width / 1.6),
                   child: NewButton(
                     titlee: "See All >",
                   ),
@@ -155,7 +155,24 @@ class NotificationSystem extends StatelessWidget {
                     style: kDateAndTime.copyWith(fontSize: height / 80)),
               ),
               Container(
-                  margin: EdgeInsets.only(left: width / 8),
+                margin: EdgeInsets.only(left: width / 8, right: width / 1.6),
+                child: NewButton(
+                  titlee: "See All >",
+                ),
+                height: height / 28,
+                width: width / 5,
+                decoration: BoxDecoration(
+                  color: Colors.orange[600],
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: height / 130, left: width / 30),
+                  height: height / 3.5,
+                  width: double.infinity,
+                  child: NotificationAdder()),
+              Container(
+                  margin: EdgeInsets.only(left: width / 8, right: width / 1.6),
                   child: NewButton(
                     titlee: "See All >",
                   ),

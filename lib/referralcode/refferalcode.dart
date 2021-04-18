@@ -10,14 +10,13 @@ class Referralcode extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          
           children: [
             Expanded(
               flex: 15,
               child: Container(
                 child: Column(
                   children: [
-                    Row(
+                    Row(  
                       children: [
                         Padding(
                           padding: EdgeInsets.all(height / 130),

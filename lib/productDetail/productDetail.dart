@@ -19,35 +19,40 @@ class _ProductDetailState extends State<ProductDetail> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child:ListView(
+           
             children: [
               Container(
-                color: Colors.white,
-               child: Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(icon:Icon(Icons.arrow_back_ios),
-                    onPressed: (){
-                      Navigator.pop(context);
-
-                    }, ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                           Icon(Icons.favorite_rounded),
-                           SizedBox(width: 10.0,),
-                      Icon(Icons.share)
-                        ],
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back_ios, size: height / 35),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                    ),
-                  ],
-                )
-              ),
+                      Padding(
+                        padding: EdgeInsets.all(width / 25),
+                        child: Row(
+                          children: [
+                            Icon(Icons.favorite_rounded, size: height / 35),
+                            SizedBox(
+                              width: width / 60,
+                            ),
+                            Icon(Icons.share, size: height / 35)
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
               CarouselSlider(
                   options: CarouselOptions(
                     onPageChanged: (index, reason) {
@@ -55,7 +60,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         currentindex = index;
                       });
                     },
-                    height: 220.0,
+                    height: height / 4.5,
                     enlargeCenterPage: true,
                     autoPlay: true,
                     autoPlayCurve: Curves.fastOutSlowIn,
@@ -74,33 +79,30 @@ class _ProductDetailState extends State<ProductDetail> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(left: 20.0),
+                          padding: EdgeInsets.only(left: width / 20),
                           child: Text(
                             'Cloathing>men>Shoe',
                             style: TextStyle(
                                 color: Colors.brown,
-                                fontSize: 12.0,
+                                fontSize: height / 70,
                                 fontWeight: FontWeight.w700),
                             textAlign: TextAlign.left,
                           ),
                         ),
                         SizedBox(
-                          width: 150,
+                          width: width / 2.2,
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: images.map((url) {
-                              int index = images.indexOf(url);
-                              return Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 2.0),
-                                  child: currentindex == index
-                                      ? ClickCircle()
-                                      : SimpleCirsle());
-                            }).toList(),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: images.map((url) {
+                            int index = images.indexOf(url);
+                            return Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 2.0),
+                                child: currentindex == index
+                                    ? ClickCircle()
+                                    : SimpleCirsle());
+                          }).toList(),
                         ),
                       ],
                     ),
@@ -110,19 +112,19 @@ class _ProductDetailState extends State<ProductDetail> {
               ContainerText(),
               Productdetaildes(),
               Container(
-                margin: EdgeInsets.only(left: 10.0),
+                margin: EdgeInsets.only(left: width / 20),
                 child: Row(
                   children: [
                     Expanded(
                         flex: 2,
                         child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(width / 100),
                             child:
                                 ColorSelect(color: Colors.red, title: "Red"))),
                     Expanded(
                       flex: 2,
                       child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(width / 100),
                           child: ColorSelect(
                             color: Colors.orange,
                             title: "Orange",
@@ -131,7 +133,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     Expanded(
                       flex: 2,
                       child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(width / 100),
                           child:
                               ColorSelect(title: "Green", color: Colors.green)),
                     ),
@@ -140,24 +142,24 @@ class _ProductDetailState extends State<ProductDetail> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 20.0),
+                margin: EdgeInsets.only(left: width / 20.0, top: height / 50),
                 child: Text(
                   "Sold By",
                   style: kTitleDesc.copyWith(
-                      fontSize: 14, fontWeight: FontWeight.w600),
+                      fontSize: height / 50, fontWeight: FontWeight.w600),
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 20.0, top: 10.0),
+                margin: EdgeInsets.only(left: width / 20, top: height / 140),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
                       backgroundColor: Color(0xffF3F3F3),
-                      radius: 20.0,
+                      radius: height / 50,
                     ),
                     SizedBox(
-                      width: 10.0,
+                      width: width / 40,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -166,61 +168,66 @@ class _ProductDetailState extends State<ProductDetail> {
                         Text(
                           "Sold By",
                           style: kTitleDesc.copyWith(
-                              fontSize: 15, fontWeight: FontWeight.w800),
+                              fontSize: height / 55,
+                              fontWeight: FontWeight.w800),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 5.0),
+                          padding: EdgeInsets.only(top: height / 200),
                           child: Text(
                             "4km away -durbarmagh, kathmandu",
                             style: kTitleDesc.copyWith(
-                                fontWeight: FontWeight.w300, fontSize: 13.0),
+                                fontWeight: FontWeight.w300,
+                                fontSize: height / 70),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 5.0),
+                          padding: EdgeInsets.only(top: height / 200),
                           child: Text(
                             "Verified",
                             style: kTitleDesc.copyWith(
-                                fontSize: 11,
+                                fontSize: height / 70,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.green),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 10.0),
+                          padding: EdgeInsets.only(top: height / 70),
                           child: Text(
                             "Payment Accepted",
                             style: kTitleDesc.copyWith(
-                                fontWeight: FontWeight.w700, fontSize: 13.0),
+                                fontWeight: FontWeight.w700,
+                                fontSize: height / 70),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 5.0),
+                          margin: EdgeInsets.only(top: height / 170),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                  child: Image(
-                                image: AssetImage(
-                                  "images/esawa.jpg",
+                                child: Image(
+                                  image: AssetImage(
+                                    "images/esawa.jpg",
+                                  ),
+                                  height: height / 40,
+                                  width: width / 20,
                                 ),
-                                height: 20.0,
-                                width: 23.0,
-                              )),
+                              ),
                               Text(
                                 "Sawa",
-                                style: kTitleDesc.copyWith(fontSize: 16.0),
+                                style: kTitleDesc.copyWith(fontSize: height/50),
                               ),
                               SizedBox(
                                 width: 8.0,
                               ),
                               Container(
-                                  height: 22.0,
-                                  width: 50.0,
+                                  height: height / 40,
+                                  width: width / 8,
                                   child: Image(
                                       image: AssetImage(
                                     "images/fonepay.png",
+                                    
                                   ))),
                             ],
                           ),
@@ -233,10 +240,10 @@ class _ProductDetailState extends State<ProductDetail> {
               Container(
                 width: double.infinity,
                 color: Color(0xffF3F3F3),
-                height: 60.0,
+                height: height/13,
                 child: Padding(
                   padding: EdgeInsets.only(
-                      top: 13.0, bottom: 10.0, left: 80.0, right: 80.0),
+                      top: height/70, bottom: height/70, left: width/5, right:width/5),
                   child: Container(
                       decoration: BoxDecoration(
                           color: Color(0xffF2684A),
@@ -244,7 +251,8 @@ class _ProductDetailState extends State<ProductDetail> {
                       child: Center(
                           child: Text(
                         "Chat With Seller",
-                        style: kTitleDesc.copyWith(color: Colors.white),
+                        
+                        style: kTitleDesc.copyWith(color: Colors.white,fontSize: height/50),
                         textAlign: TextAlign.center,
                       ))),
                 ),

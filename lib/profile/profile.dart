@@ -4,8 +4,6 @@ import './methods/allcard.dart';
 import 'constants.dart';
 import 'package:myprofile/notification/notification.dart';
 
-
-
 class MyProfile extends StatefulWidget {
   static const String id = 'MyProfile';
   final String sname;
@@ -64,7 +62,7 @@ class _MyProfileState extends State<MyProfile> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          child: Column(
+          child: ListView(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,6 +121,7 @@ class _MyProfileState extends State<MyProfile> {
                 padding: EdgeInsets.only(top: data.size.height / 95),
                 child: Text(
                   condition ? username : widget.sname,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "RoboroM",
                     letterSpacing: 1.8,
