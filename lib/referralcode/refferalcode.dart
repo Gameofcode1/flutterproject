@@ -16,6 +16,10 @@ class Referralcode extends StatelessWidget {
               child: Container(
                 child: Column(
                   children: [
+                    Text("Profile  Photo",textAlign: TextAlign.center,),
+
+
+
                     Row(  
                       children: [
                         Padding(
