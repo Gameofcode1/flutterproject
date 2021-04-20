@@ -16,11 +16,8 @@ class Referralcode extends StatelessWidget {
               child: Container(
                 child: Column(
                   children: [
-                    Text("Profile  Photo",textAlign: TextAlign.center,),
-
-
-
-                    Row(  
+                   
+                    Row(
                       children: [
                         Padding(
                           padding: EdgeInsets.all(height / 130),
@@ -71,22 +68,20 @@ class Referralcode extends StatelessWidget {
                         );
                       },
                       child: Container(
-                        decoration: BoxDecoration(
-                           color: Color(0xffCD6E0F),
-                           borderRadius: BorderRadius.circular(10.0)
-
-                        ),
+                          decoration: BoxDecoration(
+                              color: Color(0xffCD6E0F),
+                              borderRadius: BorderRadius.circular(10.0)),
                           width: double.infinity,
                           height: height / 17,
                           margin: EdgeInsets.symmetric(
                               vertical: height / 40, horizontal: width / 20),
-                         
                           child: Center(
                             child: Text(
                               "Invites Friends",
                               textAlign: TextAlign.center,
                               style: kRefferOfferFont.copyWith(
-                                  fontSize: height /40, color: Colors.white,
+                                  fontSize: height / 40,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.normal,
                                   letterSpacing: 0.4),
                             ),
@@ -182,7 +177,7 @@ class Referralcode extends StatelessWidget {
                       child: Text(
                         "View Past invites",
                         style: kTermsFonts.copyWith(
-                          fontSize: height/60,
+                          fontSize: height / 60,
                           color: Color(0xffCD6E0F),
                         ),
                       ),

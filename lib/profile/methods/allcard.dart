@@ -5,8 +5,8 @@ import 'package:myprofile/referralcode/refferalcode.dart';
 import 'package:myprofile/productDetail/productDetail.dart';
 import 'package:myprofile/productadd/productadd.dart';
 import 'package:myprofile/SalesForm/formscreen.dart';
+
 class CardColumn extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,8 +16,8 @@ class CardColumn extends StatelessWidget {
               icons: FontAwesomeIcons.passport,
               text: "Change Password",
               nexticons: Icons.arrow_forward),
-          TextButton(
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProductDetail()));
             },
@@ -26,8 +26,8 @@ class CardColumn extends StatelessWidget {
                 text: "Purchases History",
                 nexticons: Icons.arrow_forward),
           ),
-          TextButton(
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProductAdd()));
             },
@@ -36,8 +36,8 @@ class CardColumn extends StatelessWidget {
                 text: "Help & Support",
                 nexticons: Icons.arrow_forward),
           ),
-          TextButton(
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Referralcode()));
             },
@@ -46,10 +46,12 @@ class CardColumn extends StatelessWidget {
                 text: "Invite Friends",
                 nexticons: Icons.arrow_forward),
           ),
-          TextButton(onPressed: (){
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>SlaesForm()));
-          },
-                      child: NewCard(
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SlaesForm()));
+            },
+            child: NewCard(
                 icons: FontAwesomeIcons.signOutAlt,
                 text: "Logout",
                 nexticons: Icons.arrow_forward),
