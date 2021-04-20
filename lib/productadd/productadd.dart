@@ -12,14 +12,7 @@ class ProductAdd extends StatefulWidget {
 
 class _ProductAddState extends State<ProductAdd> {
   File _image;
-  Future getImagefromcamera() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = image;
-      images.add(_image);
-    });
-  }
-
+  
   List<double> cheight = [
     120.0,
     110.0,
@@ -31,11 +24,18 @@ class _ProductAddState extends State<ProductAdd> {
 
   List<File> images = [];
 
-  Future getImagefromGallery() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+ 
+  Future getImagefromcamera() async {
+    var image = await ImagePicker().getImage(source:ImageSource.camera );
     setState(() {
-      _image = image;
-      images.add(_image);
+      _image = File(image.path);
+    });
+  }
+
+  Future getImagefromGallery() async {
+    var image = await ImagePicker().getImage(source: ImageSource.gallery);
+    setState(() {
+      _image =File(image.path);
     });
   }
 

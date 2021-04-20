@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myprofile/editpage/edit.dart';
-
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import './methods/allcard.dart';
 import 'constants.dart';
 import 'package:myprofile/notification/notification.dart';
-import './widgets/imageupload.dart';
-import 'dart:io';
 
 class MyProfile extends StatefulWidget {
   static const String id = 'MyProfile';
@@ -13,7 +12,7 @@ class MyProfile extends StatefulWidget {
   final String semail;
   final String snumber;
   final File simage;
-  MyProfile({this.sname, this.semail, this.snumber,this.simage});
+  MyProfile({this.sname, this.semail, this.snumber, this.simage});
 
   @override
   _MyProfileState createState() => _MyProfileState();
@@ -51,6 +50,22 @@ class _MyProfileState extends State<MyProfile> {
     }
   }
 
+  File _image;
+
+  Future getImagefromcamera() async {
+    var image = await ImagePicker().getImage(source:ImageSource.camera );
+    setState(() {
+      _image = File(image.path);
+    });
+  }
+
+  Future getImagefromGallery() async {
+    var image = await ImagePicker().getImage(source: ImageSource.gallery);
+    setState(() {
+      _image =File(image.path);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -62,6 +77,7 @@ class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
+    var height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: SafeArea(
@@ -107,14 +123,17 @@ class _MyProfileState extends State<MyProfile> {
                       ),
                       Stack(overflow: Overflow.visible, children: [
                         CircleAvatar(
-                          radius: data.size.height / 12,
-                          backgroundImage:widget.simage==null?AssetImage("images/katherine.jpg"):Image.file(widget.simage)),
+                            radius: data.size.height / 12,
+                            backgroundImage: _image == null
+                                ? AssetImage(
+                                    "images/katherine.jpg",
+                                  )
+                                : FileImage(_image)),
                         Positioned(
                           top: data.size.height / 8,
                           left: data.size.height / 8,
                           child: Container(
                             decoration: BoxDecoration(
-
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(30)),
                             padding: EdgeInsets.all(2),
@@ -123,17 +142,56 @@ class _MyProfileState extends State<MyProfile> {
                               backgroundColor: Color(0xffF08626),
                               child: IconButton(
                                 onPressed: () {
-                                    showModalBottomSheet(
-                          context: context,
-                          builder: (context) => Container(
-                            margin: EdgeInsets.only(top: data.size.height / 40),
-                            height: MediaQuery.of(context).size.height / 5,
-                            child:ImageUpload() ,
-                          ),
-                        );
-                                
-                                      },
-                                
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) => Container(
+                                          padding: EdgeInsets.all(20.0),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20.0),
+                                              topRight: Radius.circular(20.0),
+                                            ),
+                                          ),
+                                          margin: EdgeInsets.only(
+                                              top: data.size.height / 40,
+                                              bottom: data.size.height / 30),
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              5,
+                                          child: Center(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  child: GestureDetector(
+                                                      child: Icon(
+                                                        Icons.camera,
+                                                        size: height / 12,
+                                                        color: Colors.black54,
+                                                      ),
+                                                      onTap:
+                                                          getImagefromcamera),
+                                                ),
+                                                Expanded(
+                                                  child: GestureDetector(
+                                                      child: Icon(
+                                                        Icons.image,
+                                                        size: height / 12,
+                                                        color: Colors.black54,
+                                                      ),
+                                                      onTap:
+                                                          getImagefromGallery),
+                                                ),
+                                              ],
+                                            ),
+                                          )));
+                                },
                                 icon: Icon(Icons.camera),
                                 color: Colors.white,
                                 iconSize: data.size.height / 45,
