@@ -14,13 +14,11 @@ class NewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
     return Padding(
-      padding: EdgeInsets.only(top:MediaQuery.of(context).size.height/150),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 150),
       child: Card(
-      
         shape: kCardShape,
         elevation: 1.0,
         child: Container(
-           
           width: data.size.width / 1.2,
           height: data.size.height / 17,
           child: Row(

@@ -7,7 +7,6 @@ class EditText extends StatefulWidget {
   final String newusername;
   final String eemail;
   final String newnumber;
-
   EditText({this.newusername, this.eemail, this.newnumber});
 
   @override
@@ -91,7 +90,7 @@ class _EditTextState extends State<EditText> {
                           padding: EdgeInsets.all(2),
                           child: CircleAvatar(
                             radius: height / 50,
-                            backgroundColor:Color(0xffF08626),
+                            backgroundColor: Color(0xffF08626),
                             child: Icon(
                               Icons.edit,
                               color: Colors.white,
@@ -106,52 +105,36 @@ class _EditTextState extends State<EditText> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Username",
-                        style: kTextStyle.copyWith(fontSize: height / 50)),
                     Container(
-                     
-                      margin: EdgeInsets.only(top: height / 160),
+                      margin: EdgeInsets.only(top: height / 70),
                       child: TextField(
-                        controller: users,
                         onChanged: (values) {
                           username = values;
                         },
                         obscureText: false,
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
-                            hintText: "Enter the username"),
+                            hintText: "UserName",
+                            labelText: "UserName",
+                            border: OutlineInputBorder()),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: height / 80),
-                      child: Text("Email",
-                          textAlign: TextAlign.start,
-                          style: kTextStyle.copyWith(fontSize: height / 50)),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: height / 160),
-                     
+                      margin: EdgeInsets.only(top: height / 70),
                       child: TextField(
-                          controller: email,
                           onChanged: (value) {
                             myemail = value;
                           },
                           keyboardType: TextInputType.emailAddress,
-                          obscureText: false,
                           textAlign: TextAlign.left,
                           decoration: kEditDecoration.copyWith(
-                              hintText: "Enter the email")),
+                              hintText: "Email",
+                              labelText: "Email",
+                              border: OutlineInputBorder())),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: height / 80),
-                      child: Text("Phone Number",
-                          style: kTextStyle.copyWith(fontSize: height / 50)),
-                    ),
-                    Container(
-                      
-                      margin: EdgeInsets.only(top: height / 160),
+                      margin: EdgeInsets.only(top: height / 70),
                       child: TextField(
-                        controller: phone,
                         onChanged: (values) {
                           number = values;
                         },
@@ -159,39 +142,33 @@ class _EditTextState extends State<EditText> {
                         obscureText: false,
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
-                            hintText: "Enter the phonenumber"),
+                            hintText: "Phone number",
+                            labelText: "Phone Number",
+                            border: OutlineInputBorder()),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: height / 80),
-                      child: Text("Store Name *",
-                          style: kTextStyle.copyWith(fontSize: height / 50)),
-                    ),
-                    Container(
-                     
-                      margin: EdgeInsets.only(top: height / 160),
+                      margin: EdgeInsets.only(top: height / 70),
                       child: TextField(
                         keyboardType: TextInputType.text,
                         obscureText: false,
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
-                            hintText: "Enter the Store name"),
+                            hintText: "Store Name",
+                            border: OutlineInputBorder(),
+                            labelText: "Store Name"),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: height / 80),
-                      child: Text("About Store *",
-                          style: kTextStyle.copyWith(fontSize: height / 50)),
-                    ),
-                    Container(
-                     
-                      margin: EdgeInsets.only(top: height / 160),
+                      margin: EdgeInsets.only(top: height / 70),
                       child: TextField(
                         keyboardType: TextInputType.text,
                         obscureText: false,
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
-                            hintText: "Short bio on store"),
+                            hintText: "Store Bio",
+                            border: OutlineInputBorder(),
+                            labelText: "Store Bio"),
                       ),
                     ),
                     TextButton(
@@ -207,20 +184,20 @@ class _EditTextState extends State<EditText> {
                       },
                       child: Center(
                         child: Container(
+                            width: double.infinity,
+                            height: height / 20,
                             margin: EdgeInsets.only(top: 30.0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
                               color: Color(0xffF08626),
                             ),
-                            padding: EdgeInsets.only(
-                                left: width / 15,
-                                right: width / 15,
-                                top: height / 70,
-                                bottom: height / 70),
-                            child: Text(
-                              "Reset",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: height / 55),
+                            child: Center(
+                              child: Text(
+                                "Change",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: height / 40),
+                              ),
                             )),
                       ),
                     ),

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:myprofile/editpage/edit.dart';
+
 import './methods/allcard.dart';
 import 'constants.dart';
 import 'package:myprofile/notification/notification.dart';
+import './widgets/imageupload.dart';
+import 'dart:io';
 
 class MyProfile extends StatefulWidget {
   static const String id = 'MyProfile';
   final String sname;
   final String semail;
   final String snumber;
-  MyProfile({this.sname, this.semail, this.snumber});
+  final File simage;
+  MyProfile({this.sname, this.semail, this.snumber,this.simage});
 
   @override
   _MyProfileState createState() => _MyProfileState();
@@ -101,12 +105,43 @@ class _MyProfileState extends State<MyProfile> {
                         height: data.size.height / 900,
                         color: kActiveIconColor,
                       ),
-                      CircleAvatar(
-                        radius: data.size.height / 12,
-                        backgroundImage: AssetImage(
-                          'images/katherine.jpg',
-                        ),
-                      ),
+                      Stack(overflow: Overflow.visible, children: [
+                        CircleAvatar(
+                          radius: data.size.height / 12,
+                          backgroundImage:widget.simage==null?AssetImage("images/katherine.jpg"):Image.file(widget.simage)),
+                        Positioned(
+                          top: data.size.height / 8,
+                          left: data.size.height / 8,
+                          child: Container(
+                            decoration: BoxDecoration(
+
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(30)),
+                            padding: EdgeInsets.all(2),
+                            child: CircleAvatar(
+                              radius: data.size.height / 50,
+                              backgroundColor: Color(0xffF08626),
+                              child: IconButton(
+                                onPressed: () {
+                                    showModalBottomSheet(
+                          context: context,
+                          builder: (context) => Container(
+                            margin: EdgeInsets.only(top: data.size.height / 40),
+                            height: MediaQuery.of(context).size.height / 5,
+                            child:ImageUpload() ,
+                          ),
+                        );
+                                
+                                      },
+                                
+                                icon: Icon(Icons.camera),
+                                color: Colors.white,
+                                iconSize: data.size.height / 45,
+                              ),
+                            ),
+                          ),
+                        )
+                      ]),
                       Container(
                         margin: EdgeInsets.only(top: data.size.height / 65),
                         width: data.size.width / 4,
