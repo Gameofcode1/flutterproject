@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import '../profile/constants.dart';
 import 'constant.dart';
 import '../profile/profile.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class EditText extends StatefulWidget {
   static String id = "edit";
   final String newusername;
   final String eemail;
   final String newnumber;
-  EditText({this.newusername, this.eemail, this.newnumber});
+  final File checkimage;
+  EditText({this.newusername, this.eemail, this.newnumber, this.checkimage});
 
   @override
   _EditTextState createState() => _EditTextState();
@@ -23,6 +27,23 @@ class _EditTextState extends State<EditText> {
   String username;
   String myemail;
   String number;
+  File _image;
+
+  Future getImagefromcamera() async {
+    var image = await ImagePicker().getImage(source: ImageSource.camera);
+    setState(() {
+      _image = File(image.path);
+      Navigator.pop(context);
+    });
+  }
+
+  Future getImagefromGallery() async {
+    var image = await ImagePicker().getImage(source: ImageSource.gallery);
+    setState(() {
+      _image = File(image.path);
+      Navigator.pop(context);
+    });
+  }
 
   @override
   void initState() {
@@ -66,47 +87,189 @@ class _EditTextState extends State<EditText> {
                           size: height / 25,
                           color: Color(0xffF08626),
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }),
+                          onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyProfile(
+                                      simage: _image,
+                                      sname: username,
+                                      semail: myemail,
+                                      snumber: number,
+                                    )));
+                      },),
                   ],
                 ),
-                Container(
-                  margin:
-                      EdgeInsets.only(top: height / 550, bottom: height / 20),
-                  child: Stack(
-                    overflow: Overflow.visible,
-                    children: [
-                      CircleAvatar(
-                          backgroundImage: AssetImage("images/katherine.jpg"),
-                          radius: height / 11),
-                      Positioned(
-                        top: height / 8,
-                        left: width / 3.5,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30)),
-                          padding: EdgeInsets.all(2),
-                          child: CircleAvatar(
-                            radius: height / 50,
-                            backgroundColor: Color(0xffF08626),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                              size: height / 38,
-                            ),
-                          ),
+                Padding(
+                  padding: EdgeInsets.only(top: height / 105),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: height / 65),
+                          width: width / 4,
+                          height: height / 900,
+                          color: kActiveIconColor,
                         ),
-                      )
-                    ],
+                        Stack(overflow: Overflow.visible, children: [
+                          CircleAvatar(
+                              radius: height / 12,
+                              backgroundImage: _image == null
+                                  ? FileImage(widget.checkimage)
+                                  : FileImage(_image)),
+                          Positioned(
+                            top: height / 8,
+                            left: height / 9,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30)),
+                              padding: EdgeInsets.all(2),
+                              child: CircleAvatar(
+                                radius: height / 50,
+                                backgroundColor: Color(0xFFDADADA),
+                                child: IconButton(
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        context: context,
+                                        builder: (context) => Container(
+                                              padding: EdgeInsets.all(20.0),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(20.0),
+                                                  topRight:
+                                                      Radius.circular(20.0),
+                                                ),
+                                              ),
+                                              margin: EdgeInsets.only(
+                                                  top: height / 40,
+                                                  bottom: height / 30),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  5,
+                                              child: Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: getImagefromcamera,
+                                                      child: Container(
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child:
+                                                                  CircleAvatar(
+                                                                backgroundColor:
+                                                                    Color(
+                                                                        0xFFDADADA),
+                                                                radius:
+                                                                    height / 35,
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .photo_camera,
+                                                                  size: height /
+                                                                      25,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                                flex: 3,
+                                                                child: Text(
+                                                                  "Select From Camera",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          height /
+                                                                              50,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400),
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Expanded(child: SizedBox()),
+                                                    GestureDetector(
+                                                      onTap:
+                                                          getImagefromGallery,
+                                                      child: Container(
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child:
+                                                                  CircleAvatar(
+                                                                radius:
+                                                                    height / 35,
+                                                                backgroundColor:
+                                                                    Color(
+                                                                        0xFFDADADA),
+                                                                child: Icon(
+                                                                  Icons.image,
+                                                                  size: height /
+                                                                      25,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                                flex: 3,
+                                                                child: Text(
+                                                                  "Select From Gallery",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          height /
+                                                                              50,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400),
+                                                                )),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Expanded(child: SizedBox())
+                                                  ],
+                                                ),
+                                              ),
+                                            ));
+                                  },
+                                  icon: Icon(Icons.photo_camera),
+                                  color: Colors.black87,
+                                  iconSize: height / 55,
+                                ),
+                              ),
+                            ),
+                          )
+                        ]),
+                        Container(
+                          margin: EdgeInsets.only(top: height / 65),
+                          width: width / 4,
+                          height: height / 900,
+                          color: kActiveIconColor,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: height / 70),
+                      margin: EdgeInsets.only(top: height / 15),
                       child: TextField(
                         onChanged: (values) {
                           username = values;
@@ -116,7 +279,7 @@ class _EditTextState extends State<EditText> {
                         decoration: kEditDecoration.copyWith(
                             hintText: "UserName",
                             labelText: "UserName",
-                            border: OutlineInputBorder()),
+                           ),
                       ),
                     ),
                     Container(
@@ -130,7 +293,7 @@ class _EditTextState extends State<EditText> {
                           decoration: kEditDecoration.copyWith(
                               hintText: "Email",
                               labelText: "Email",
-                              border: OutlineInputBorder())),
+                              )),
                     ),
                     Container(
                       margin: EdgeInsets.only(top: height / 70),
@@ -150,12 +313,12 @@ class _EditTextState extends State<EditText> {
                     Container(
                       margin: EdgeInsets.only(top: height / 70),
                       child: TextField(
-                        keyboardType: TextInputType.text,
+                       
                         obscureText: false,
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
                             hintText: "Store Name",
-                            border: OutlineInputBorder(),
+                           
                             labelText: "Store Name"),
                       ),
                     ),
@@ -167,7 +330,7 @@ class _EditTextState extends State<EditText> {
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
                             hintText: "Store Bio",
-                            border: OutlineInputBorder(),
+                           
                             labelText: "Store Bio"),
                       ),
                     ),
@@ -177,6 +340,7 @@ class _EditTextState extends State<EditText> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MyProfile(
+                                      simage: _image,
                                       sname: username,
                                       semail: myemail,
                                       snumber: number,

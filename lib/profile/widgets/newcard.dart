@@ -52,7 +52,7 @@ class NewCard extends StatelessWidget {
                 child: Icon(
                   Icons.arrow_forward_ios,
                   size: data.size.height / 42,
-                  color: kActiveIconColor,
+                  color:Colors.black87,
                 ),
               ),
             ],

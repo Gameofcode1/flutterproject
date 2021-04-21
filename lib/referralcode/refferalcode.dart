@@ -20,14 +20,14 @@ class Referralcode extends StatelessWidget {
                     Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(height / 130),
+                          padding: EdgeInsets.all(height / 300),
                           child: IconButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
                             icon: Icon(
                               Icons.arrow_back_ios,
-                              size: height / 30,
+                              size: height / 40,
                             ),
                           ),
                         )

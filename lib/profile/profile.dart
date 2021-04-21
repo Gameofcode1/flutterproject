@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:myprofile/editpage/edit.dart';
 import 'dart:io';
@@ -50,19 +52,25 @@ class _MyProfileState extends State<MyProfile> {
     }
   }
 
+  image() {
+    _image = widget.simage;
+  }
+
   File _image;
 
   Future getImagefromcamera() async {
-    var image = await ImagePicker().getImage(source:ImageSource.camera );
+    var image = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
+      Navigator.pop(context);
     });
   }
 
   Future getImagefromGallery() async {
     var image = await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
-      _image =File(image.path);
+      _image = File(image.path);
+      Navigator.pop(context);
     });
   }
 
@@ -72,6 +80,7 @@ class _MyProfileState extends State<MyProfile> {
     checkname();
     checkemail();
     checkphone();
+    image();
   }
 
   @override
@@ -131,7 +140,7 @@ class _MyProfileState extends State<MyProfile> {
                                 : FileImage(_image)),
                         Positioned(
                           top: data.size.height / 8,
-                          left: data.size.height / 8,
+                          left: data.size.height / 9,
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.white,
@@ -139,62 +148,123 @@ class _MyProfileState extends State<MyProfile> {
                             padding: EdgeInsets.all(2),
                             child: CircleAvatar(
                               radius: data.size.height / 50,
-                              backgroundColor: Color(0xffF08626),
+                              backgroundColor: Color(0xFFDADADA),
                               child: IconButton(
                                 onPressed: () {
                                   showModalBottomSheet(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
                                       context: context,
                                       builder: (context) => Container(
-                                          padding: EdgeInsets.all(20.0),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20.0),
-                                              topRight: Radius.circular(20.0),
+                                            padding: EdgeInsets.all(20.0),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20.0),
+                                                topRight: Radius.circular(20.0),
+                                              ),
                                             ),
-                                          ),
-                                          margin: EdgeInsets.only(
-                                              top: data.size.height / 40,
-                                              bottom: data.size.height / 30),
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              5,
-                                          child: Center(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: GestureDetector(
-                                                      child: Icon(
-                                                        Icons.camera,
-                                                        size: height / 12,
-                                                        color: Colors.black54,
+                                            margin: EdgeInsets.only(
+                                                top: data.size.height / 40,
+                                                bottom: data.size.height / 30),
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                5,
+                                            child: Center(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: getImagefromcamera,
+                                                    child: Container(
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: CircleAvatar(
+                                                              backgroundColor:
+                                                                  Color(
+                                                                      0xFFDADADA),
+                                                              radius:
+                                                                  height / 35,
+                                                              child: Icon(
+                                                                Icons
+                                                                    .photo_camera,
+                                                                size:
+                                                                    height / 25,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                              flex: 3,
+                                                              child: Text(
+                                                                "Select From Camera",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        height /
+                                                                            50,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400),
+                                                              )),
+                                                        ],
                                                       ),
-                                                      onTap:
-                                                          getImagefromcamera),
-                                                ),
-                                                Expanded(
-                                                  child: GestureDetector(
-                                                      child: Icon(
-                                                        Icons.image,
-                                                        size: height / 12,
-                                                        color: Colors.black54,
+                                                    ),
+                                                  ),
+                                                  Expanded(child: SizedBox()),
+                                                  GestureDetector(
+                                                    onTap: getImagefromGallery,
+                                                    child: Container(
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: CircleAvatar(
+                                                              radius:
+                                                                  height / 35,
+                                                              backgroundColor:
+                                                                  Color(
+                                                                      0xFFDADADA),
+                                                              child: Icon(
+                                                                Icons.image,
+                                                                size:
+                                                                    height / 25,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                              flex: 3,
+                                                              child: Text(
+                                                                "Select From Gallery",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        height /
+                                                                            50,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400),
+                                                              )),
+                                                        ],
                                                       ),
-                                                      onTap:
-                                                          getImagefromGallery),
-                                                ),
-                                              ],
+                                                    ),
+                                                  ),
+                                                  Expanded(child: SizedBox())
+                                                ],
+                                              ),
                                             ),
-                                          )));
+                                          ));
                                 },
-                                icon: Icon(Icons.camera),
-                                color: Colors.white,
-                                iconSize: data.size.height / 45,
+                                icon: Icon(Icons.photo_camera),
+                                color: Colors.black87,
+                                iconSize: data.size.height / 55,
                               ),
                             ),
                           ),
@@ -261,13 +331,16 @@ class _MyProfileState extends State<MyProfile> {
                 child: TextButton(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditText(
-                                  newusername: username,
-                                  eemail: email,
-                                  newnumber: phone,
-                                )));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditText(
+                          newusername: username,
+                          eemail: email,
+                          newnumber: phone,
+                          checkimage: _image,
+                        ),
+                      ),
+                    );
                   },
                   child: Card(
                     elevation: 3.0,
@@ -285,7 +358,7 @@ class _MyProfileState extends State<MyProfile> {
                           Icon(
                             Icons.edit,
                             size: data.size.height / 43,
-                            color: kActiveIconColor,
+                            color: Colors.black87,
                           ),
                           SizedBox(width: data.size.width / 105),
                           Text(

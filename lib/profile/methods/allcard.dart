@@ -5,6 +5,8 @@ import 'package:myprofile/referralcode/refferalcode.dart';
 import 'package:myprofile/productDetail/productDetail.dart';
 import 'package:myprofile/productadd/productadd.dart';
 import 'package:myprofile/SalesForm/formscreen.dart';
+import 'package:myprofile/changepassword/changepassword.dart';
+
 
 class CardColumn extends StatelessWidget {
   @override
@@ -13,10 +15,20 @@ class CardColumn extends StatelessWidget {
      
       child: Column(
         children: [
-          NewCard(
-              icons: FontAwesomeIcons.passport,
-              text: "Change Password",
-              nexticons: Icons.arrow_forward),
+          GestureDetector(
+            onTap:(){
+               Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>ChangePassword()));
+            } ,
+
+                      child: NewCard(
+                icons: FontAwesomeIcons.passport,
+                text: "Change Password",
+                nexticons: Icons.arrow_forward
+                
+                
+                ),
+          ),
           GestureDetector(
             onTap: () {
               Navigator.push(context,
