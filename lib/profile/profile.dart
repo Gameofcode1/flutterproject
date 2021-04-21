@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:myprofile/editpage/edit.dart';
 import 'dart:io';
@@ -91,6 +90,7 @@ class _MyProfileState extends State<MyProfile> {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          
           child: ListView(
             children: [
               Row(
@@ -134,18 +134,13 @@ class _MyProfileState extends State<MyProfile> {
                         CircleAvatar(
                             radius: data.size.height / 12,
                             backgroundImage: _image == null
-                                ? AssetImage(
-                                    "images/katherine.jpg",
-                                  )
+                                ? AssetImage("images/katherine.jpg")
                                 : FileImage(_image)),
                         Positioned(
                           top: data.size.height / 8,
                           left: data.size.height / 9,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30)),
-                            padding: EdgeInsets.all(2),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
                             child: CircleAvatar(
                               radius: data.size.height / 50,
                               backgroundColor: Color(0xFFDADADA),
@@ -264,7 +259,7 @@ class _MyProfileState extends State<MyProfile> {
                                 },
                                 icon: Icon(Icons.photo_camera),
                                 color: Colors.black87,
-                                iconSize: data.size.height / 55,
+                                iconSize: data.size.height / 50,
                               ),
                             ),
                           ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:myprofile/InroductionScreen/introduction.dart';
 import '../widgets/newcard.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myprofile/referralcode/refferalcode.dart';
 import 'package:myprofile/productDetail/productDetail.dart';
 import 'package:myprofile/productadd/productadd.dart';
-import 'package:myprofile/SalesForm/formscreen.dart';
+
 import 'package:myprofile/changepassword/changepassword.dart';
+
 
 
 class CardColumn extends StatelessWidget {
@@ -62,7 +64,7 @@ class CardColumn extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SlaesForm()));
+                  MaterialPageRoute(builder: (context) => IntroPage()));
             },
             child: NewCard(
                 icons: FontAwesomeIcons.signOutAlt,

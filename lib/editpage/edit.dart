@@ -82,12 +82,12 @@ class _EditTextState extends State<EditText> {
                         }),
                     SizedBox(),
                     IconButton(
-                        icon: Icon(
-                          Icons.done,
-                          size: height / 25,
-                          color: Color(0xffF08626),
-                        ),
-                          onPressed: () {
+                      icon: Icon(
+                        Icons.done,
+                        size: height / 25,
+                        color: Color(0xffF08626),
+                      ),
+                      onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -97,7 +97,8 @@ class _EditTextState extends State<EditText> {
                                       semail: myemail,
                                       snumber: number,
                                     )));
-                      },),
+                      },
+                    ),
                   ],
                 ),
                 Padding(
@@ -114,10 +115,11 @@ class _EditTextState extends State<EditText> {
                         ),
                         Stack(overflow: Overflow.visible, children: [
                           CircleAvatar(
-                              radius: height / 12,
-                              backgroundImage: _image == null
-                                  ? FileImage(widget.checkimage)
-                                  : FileImage(_image)),
+                            radius: height / 12,
+                            backgroundImage: _image == null
+                                ? FileImage(widget.checkimage)
+                                : FileImage(_image),
+                          ),
                           Positioned(
                             top: height / 8,
                             left: height / 9,
@@ -186,17 +188,18 @@ class _EditTextState extends State<EditText> {
                                                               ),
                                                             ),
                                                             Expanded(
-                                                                flex: 3,
-                                                                child: Text(
-                                                                  "Select From Camera",
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          height /
-                                                                              50,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400),
-                                                                )),
+                                                              flex: 3,
+                                                              child: Text(
+                                                                "Select From Camera",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        height /
+                                                                            50,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400),
+                                                              ),
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -277,9 +280,9 @@ class _EditTextState extends State<EditText> {
                         obscureText: false,
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
-                            hintText: "UserName",
-                            labelText: "UserName",
-                           ),
+                          hintText: "UserName",
+                          labelText: "UserName",
+                        ),
                       ),
                     ),
                     Container(
@@ -291,9 +294,9 @@ class _EditTextState extends State<EditText> {
                           keyboardType: TextInputType.emailAddress,
                           textAlign: TextAlign.left,
                           decoration: kEditDecoration.copyWith(
-                              hintText: "Email",
-                              labelText: "Email",
-                              )),
+                            hintText: "Email",
+                            labelText: "Email",
+                          )),
                     ),
                     Container(
                       margin: EdgeInsets.only(top: height / 70),
@@ -313,13 +316,10 @@ class _EditTextState extends State<EditText> {
                     Container(
                       margin: EdgeInsets.only(top: height / 70),
                       child: TextField(
-                       
                         obscureText: false,
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
-                            hintText: "Store Name",
-                           
-                            labelText: "Store Name"),
+                            hintText: "Store Name", labelText: "Store Name"),
                       ),
                     ),
                     Container(
@@ -329,40 +329,41 @@ class _EditTextState extends State<EditText> {
                         obscureText: false,
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
-                            hintText: "Store Bio",
-                           
-                            labelText: "Store Bio"),
+                            hintText: "Store Bio", labelText: "Store Bio"),
                       ),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyProfile(
-                                      simage: _image,
-                                      sname: username,
-                                      semail: myemail,
-                                      snumber: number,
-                                    )));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyProfile(
+                              simage: _image,
+                              sname: username,
+                              semail: myemail,
+                              snumber: number,
+                            ),
+                          ),
+                        );
                       },
                       child: Center(
                         child: Container(
-                            width: double.infinity,
-                            height: height / 20,
-                            margin: EdgeInsets.only(top: 30.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: Color(0xffF08626),
+                          width: double.infinity,
+                          height: height / 20,
+                          margin: EdgeInsets.only(top: 30.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Color(0xffF08626),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Change",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: height / 40),
                             ),
-                            child: Center(
-                              child: Text(
-                                "Change",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: height / 40),
-                              ),
-                            )),
+                          ),
+                        ),
                       ),
                     ),
                   ],
