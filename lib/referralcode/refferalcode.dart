@@ -34,7 +34,7 @@ class Referralcode extends StatelessWidget {
                       ],
                     ),
                     Container(
-                        height: height / 3.5,
+                        height: height / 4,
                         width: double.infinity,
                         child: Image(image: AssetImage('images/bicycle.jpg'))),
                     Text("Text your friend oripari",
