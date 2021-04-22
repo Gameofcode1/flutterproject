@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:myprofile/InroductionScreen/introduction.dart';
+
 import '../widgets/newcard.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myprofile/referralcode/refferalcode.dart';
 import 'package:myprofile/productDetail/productDetail.dart';
-import 'package:myprofile/productadd/productadd.dart';
+import 'package:myprofile/InroductionScreen/introduction.dart';
+import 'package:myprofile/commingsoon/commingsoon.dart';
 
 import 'package:myprofile/changepassword/changepassword.dart';
 
@@ -44,7 +45,7 @@ class CardColumn extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProductAdd()));
+                  MaterialPageRoute(builder: (context) => IntroSliderPage()));
             },
             child: NewCard(
                 icons: FontAwesomeIcons.info,
@@ -64,7 +65,7 @@ class CardColumn extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => IntroPage()));
+                  MaterialPageRoute(builder: (context) => CommingSoon()));
             },
             child: NewCard(
                 icons: FontAwesomeIcons.signOutAlt,

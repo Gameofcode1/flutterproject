@@ -25,7 +25,7 @@ class ChangePassword extends StatelessWidget {
                       Navigator.pop(context);
                     }),
                 Container(
-                  margin: EdgeInsets.only(top: height / 30, left: width / 30),
+                  margin: EdgeInsets.only(top: height / 50, left: width / 30),
                   child: Text(
                     "Reset Password",
                     style: TextStyle(
@@ -33,7 +33,7 @@ class ChangePassword extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: height / 15),
+                  margin: EdgeInsets.only(top: height / 20,left: width/35),
                   child: TextField(
                     obscureText: true,
                     textAlign: TextAlign.left,
@@ -44,7 +44,7 @@ class ChangePassword extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: height / 25),
+                  margin: EdgeInsets.only(top: height / 45,left: width/35),
                   child: TextField(
                     obscureText: true,
                     textAlign: TextAlign.left,
@@ -55,7 +55,7 @@ class ChangePassword extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: height / 25),
+                  margin: EdgeInsets.only(top: height / 45,left: width/35),
                   child: TextField(
                     obscureText: true,
                     textAlign: TextAlign.left,
@@ -69,7 +69,7 @@ class ChangePassword extends StatelessWidget {
                   child: Container(
                       width: double.infinity,
                       height: height / 20,
-                      margin: EdgeInsets.only(top: 30.0),
+                      margin: EdgeInsets.only(top: height / 20,left: width/35),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
                         color: Color(0xffF08626),

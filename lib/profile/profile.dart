@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import './methods/allcard.dart';
 import 'constants.dart';
 import 'package:myprofile/notification/notification.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MyProfile extends StatefulWidget {
   static const String id = 'MyProfile';
@@ -90,7 +91,6 @@ class _MyProfileState extends State<MyProfile> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          
           child: ListView(
             children: [
               Row(
@@ -131,11 +131,29 @@ class _MyProfileState extends State<MyProfile> {
                         color: kActiveIconColor,
                       ),
                       Stack(overflow: Overflow.visible, children: [
-                        CircleAvatar(
-                            radius: data.size.height / 12,
-                            backgroundImage: _image == null
-                                ? AssetImage("images/katherine.jpg")
-                                : FileImage(_image)),
+                        Container(
+                          child: _image != null
+                              ? CircleAvatar(
+                                  radius: data.size.height / 12,
+                                  backgroundImage: FileImage(_image))
+                              : CachedNetworkImage(
+                                  imageUrl:
+                                      'https://www.pngkey.com/png/detail/349-3499617_person-placeholder-person-placeholder.png',
+                                  errorWidget: (context, url, error) => Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                  ),
+                                  placeholder: (context, url) => CircleAvatar(
+                                    backgroundColor: Colors.orange,
+                                    radius: data.size.height / 12,
+                                  ),
+                                  imageBuilder: (context, image) =>
+                                      CircleAvatar(
+                                    backgroundImage: image,
+                                    radius: data.size.height / 12,
+                                  ),
+                                ),
+                        ),
                         Positioned(
                           top: data.size.height / 8,
                           left: data.size.height / 9,

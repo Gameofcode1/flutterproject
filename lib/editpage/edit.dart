@@ -4,6 +4,7 @@ import 'constant.dart';
 import '../profile/profile.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class EditText extends StatefulWidget {
   static String id = "edit";
@@ -114,11 +115,31 @@ class _EditTextState extends State<EditText> {
                           color: kActiveIconColor,
                         ),
                         Stack(overflow: Overflow.visible, children: [
-                          CircleAvatar(
-                            radius: height / 12,
-                            backgroundImage: _image == null
-                                ? FileImage(widget.checkimage)
-                                : FileImage(_image),
+                          Container(
+                            child: widget.checkimage == null
+                                ? CachedNetworkImage(
+                                    imageUrl:
+                                        'https://www.pngkey.com/png/detail/349-3499617_person-placeholder-person-placeholder.png',
+                                    errorWidget: (context, url, error) => Icon(
+                                      Icons.person,
+                                      color: Colors.white,
+                                    ),
+                                    placeholder: (context, url) => CircleAvatar(
+                                      backgroundColor: Colors.orange,
+                                      radius: height / 12,
+                                    ),
+                                    imageBuilder: (context, image) =>
+                                        CircleAvatar(
+                                      backgroundImage: image,
+                                      radius: height / 12,
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    radius: height / 12,
+                                    backgroundImage: _image == null
+                                        ? FileImage(widget.checkimage)
+                                        : FileImage(_image),
+                                  ),
                           ),
                           Positioned(
                             top: height / 8,

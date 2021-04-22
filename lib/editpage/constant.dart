@@ -6,10 +6,10 @@ const kEditDecoration = InputDecoration(
   hintText: "Enter the values",
   contentPadding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 10.0),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.black, width: 1.5),
+    borderSide: BorderSide(color: Colors.black, width: 1),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.black26, width: 1.5),
+    borderSide: BorderSide(color: Colors.black26, width: 1),
   ),
 );
 

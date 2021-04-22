@@ -1,79 +1,139 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
-import 'pages/pages.dart';
-import './widget/clickcircle.dart';
-import './widget/simplecircle.dart';
+import 'package:intro_slider/dot_animation_enum.dart';
+import 'package:intro_slider/intro_slider.dart';
+import 'package:intro_slider/slide_object.dart';
+import 'package:myprofile/commingsoon/commingsoon.dart';
 
-class IntroPage extends StatefulWidget {
+class IntroSliderPage extends StatefulWidget {
   @override
-  _IntroPageState createState() => _IntroPageState();
+  _IntroSliderPageState createState() => _IntroSliderPageState();
 }
 
-class _IntroPageState extends State<IntroPage> {
-  int currentindex = 0;
-  CarouselSlider carouselSlider;
+class _IntroSliderPageState extends State<IntroSliderPage> {
+  List<Slide> slides = new List();
 
   @override
-  Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+  void initState() {
+    super.initState();
+    slides.add(
+      new Slide(
+        title: "Hello Food!",
+        description:
+            "The easiest way to order food from your favorite restaurant!",
+        pathImage: "images/katherine.jpg",
+      ),
+    );
+    slides.add(
+      new Slide(
+        title: "Movie Tickets",
+        description: "Book movie tickets for your family and friends!",
+        pathImage: "images/fruits.jpg",
+      ),
+    );
+    slides.add(
+      new Slide(
+        title: "Great Discounts",
+        description: "Best discounts on every single service we offer!",
+        pathImage: "images/bicycle.jpg",
+      ),
+    );
+    slides.add(
+      new Slide(
+        title: "World Travel",
+        description: "Book tickets of any transportation and travel the world!",
+        pathImage: "images/shoe.jpg",
+      ),
+    );
+  }
 
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: Colors.white,
-          child: Expanded(
-            flex: 6,
-                      child: Container(
-              child: Column(
-             
-                children: [
-                  CarouselSlider(
-                      options: CarouselOptions(
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentindex = index;
-                          });
-                        },
-                       height: height/1.2,
-                        enlargeCenterPage: true,
-                        autoPlay: true,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enableInfiniteScroll: true,
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        viewportFraction: 1,
-                      ),
-                      items: images),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Skip"),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: images.map((url) {
-                              int index = images.indexOf(url);
-                              return Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 2.0),
-                                  child: currentindex == index
-                                      ? ClickC()
-                                      : SimpleC());
-                            }).toList(),
-                          ),
-                          Text("Next")
-                        ],
-                      ),
+  List<Widget> renderListCustomTabs() {
+    List<Widget> tabs = new List();
+    for (int i = 0; i < slides.length; i++) {
+      Slide currentSlide = slides[i];
+      tabs.add(
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Container(
+            margin: EdgeInsets.only(bottom: 160, top: 60),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                  child: Image.asset(
+                    currentSlide.pathImage,
+                    fit: BoxFit.cover,
+                    matchTextDirection: true,
+                    height: 200,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Text(
+                    currentSlide.title,
+                    style: TextStyle(color: Colors.black, fontSize: 25),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30,
+                  ),
+                  child: Text(
+                    currentSlide.description,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      height: 1.5,
                     ),
-                  )
-                ],
-              ),
+                    maxLines: 3,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  margin: EdgeInsets.only(
+                    top: 15,
+                    left: 20,
+                    right: 20,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
+      );
+    }
+    return tabs;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IntroSlider(
+      backgroundColorAllSlides: Colors.white,
+      renderSkipBtn: Text("Skip",style: TextStyle(fontSize: 15.0),),
+      renderNextBtn: Text(
+        "Next",
+        style: TextStyle(color: Colors.black,fontSize: 15.0),
+      ),
+      renderDoneBtn: Text(
+        "Done",
+        style: TextStyle(color: Colors.black,fontSize: 15.0),
+      ),
+      colorDoneBtn: Colors.white,
+      colorActiveDot: Colors.white,
+      sizeDot: 8.0,
+      colorDot: Colors.orange[700],
+      typeDotAnimation: dotSliderAnimation.SIZE_TRANSITION,
+      listCustomTabs: this.renderListCustomTabs(),
+      scrollPhysics: BouncingScrollPhysics(),
+      shouldHideStatusBar: false,
+      onDonePress: () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => CommingSoon()),
       ),
     );
   }

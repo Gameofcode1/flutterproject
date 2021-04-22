@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 
 final List<Widget> images = [
-  Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage('images/shoe.jpg'),
-        fit: BoxFit.fill,
-      ),
-    ),
+  Stack(children: [
+
+    Container(
+      height:double.infinity,
+      width: double.infinity,
+     child: Image(image: AssetImage( 'images/shoe.jpg')),),
+
+     Positioned(
+       
+            child: Container(
+         child:
+         Text("saugat")
+       ),
+     )
+
+  
+  ],
+  
   ),
   Container(
     decoration: BoxDecoration(
