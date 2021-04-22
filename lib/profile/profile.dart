@@ -100,7 +100,9 @@ class _MyProfileState extends State<MyProfile> {
                     padding: EdgeInsets.only(
                         top: data.size.width / 44, left: data.size.width / 29),
                     child:
-                        Icon(Icons.arrow_back_ios, size: data.size.height / 35),
+                        GestureDetector(
+                          onTap:(){ Navigator.pop(context);},
+                          child: Icon(Icons.arrow_back_ios, size: data.size.height / 35)),
                   ),
                   Padding(
                     padding: EdgeInsets.only(
