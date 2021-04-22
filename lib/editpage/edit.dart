@@ -157,7 +157,12 @@ class _EditTextState extends State<EditText> {
                                     showModalBottomSheet(
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(20.0),
+                                            BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(20.0),
+                                                  topRight:
+                                                      Radius.circular(20.0),
+                                                ),
                                         ),
                                         context: context,
                                         builder: (context) => Container(

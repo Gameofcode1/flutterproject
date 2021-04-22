@@ -99,10 +99,12 @@ class _MyProfileState extends State<MyProfile> {
                   Padding(
                     padding: EdgeInsets.only(
                         top: data.size.width / 44, left: data.size.width / 29),
-                    child:
-                        GestureDetector(
-                          onTap:(){ Navigator.pop(context);},
-                          child: Icon(Icons.arrow_back_ios, size: data.size.height / 35)),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(Icons.arrow_back_ios,
+                            size: data.size.height / 35)),
                   ),
                   Padding(
                     padding: EdgeInsets.only(
@@ -168,8 +170,10 @@ class _MyProfileState extends State<MyProfile> {
                                 onPressed: () {
                                   showModalBottomSheet(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20.0),
+                                          topRight: Radius.circular(20.0),
+                                        ),
                                       ),
                                       context: context,
                                       builder: (context) => Container(
