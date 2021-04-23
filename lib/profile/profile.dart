@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myprofile/editpage/edit.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+
 import './methods/allcard.dart';
 import 'constants.dart';
 import 'package:myprofile/notification/notification.dart';
@@ -143,9 +144,15 @@ class _MyProfileState extends State<MyProfile> {
                               : CachedNetworkImage(
                                   imageUrl:
                                       'https://www.pngkey.com/png/detail/349-3499617_person-placeholder-person-placeholder.png',
-                                  errorWidget: (context, url, error) => Icon(
-                                    Icons.person,
-                                    color: Colors.white,
+                                  errorWidget: (context, url, error) =>
+                                      CircleAvatar(
+                                    backgroundColor: Colors.orange,
+                                    radius: data.size.height / 12,
+                                    child: Icon(
+                                      Icons.person,
+                                      color: Colors.white,
+                                      size: height / 10,
+                                    ),
                                   ),
                                   placeholder: (context, url) => CircleAvatar(
                                     backgroundColor: Colors.orange,

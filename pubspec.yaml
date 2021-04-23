@@ -17,6 +17,7 @@ dependencies:
   cached_network_image: ^2.4.0
   font_awesome_flutter: ^8.11.0 
   intro_slider: ^2.3.4
+  shared_preferences: ^0.5.12
   
  
   carousel_slider: ^3.0.0

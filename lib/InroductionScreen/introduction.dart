@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intro_slider/dot_animation_enum.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'package:myprofile/commingsoon/commingsoon.dart';
+
+import '../profile/profile.dart';
 
 class IntroSliderPage extends StatefulWidget {
   @override
@@ -133,7 +134,7 @@ class _IntroSliderPageState extends State<IntroSliderPage> {
       shouldHideStatusBar: false,
       onDonePress: () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => CommingSoon()),
+        MaterialPageRoute(builder: (_) => MyProfile()),
       ),
     );
   }
