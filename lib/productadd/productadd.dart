@@ -261,49 +261,52 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: catagories.map<Widget>((url) {
-                        int index = catagories.indexOf(url);
-                        return Stack(
-                          children: [
-                            Card(
-                              elevation: 1,
-                              child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: height / 600,
-                                      horizontal: width / 20),
-                                  child: Padding(
+                    SingleChildScrollView(
+                      scrollDirection:Axis.horizontal,
+                                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: catagories.map<Widget>((url) {
+                          int index = catagories.indexOf(url);
+                          return Stack(
+                            children: [
+                              Card(
+                                elevation: 1,
+                                child: Container(
                                     padding: EdgeInsets.symmetric(
-                                        vertical: height / 100,
-                                        horizontal: width / 70),
-                                    child: Text(
-                                      catagories[index],
-                                      style: TextStyle(fontSize: height / 80),
+                                        vertical: height / 600,
+                                        horizontal: width / 20),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: height / 100,
+                                          horizontal: width / 70),
+                                      child: Text(
+                                        catagories[index],
+                                        style: TextStyle(fontSize: height / 80),
+                                      ),
+                                    )),
+                              ),
+                              Positioned(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      image.deletecat(catagories[index]);
+                                    });
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.orange,
+                                    radius: height / 90,
+                                    child: Icon(
+                                      Icons.clear,
+                                      size: height / 70,
+                                      color: Colors.white,
                                     ),
-                                  )),
-                            ),
-                            Positioned(
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    image.deletecat(catagories[index]);
-                                  });
-                                },
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.orange,
-                                  radius: height / 90,
-                                  child: Icon(
-                                    Icons.clear,
-                                    size: height / 70,
-                                    color: Colors.white,
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        );
-                      }).toList(),
+                            ],
+                          );
+                        }).toList(),
+                      ),
                     ),
                     FormBuilder(
                       // key: _formkey,
@@ -352,35 +355,35 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(clothing);
+                                                image.addcatag(clothing+">");
                                               });
                                             },
                                             child: Text(earbuds)),
                                              GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(earbuds);
+                                                image.addcatag(earbuds+">");
                                               });
                                             },
                                             child: Text(laptops)),
                                              GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(laptops);
+                                                image.addcatag(laptops+">");
                                               });
                                             },
-                                            child: Text(clothing)),
+                                            child: Text(clothing+">")),
                                              GestureDetector(
                                             onTap: () {
                                               setState(() {
                                                 image.addcatag(shoes);
                                               });
                                             },
-                                            child: Text(shoes)),
+                                            child: Text(shoes+">")),
                                              GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(clothing);
+                                                image.addcatag(clothing+">");
                                               });
                                             },
                                            
@@ -388,14 +391,14 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(mobile);
+                                                image.addcatag(mobile+">");
                                               });
                                             },
                                             child: Text(mobile)),
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(clothing);
+                                                image.addcatag(clothing+">");
                                               });
                                             },
                                             child: Text(clothing)),

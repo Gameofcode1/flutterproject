@@ -10,9 +10,9 @@ class Allimage extends ChangeNotifier {
   ];
 
   final List<String> catagories=[
-  "Shoes",
-  "Clothes",
-  "Slippers"   
+  "Shoes>",
+  "Clothes>",
+  "Slippers>"   
   ];
 
   void deletecat(String card){
