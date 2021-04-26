@@ -7,6 +7,7 @@ import './widget/containertext.dart';
 import './models/list.dart';
 import 'widget/productdetaldes.dart';
 import './widget/simplecircle.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetail extends StatefulWidget {
   @override
@@ -21,6 +22,10 @@ class _ProductDetailState extends State<ProductDetail> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+
+     final productData=Provider.of<Allimage>(context);
+    final product=productData.images;
+    final catagories=productData.catagories;
 
     return Scaffold(
       body: SafeArea(
@@ -73,34 +78,42 @@ class _ProductDetailState extends State<ProductDetail> {
                       autoPlayAnimationDuration: Duration(milliseconds: 800),
                       viewportFraction: 1,
                     ),
-                    items: images),
+                    items: product),
                 Container(
                   color: Colors.white,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                     
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Padding(
+                            Row(            
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: catagories.map<Widget>((url) {
+                              int index = catagories.indexOf(url);
+                              return  Padding(
                             padding: EdgeInsets.only(left: width / 20),
                             child: Text(
-                              'Cloathing>men>Shoe',
+                              catagories[index],
                               style: TextStyle(
                                   color: Colors.brown,
                                   fontSize: height / 70,
                                   fontWeight: FontWeight.w700),
                               textAlign: TextAlign.left,
                             ),
+                          );
+                            }).toList(),
                           ),
                           SizedBox(
-                            width: width / 2.2,
+                            width: width / 4,
                           ),
                           Row(
+                            
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: images.map((url) {
-                              int index = images.indexOf(url);
+                            children: product.map<Widget>((url) {
+                              int index = product.indexOf(url);
                               return Container(
                                   margin: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 2.0),

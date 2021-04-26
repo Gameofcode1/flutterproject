@@ -1,30 +1,44 @@
-
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 
-final List<Widget> images = [
-  Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage('images/shoe.jpg'),
-        fit: BoxFit.fill,
-      ),
-    ),
-  ),
-  Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage('images/shoe2.jpg'),
-        fit: BoxFit.fill,
-      ),
-    ),
-  ),
-  Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage('images/shoe3.jpg'),
-        fit: BoxFit.fill,
-      ),
-    ),
-  )
-];
+
+class Allimage extends ChangeNotifier {
+
+  final List<Widget> images = [
+
+  ];
+
+  final List<String> catagories=[
+  "Shoes",
+  "Clothes",
+  "Slippers"   
+  ];
+
+  void deletecat(String card){
+    catagories.remove(card);
+    notifyListeners();
+
+  }
+
+
+  void deleteTask(Widget remimages) {
+    images.remove(remimages);
+    notifyListeners();
+  }
+
+String addcatag(String items){
+  catagories.add(items);
+  notifyListeners();
+
+
+}
+
+
+  Widget add(File addimg) {
+     images.add(
+      Container(child: Image.file(addimg)),
+    );
+    notifyListeners();
+  }
+}

@@ -3,50 +3,57 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:myprofile/productDetail/constant.dart';
-
+import 'package:provider/provider.dart';
+import 'package:myprofile/productDetail/models/list.dart';
 
 class ProductAdd extends StatefulWidget {
   @override
   _ProductAddState createState() => _ProductAddState();
 }
 
-class _ProductAddState extends State<ProductAdd> {
+class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
   File _image;
-  
-  List<double> cheight = [
-    120.0,
-    110.0,
-    90.0,
-    80.0,
-    60.0,
-    40.0,
-  ];
 
-  List<File> images = [];
+  String clothing = "Clothing";
+  String electronic = "Electronics";
+  String mobile = "Mobile";
+  String games = "Games";
+  String shoes = "Shoes";
+  String earbuds = "Earbuds";
+  String laptops = "Laptops";
 
- 
   Future getImagefromcamera() async {
-    var image = await ImagePicker().getImage(source:ImageSource.camera );
+    var image = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
+      Provider.of<Allimage>(context, listen: false).add(_image);
     });
   }
 
   Future getImagefromGallery() async {
     var image = await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
-      _image =File(image.path);
+      _image = File(image.path);
+      Provider.of<Allimage>(context, listen: false).add(_image);
     });
   }
 
+  bool iconclick = false;
+
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    final image = Provider.of<Allimage>(context);
+    final allimages = image.images;
+
+    final catagories = image.catagories;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.only(left: 10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          margin: EdgeInsets.only(left:width/30),
+          child: ListView(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,282 +66,352 @@ class _ProductAddState extends State<ProductAdd> {
                   ),
                   Text(
                     "Product Add",
-                    style: TextStyle(fontSize: 19.0),
+                    style: TextStyle(fontSize: height/40),
                   ),
                   SizedBox()
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(left: 18.0, top: 25),
+                margin: EdgeInsets.only(left: width / 40, top: height / 50),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Photos",
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(fontSize:height/50),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: height / 50),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                              child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: height / 8,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                physics: ScrollPhysics(),
+                                itemCount: allimages.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Stack(
+                                      overflow: Overflow.visible,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(width: 1.0)),
+                                          width: width / 5,
+                                          height: height / 9,
+                                          margin: EdgeInsets.only(left: 4.0),
+                                          child: allimages[index],
+                                        ),
+                                        Positioned(
+                                          bottom: height / 9,
+                                          right: height / 13,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                image.deleteTask(
+                                                    allimages[index]);
+                                              });
+                                            },
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.orange,
+                                              radius: height / 90,
+                                              child: Icon(
+                                                Icons.clear,
+                                                size: height / 70,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ]);
+                                }),
+                          )),
+                          Container(
+                            height: height / 9,
+                            width: width / 5,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1),
+                            ),
+                            child: GestureDetector(
+                                child: Icon(
+                                  Icons.add_photo_alternate,
+                                  size: height/30,
+                                ),
+                                onTap: () {
+                                  showModalBottomSheet(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20.0),
+                                          topRight: Radius.circular(20.0),
+                                        ),
+                                      ),
+                                      context: context,
+                                      builder: (context) => Container(
+                                            padding: EdgeInsets.all(20.0),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20.0),
+                                                topRight: Radius.circular(20.0),
+                                              ),
+                                            ),
+                                            margin: EdgeInsets.only(
+                                                top: height / 40,
+                                                bottom: height / 30),
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                5,
+                                            child: Center(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: getImagefromcamera,
+                                                    child: Container(
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: CircleAvatar(
+                                                              backgroundColor:
+                                                                  Color(
+                                                                      0xFFDADADA),
+                                                              radius:
+                                                                  height / 35,
+                                                              child: Icon(
+                                                                Icons
+                                                                    .photo_camera,
+                                                                size:
+                                                                    height / 25,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child: Text(
+                                                              "Select From Camera",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      height /
+                                                                          50,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(child: SizedBox()),
+                                                  GestureDetector(
+                                                    onTap: getImagefromGallery,
+                                                    child: Container(
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: CircleAvatar(
+                                                              radius:
+                                                                  height / 35,
+                                                              backgroundColor:
+                                                                  Color(
+                                                                      0xFFDADADA),
+                                                              child: Icon(
+                                                                Icons.image,
+                                                                size:
+                                                                    height / 25,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                              flex: 3,
+                                                              child: Text(
+                                                                "Select From Gallery",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        height /
+                                                                            50,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400),
+                                                              )),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(child: SizedBox())
+                                                ],
+                                              ),
+                                            ),
+                                          ));
+                                }),
+                          ),
+                        ],
+                      ),
                     ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        images.length <= 4
-                            ? Expanded(
-                                child: Container(
-                                  height: cheight[images.length],
-                                  margin: EdgeInsets.only(top: 10.0),
-                                  color: Color(0xffF3F3F3),
-                                  child: IconButton(
-                                    icon: Center(
-                                      child: Icon(
-                                        Icons.search,
-                                      ),
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: catagories.map<Widget>((url) {
+                        int index = catagories.indexOf(url);
+                        return Stack(
+                          children: [
+                            Card(
+                              elevation: 1,
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: height / 600,
+                                      horizontal: width / 20),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: height / 100,
+                                        horizontal: width / 70),
+                                    child: Text(
+                                      catagories[index],
+                                      style: TextStyle(fontSize: height / 80),
                                     ),
-                                    onPressed: getImagefromGallery,
+                                  )),
+                            ),
+                            Positioned(
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    image.deletecat(catagories[index]);
+                                  });
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.orange,
+                                  radius: height / 90,
+                                  child: Icon(
+                                    Icons.clear,
+                                    size: height / 70,
+                                    color: Colors.white,
                                   ),
                                 ),
-                              )
-                            : SizedBox.shrink(),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        images.length <= 4
-                            ? Expanded(
-                                child: Container(
-                                  height: cheight[images.length],
-                                  margin: EdgeInsets.only(top: 10.0),
-                                  color: Color(0xffF3F3F3),
-                                  child: Column(
-                                    children: [
-                                      IconButton(
-                                          alignment: Alignment.center,
-                                          icon: Center(
-                                              child: Icon(Icons.add_rounded)),
-                                          onPressed: () {
-                                            showModalBottomSheet(
-                                                context: context,
-                                                builder: (context) => Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            3,
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text("Sleect Image"),
-                                                        Row(
-                                                          children: [
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .only(
-                                                                      top: 5.0,
-                                                                      left:
-                                                                          40.0),
-                                                              color: Color(
-                                                                  0xffF3F3F3),
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 35.0,
-                                                                      left:
-                                                                          53.0,
-                                                                      right:
-                                                                          53.0,
-                                                                      bottom:
-                                                                          35.0),
-                                                              child: IconButton(
-                                                                icon: Icon(
-                                                                  Icons.album,
-                                                                ),
-                                                                onPressed:
-                                                                    getImagefromGallery,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 10.0,
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .only(
-                                                                      top: 5.0),
-                                                              color: Color(
-                                                                  0xffF3F3F3),
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 35.0,
-                                                                      left:
-                                                                          53.0,
-                                                                      right:
-                                                                          53.0,
-                                                                      bottom:
-                                                                          35.0),
-                                                              child: IconButton(
-                                                                icon: Icon(
-                                                                  Icons.camera,
-                                                                ),
-                                                                onPressed:
-                                                                    getImagefromcamera,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    )));
-                                          })
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : SizedBox.shrink(),
-                        Expanded(
-                            flex: images.length + 1,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 100.0,
-                              child: Center(
-                                  child: _image == null
-                                      ? Text("No Image is picked")
-                                      : ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          shrinkWrap: true,
-                                          physics: ScrollPhysics(),
-                                          itemCount: images.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return Container(
-                                                margin:
-                                                    EdgeInsets.only(left: 4.0),
-                                                child:
-                                                    Image.file(images[index]));
-                                          })),
-                            )),
-                        images.length == 5
-                            ? Expanded(
-                                child: Container(
-                                  height: cheight[images.length],
-                                  margin: EdgeInsets.only(top: 10.0),
-                                  color: Color(0xffF3F3F3),
-                                  child: Column(
-                                    children: [
-                                      IconButton(
-                                          icon: Icon(Icons.add_rounded),
-                                          onPressed: () {
-                                            showModalBottomSheet(
-                                                context: context,
-                                                builder: (context) => Container(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height /
-                                                            3,
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text("Sleect Image"),
-                                                        Row(
-                                                          children: [
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .only(
-                                                                      top: 5.0,
-                                                                      left:
-                                                                          40.0),
-                                                              color: Color(
-                                                                  0xffF3F3F3),
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 35.0,
-                                                                      left:
-                                                                          53.0,
-                                                                      right:
-                                                                          53.0,
-                                                                      bottom:
-                                                                          35.0),
-                                                              child: IconButton(
-                                                                icon: Icon(
-                                                                  Icons.album,
-                                                                ),
-                                                                onPressed:
-                                                                    getImagefromGallery,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 10.0,
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .only(
-                                                                      top: 5.0),
-                                                              color: Color(
-                                                                  0xffF3F3F3),
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 35.0,
-                                                                      left:
-                                                                          53.0,
-                                                                      right:
-                                                                          53.0,
-                                                                      bottom:
-                                                                          35.0),
-                                                              child: IconButton(
-                                                                icon: Icon(
-                                                                  Icons.camera,
-                                                                ),
-                                                                onPressed:
-                                                                    getImagefromcamera,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    )));
-                                          }),
-                                      Text(
-                                        "Add More",
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : SizedBox.shrink()
-                      ],
+                              ),
+                            ),
+                          ],
+                        );
+                      }).toList(),
                     ),
                     FormBuilder(
                       // key: _formkey,
                       child: Column(
                         children: [
                           Container(
-                            margin: EdgeInsets.only(right: 18.0, top: 18.0),
+                            margin: EdgeInsets.only(
+                                right: width / 40, top: height / 100),
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 2.0, color: Colors.black38)),
+                                    width: 1.0, color: Colors.black38)),
                             padding:
-                                EdgeInsets.only(left: 4.0, right: 4, top: 4),
+                                EdgeInsets.only(top:height/200 ,left: width/40),
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
+                                  suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          iconclick = !iconclick;
+                                        });
+                                      },
+                                      child: Icon(Icons.expand_more,color: Colors.black,)),
                                   hintText: "catagoroes",
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none),
                             ),
                           ),
+                          iconclick == true
+                              ? Container(
+                                  margin: EdgeInsets.only(
+                                      right: width / 40, top: height / 100),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 1.0, color: Colors.black38)),
+                                  height: height / 4,
+                                  width: double.infinity,
+                                  child: Container(
+                                     margin: EdgeInsets.only(
+                                left: width / 50, top: height / 100),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                image.addcatag(clothing);
+                                              });
+                                            },
+                                            child: Text(earbuds)),
+                                             GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                image.addcatag(earbuds);
+                                              });
+                                            },
+                                            child: Text(laptops)),
+                                             GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                image.addcatag(laptops);
+                                              });
+                                            },
+                                            child: Text(clothing)),
+                                             GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                image.addcatag(shoes);
+                                              });
+                                            },
+                                            child: Text(shoes)),
+                                             GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                image.addcatag(clothing);
+                                              });
+                                            },
+                                           
+                                            child: Text(electronic)),
+                                        GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                image.addcatag(mobile);
+                                              });
+                                            },
+                                            child: Text(mobile)),
+                                        GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                image.addcatag(clothing);
+                                              });
+                                            },
+                                            child: Text(clothing)),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              : Container(),
                           Container(
-                            margin: EdgeInsets.only(right: 18.0, top: 8.0),
+                            margin: EdgeInsets.only(
+                                right: width / 40, top: height / 100),
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 2.0, color: Colors.black38)),
+                                    width: 1.0, color: Colors.black38)),
                             padding:
-                                EdgeInsets.only(left: 4.0, right: 4, top: 4),
+                                EdgeInsets.only(top:height/200 ,left: width/40),
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
@@ -344,12 +421,13 @@ class _ProductAddState extends State<ProductAdd> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(right: 18.0, top: 8.0),
+                            margin: EdgeInsets.only(
+                                right: width / 40, top: height / 100),
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     width: 2.0, color: Colors.black38)),
                             padding:
-                                EdgeInsets.only(left: 4.0, right: 4, top: 4),
+                                EdgeInsets.only(top:height/200 ,left: width/40),
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
@@ -359,30 +437,32 @@ class _ProductAddState extends State<ProductAdd> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 17.0),
+                            margin: EdgeInsets.only(
+                                right: width / 40, top: height / 100),
                             child: Row(
                               children: [
                                 Container(
                                     color: Colors.orange[800],
-                                    height: 20.0,
-                                    width: 20.0,
-                                    child: Icon(Icons.check)),
+                                    height: height/40,
+                                    width: width/15,
+                                    child: Icon(Icons.check,size: height/50,)),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
+                                  padding:  EdgeInsets.only(left: width/50),
                                   child: Text(
-                                    "OfferProce",
+                                    "OfferPrice",
                                   ),
                                 ),
                               ],
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(right: 18.0, top: 18.0),
+                            margin: EdgeInsets.only(
+                                right: width / 40, top: height / 100),
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     width: 2.0, color: Colors.black38)),
                             padding:
-                                EdgeInsets.only(left: 4.0, right: 4, top: 4),
+                                EdgeInsets.only(top:height/200 ,left: width/40),
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
@@ -395,12 +475,17 @@ class _ProductAddState extends State<ProductAdd> {
                             children: [
                               Expanded(
                                 child: Container(
-                                  margin:
-                                      EdgeInsets.only(right: 18.0, top: 8.0),
+                                  margin: EdgeInsets.only(
+                                      right: width / 40, top: height / 100),
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 2.0, color: Colors.black38)),
-                                  child: FormBuilderTextField(
+                                           padding:
+                                EdgeInsets.only(top:height/200 ,left: width/40),
+                            
+                                  child: 
+                                  FormBuilderTextField(
+                                  
                                     name: "Textfield",
                                     decoration: InputDecoration(
                                         hintText: "StartDate",
@@ -411,12 +496,14 @@ class _ProductAddState extends State<ProductAdd> {
                               ),
                               Expanded(
                                 child: Container(
-                                  margin:
-                                      EdgeInsets.only(right: 18.0, top: 8.0),
+                                  margin: EdgeInsets.only(
+                                      right: width / 40, top: height / 100),
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 2.0, color: Colors.black38)),
-                                  child: FormBuilderTextField(
+                                   padding:
+                                EdgeInsets.only(top:height/200 ,left: width/40),
+                            child:  FormBuilderTextField(
                                     name: "Textfield",
                                     decoration: InputDecoration(
                                         hintText: "EndDate",
@@ -429,19 +516,19 @@ class _ProductAddState extends State<ProductAdd> {
                             ],
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 17.0),
+                            margin: EdgeInsets.only(top: height / 50),
                             child: Row(
                               children: [
                                 Container(
                                     color: Colors.black,
-                                    height: 20.0,
-                                    width: 20.0,
+                                     height: height/40,
+                                    width: width/15,
                                     child: Icon(
-                                      Icons.check,
+                                      Icons.check,size: height/50,
                                       color: Colors.white,
                                     )),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
+                                  padding:  EdgeInsets.only(left:width/50),
                                   child: Text("Publish"),
                                 )
                               ],
@@ -449,13 +536,13 @@ class _ProductAddState extends State<ProductAdd> {
                           ),
                           Container(
                             width: double.infinity,
-                            height: 60.0,
+                            height:height/13,
                             child: Padding(
                               padding: EdgeInsets.only(
-                                  top: 13.0,
-                                  bottom: 10.0,
-                                  left: 130.0,
-                                  right: 130.0),
+                                  top: height/65,
+                                  bottom: height/65,
+                                  left: width/3,
+                                  right: width/3),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Color(0xffF2684A),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constant.dart';
 
-
 class Productdetaildes extends StatefulWidget {
   @override
   _ProductdetaildesState createState() => _ProductdetaildesState();
@@ -9,9 +8,7 @@ class Productdetaildes extends StatefulWidget {
 
 bool showContainer = true;
 String proddes =
-    "A shoe is an item of footwear "
-
-;
+    "A shoe is an item of footwear intended to protect and comfort the human foot. Shoes are also used as an item of decoration and fashion. The design of shoes has varied enormously through time and from culture to culture, with appearance originally being tied to function. Though the human foot is adapted to varied terrain and climate conditions, it is still vulnerable to environmental hazards such as sharp rocks and temperature extremes, which shoes protect against. Some shoes are worn as safety equipment, such as steel-soled boots which are required on construction sites";
 
 String firstHalf;
 String secondHalf;
@@ -55,38 +52,39 @@ class _ProductdetaildesState extends State<Productdetaildes> {
                   fontWeight: FontWeight.w200, fontSize: height / 60),
             ),
           ),
-          (proddes.length>30)?
-          Padding(
-            padding: EdgeInsets.only(top: height / 85),
-            child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    showContainer = true;
-                  });
-                },
-                child: (showContainer)
-                    ? SizedBox.shrink()
-                    : Text("Close description",
-                        style: TextStyle(
-                            color: Colors.lightBlue, fontSize: height / 60))),
-          ):SizedBox.shrink(),
-
-          (proddes.length>50)?
-          (showContainer)
-              ? GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      showContainer = false;
-                    });
-                  },
-                  child: Text(
-                    "full description",
-                    style: kTitle.copyWith(
-                        fontSize: height / 60, color: Colors.lightBlue),
-                  ),
+          (proddes.length > 30)
+              ? Padding(
+                  padding: EdgeInsets.only(top: height / 85),
+                  child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showContainer = true;
+                        });
+                      },
+                      child: (showContainer)
+                          ? SizedBox.shrink()
+                          : Text("Close description",
+                              style: TextStyle(
+                                  color: Colors.lightBlue,
+                                  fontSize: height / 60))),
                 )
-              : SizedBox.shrink():SizedBox.shrink(),
-         
+              : SizedBox.shrink(),
+          (proddes.length > 50)
+              ? (showContainer)
+                  ? GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showContainer = false;
+                        });
+                      },
+                      child: Text(
+                        "full description",
+                        style: kTitle.copyWith(
+                            fontSize: height / 60, color: Colors.lightBlue),
+                      ),
+                    )
+                  : SizedBox.shrink()
+              : SizedBox.shrink(),
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: Text(
