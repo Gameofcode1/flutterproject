@@ -369,7 +369,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                              GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(laptops+">");
+                                                image.addcatag(laptops);
                                               });
                                             },
                                             child: Text(clothing+">")),
@@ -379,7 +379,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                                 image.addcatag(shoes);
                                               });
                                             },
-                                            child: Text(shoes+">")),
+                                            child: Text(shoes)),
                                              GestureDetector(
                                             onTap: () {
                                               setState(() {
