@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:myprofile/productDetail/constant.dart';
 import 'package:provider/provider.dart';
 import 'package:myprofile/productDetail/models/list.dart';
+import './widget/addimages.dart';
 
 class ProductAdd extends StatefulWidget {
   @override
@@ -22,11 +23,15 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
   String earbuds = "Earbuds";
   String laptops = "Laptops";
 
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
+
   Future getImagefromcamera() async {
     var image = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
       Provider.of<Allimage>(context, listen: false).add(_image);
+      Navigator.pop(context);
     });
   }
 
@@ -35,7 +40,32 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
     setState(() {
       _image = File(image.path);
       Provider.of<Allimage>(context, listen: false).add(_image);
+      Navigator.pop(context);
     });
+  }
+
+  Future<void> _startDate(BuildContext context) async {
+    final DateTime pickedDate = await showDatePicker(
+        context: context,
+        initialDate: startDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != startDate)
+      setState(() {
+        startDate = pickedDate;
+      });
+  }
+
+  Future<void> _endDate(BuildContext context) async {
+    final DateTime pickedDate = await showDatePicker(
+        context: context,
+        initialDate: endDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != endDate)
+      setState(() {
+        endDate = pickedDate;
+      });
   }
 
   bool iconclick = false;
@@ -52,7 +82,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.only(left:width/30),
+          margin: EdgeInsets.only(left: width / 30),
           child: ListView(
             children: [
               Row(
@@ -66,7 +96,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                   ),
                   Text(
                     "Product Add",
-                    style: TextStyle(fontSize: height/40),
+                    style: TextStyle(fontSize: height / 40),
                   ),
                   SizedBox()
                 ],
@@ -78,7 +108,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                   children: [
                     Text(
                       "Photos",
-                      style: TextStyle(fontSize:height/50),
+                      style: TextStyle(fontSize: height / 50),
                     ),
                     Container(
                       margin: EdgeInsets.only(top: height / 50),
@@ -140,7 +170,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             child: GestureDetector(
                                 child: Icon(
                                   Icons.add_photo_alternate,
-                                  size: height/30,
+                                  size: height / 30,
                                 ),
                                 onTap: () {
                                   showModalBottomSheet(
@@ -151,110 +181,13 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                         ),
                                       ),
                                       context: context,
-                                      builder: (context) => Container(
-                                            padding: EdgeInsets.all(20.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(20.0),
-                                                topRight: Radius.circular(20.0),
-                                              ),
-                                            ),
-                                            margin: EdgeInsets.only(
-                                                top: height / 40,
-                                                bottom: height / 30),
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                5,
-                                            child: Center(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: getImagefromcamera,
-                                                    child: Container(
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: CircleAvatar(
-                                                              backgroundColor:
-                                                                  Color(
-                                                                      0xFFDADADA),
-                                                              radius:
-                                                                  height / 35,
-                                                              child: Icon(
-                                                                Icons
-                                                                    .photo_camera,
-                                                                size:
-                                                                    height / 25,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            flex: 3,
-                                                            child: Text(
-                                                              "Select From Camera",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      height /
-                                                                          50,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(child: SizedBox()),
-                                                  GestureDetector(
-                                                    onTap: getImagefromGallery,
-                                                    child: Container(
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: CircleAvatar(
-                                                              radius:
-                                                                  height / 35,
-                                                              backgroundColor:
-                                                                  Color(
-                                                                      0xFFDADADA),
-                                                              child: Icon(
-                                                                Icons.image,
-                                                                size:
-                                                                    height / 25,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                              flex: 3,
-                                                              child: Text(
-                                                                "Select From Gallery",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        height /
-                                                                            50,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400),
-                                                              )),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(child: SizedBox())
-                                                ],
-                                              ),
-                                            ),
+                                      builder: (context) => AddImages(
+                                            getImagefromGallery: () {
+                                              getImagefromGallery();
+                                            },
+                                            getImagefromcamera: () {
+                                              getImagefromcamera();
+                                            },
                                           ));
                                 }),
                           ),
@@ -262,8 +195,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                       ),
                     ),
                     SingleChildScrollView(
-                      scrollDirection:Axis.horizontal,
-                                          child: Row(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: catagories.map<Widget>((url) {
                           int index = catagories.indexOf(url);
@@ -318,8 +251,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     width: 1.0, color: Colors.black38)),
-                            padding:
-                                EdgeInsets.only(top:height/200 ,left: width/40),
+                            padding: EdgeInsets.only(
+                                top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
@@ -329,7 +262,10 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                           iconclick = !iconclick;
                                         });
                                       },
-                                      child: Icon(Icons.expand_more,color: Colors.black,)),
+                                      child: Icon(
+                                        Icons.expand_more,
+                                        color: Colors.black,
+                                      )),
                                   hintText: "catagoroes",
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none),
@@ -345,60 +281,60 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                   height: height / 4,
                                   width: double.infinity,
                                   child: Container(
-                                     margin: EdgeInsets.only(
-                                left: width / 50, top: height / 100),
+                                    margin: EdgeInsets.only(
+                                        left: width / 50, top: height / 100),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(clothing+">");
+                                                image.addcatag(clothing + ">");
                                               });
                                             },
                                             child: Text(earbuds)),
-                                             GestureDetector(
+                                        GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(earbuds+">");
+                                                image.addcatag(earbuds + ">");
                                               });
                                             },
                                             child: Text(laptops)),
-                                             GestureDetector(
+                                        GestureDetector(
                                             onTap: () {
                                               setState(() {
                                                 image.addcatag(laptops);
                                               });
                                             },
-                                            child: Text(clothing+">")),
-                                             GestureDetector(
+                                            child: Text(clothing + ">")),
+                                        GestureDetector(
                                             onTap: () {
                                               setState(() {
                                                 image.addcatag(shoes);
                                               });
                                             },
                                             child: Text(shoes)),
-                                             GestureDetector(
+                                        GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(clothing+">");
+                                                image.addcatag(clothing + ">");
                                               });
                                             },
-                                           
                                             child: Text(electronic)),
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(mobile+">");
+                                                image.addcatag(mobile + ">");
                                               });
                                             },
                                             child: Text(mobile)),
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(clothing+">");
+                                                image.addcatag(clothing + ">");
                                               });
                                             },
                                             child: Text(clothing)),
@@ -413,8 +349,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     width: 1.0, color: Colors.black38)),
-                            padding:
-                                EdgeInsets.only(top:height/200 ,left: width/40),
+                            padding: EdgeInsets.only(
+                                top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
@@ -429,8 +365,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     width: 2.0, color: Colors.black38)),
-                            padding:
-                                EdgeInsets.only(top:height/200 ,left: width/40),
+                            padding: EdgeInsets.only(
+                                top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
@@ -446,11 +382,14 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                               children: [
                                 Container(
                                     color: Colors.orange[800],
-                                    height: height/40,
-                                    width: width/15,
-                                    child: Icon(Icons.check,size: height/50,)),
+                                    height: height / 40,
+                                    width: width / 15,
+                                    child: Icon(
+                                      Icons.check,
+                                      size: height / 50,
+                                    )),
                                 Padding(
-                                  padding:  EdgeInsets.only(left: width/50),
+                                  padding: EdgeInsets.only(left: width / 50),
                                   child: Text(
                                     "OfferPrice",
                                   ),
@@ -464,74 +403,89 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             decoration: BoxDecoration(
                                 border: Border.all(
                                     width: 2.0, color: Colors.black38)),
-                            padding:
-                                EdgeInsets.only(top:height/200 ,left: width/40),
+                            padding: EdgeInsets.only(
+                                top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
-                                  hintText: "OfferPrice",
+                                  hintText: "Regularform",
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none),
                             ),
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                      right: width / 40, top: height / 100),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 2.0, color: Colors.black38)),
-                                           padding:
-                                EdgeInsets.only(top:height/200 ,left: width/40),
-                            
-                                  child: 
-                                  FormBuilderTextField(
-                                  
-                                    name: "Textfield",
-                                    decoration: InputDecoration(
-                                        hintText: "StartDate",
-                                        enabledBorder: InputBorder.none,
-                                        focusedBorder: InputBorder.none),
-                                  ),
+                          Row(children: [
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    right: width / 40, top: height / 100),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 2.0, color: Colors.black38)),
+                                padding: EdgeInsets.only(
+                                    top: height / 200, left: width / 40),
+                                child: FormBuilderTextField(
+                                  name: "Textfield",
+                                  decoration: InputDecoration(
+                                      suffixIcon: GestureDetector(
+                                          onTap: () => _startDate(context),
+                                          child: Icon(
+                                            Icons.calendar_today_rounded,
+                                            color: Colors.black,
+                                          )),
+                                      hintText: startDate.year.toString() +
+                                          "/" +
+                                          startDate.month.toString() +
+                                          "/" +
+                                          startDate.day.toString(),
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none),
                                 ),
                               ),
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                      right: width / 40, top: height / 100),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 2.0, color: Colors.black38)),
-                                   padding:
-                                EdgeInsets.only(top:height/200 ,left: width/40),
-                            child:  FormBuilderTextField(
-                                    name: "Textfield",
-                                    decoration: InputDecoration(
-                                        hintText: "EndDate",
-                                        enabledBorder: InputBorder.none,
-                                        focusedBorder: InputBorder.none),
-                                    autofocus: false,
-                                  ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    right: width / 40, top: height / 100),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 2.0, color: Colors.black38)),
+                                padding: EdgeInsets.only(
+                                    top: height / 200, left: width / 40),
+                                child: FormBuilderTextField(
+                                  name: "Textfield",
+                                  decoration: InputDecoration(
+                                      suffixIcon: GestureDetector(
+                                          onTap: () => _endDate(context),
+                                          child: Icon(
+                                            Icons.calendar_today_rounded,
+                                            color: Colors.black,
+                                          )),
+                                      hintText: startDate.year.toString() +
+                                          "/" +
+                                          startDate.month.toString() +
+                                          "/" +
+                                          startDate.day.toString(),
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ]),
                           Container(
                             margin: EdgeInsets.only(top: height / 50),
                             child: Row(
                               children: [
                                 Container(
                                     color: Colors.black,
-                                     height: height/40,
-                                    width: width/15,
+                                    height: height / 40,
+                                    width: width / 15,
                                     child: Icon(
-                                      Icons.check,size: height/50,
+                                      Icons.check,
+                                      size: height / 50,
                                       color: Colors.white,
                                     )),
                                 Padding(
-                                  padding:  EdgeInsets.only(left:width/50),
+                                  padding: EdgeInsets.only(left: width / 50),
                                   child: Text("Publish"),
                                 )
                               ],
@@ -539,13 +493,13 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                           ),
                           Container(
                             width: double.infinity,
-                            height:height/13,
+                            height: height / 13,
                             child: Padding(
                               padding: EdgeInsets.only(
-                                  top: height/65,
-                                  bottom: height/65,
-                                  left: width/3,
-                                  right: width/3),
+                                  top: height / 65,
+                                  bottom: height / 65,
+                                  left: width / 3,
+                                  right: width / 3),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Color(0xffF2684A),
