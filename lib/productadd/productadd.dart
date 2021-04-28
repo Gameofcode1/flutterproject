@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:myprofile/productDetail/models/list.dart';
 import './widget/addimages.dart';
 
+import './widget/checkboxand text.dart';
+
 class ProductAdd extends StatefulWidget {
   @override
   _ProductAddState createState() => _ProductAddState();
@@ -14,6 +16,8 @@ class ProductAdd extends StatefulWidget {
 
 class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
   File _image;
+  bool checkbox = false;
+  bool seccheckbox = false;
 
   String clothing = "Clothing";
   String electronic = "Electronics";
@@ -111,56 +115,57 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                       style: TextStyle(fontSize: height / 50),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: height / 50),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                               child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: height / 8,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                physics: ScrollPhysics(),
-                                itemCount: allimages.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Stack(
-                                      overflow: Overflow.visible,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              border: Border.all(width: 1.0)),
-                                          width: width / 5,
-                                          height: height / 9,
-                                          margin: EdgeInsets.only(left: 4.0),
-                                          child: allimages[index],
-                                        ),
-                                        Positioned(
-                                          bottom: height / 9,
-                                          right: height / 13,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                image.deleteTask(
-                                                    allimages[index]);
-                                              });
-                                            },
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.orange,
-                                              radius: height / 90,
-                                              child: Icon(
-                                                Icons.clear,
-                                                size: height / 70,
-                                                color: Colors.white,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: height / 8,
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      physics: ScrollPhysics(),
+                                      itemCount: allimages.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Stack(
+                                            overflow: Overflow.visible,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    border:
+                                                        Border.all(width: 1.0)),
+                                                width: width / 5,
+                                                height: height / 9,
+                                                margin:
+                                                    EdgeInsets.only(left: 4.0),
+                                                child: allimages[index],
                                               ),
-                                            ),
-                                          ),
-                                        ),
-                                      ]);
-                                }),
-                          )),
+                                              Positioned(
+                                                bottom: height / 9,
+                                                right: height / 13,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      image.deleteTask(
+                                                          allimages[index]);
+                                                    });
+                                                  },
+                                                  child: CircleAvatar(
+                                                    backgroundColor:
+                                                        Colors.orange,
+                                                    radius: height / 90,
+                                                    child: Icon(
+                                                      Icons.clear,
+                                                      size: height / 70,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ]);
+                                      }))),
                           Container(
                             height: height / 9,
                             width: width / 5,
@@ -364,7 +369,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                 right: width / 40, top: height / 100),
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 2.0, color: Colors.black38)),
+                                    width: 1.0, color: Colors.black38)),
                             padding: EdgeInsets.only(
                                 top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
@@ -375,34 +380,21 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                   focusedBorder: InputBorder.none),
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                right: width / 40, top: height / 100),
-                            child: Row(
-                              children: [
-                                Container(
-                                    color: Colors.orange[800],
-                                    height: height / 40,
-                                    width: width / 15,
-                                    child: Icon(
-                                      Icons.check,
-                                      size: height / 50,
-                                    )),
-                                Padding(
-                                  padding: EdgeInsets.only(left: width / 50),
-                                  child: Text(
-                                    "OfferPrice",
-                                  ),
-                                ),
-                              ],
-                            ),
+                           GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                checkbox = !checkbox;
+                              });
+                            },
+                            child: CheckboxText(check:checkbox,text: "OfferPrice",)
                           ),
+                         
                           Container(
                             margin: EdgeInsets.only(
                                 right: width / 40, top: height / 100),
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    width: 2.0, color: Colors.black38)),
+                                    width: 1.0, color: Colors.black38)),
                             padding: EdgeInsets.only(
                                 top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
@@ -420,7 +412,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                     right: width / 40, top: height / 100),
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        width: 2.0, color: Colors.black38)),
+                                        width: 1.0, color: Colors.black38)),
                                 padding: EdgeInsets.only(
                                     top: height / 200, left: width / 40),
                                 child: FormBuilderTextField(
@@ -448,7 +440,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                     right: width / 40, top: height / 100),
                                 decoration: BoxDecoration(
                                     border: Border.all(
-                                        width: 2.0, color: Colors.black38)),
+                                        width: 1.0, color: Colors.black38)),
                                 padding: EdgeInsets.only(
                                     top: height / 200, left: width / 40),
                                 child: FormBuilderTextField(
@@ -472,44 +464,55 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             ),
                           ]),
                           Container(
-                            margin: EdgeInsets.only(top: height / 50),
-                            child: Row(
-                              children: [
-                                Container(
-                                    color: Colors.black,
-                                    height: height / 40,
-                                    width: width / 15,
-                                    child: Icon(
-                                      Icons.check,
-                                      size: height / 50,
-                                      color: Colors.white,
-                                    )),
-                                Padding(
-                                  padding: EdgeInsets.only(left: width / 50),
-                                  child: Text("Publish"),
-                                )
-                              ],
+                            height: height / 5,
+                            margin: EdgeInsets.only(
+                                right: width / 40, top: height / 100),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1.0, color: Colors.black38)),
+                            padding: EdgeInsets.only(
+                                top: height / 200, left: width / 40),
+                            child: FormBuilderTextField(
+                              name: "Textfield",
+                              decoration: InputDecoration(
+                                  hintText: "Descroption",
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none),
                             ),
                           ),
-                          Container(
-                            width: double.infinity,
-                            height: height / 13,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: height / 65,
-                                  bottom: height / 65,
-                                  left: width / 3,
-                                  right: width / 3),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Color(0xffF2684A),
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                child: Center(
-                                  child: Text(
-                                    "Save",
-                                    style: kTitleDesc.copyWith(
-                                        color: Colors.white),
-                                    textAlign: TextAlign.center,
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                seccheckbox = !seccheckbox;
+                              });
+                            },
+                            child: CheckboxText(check:seccheckbox,text: "Product",)
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: height / 13,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: height / 65,
+                                    bottom: height / 65,
+                                    left: width / 3,
+                                    right: width / 3),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffF2684A),
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                  child: Center(
+                                    child: Text(
+                                      "Save",
+                                      style: kTitleDesc.copyWith(
+                                          color: Colors.white),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
                                 ),
                               ),
