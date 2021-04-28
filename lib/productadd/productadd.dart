@@ -281,57 +281,46 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                   margin: EdgeInsets.only(
                                       right: width / 40, top: height / 100),
                                   decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 1.0, color: Colors.black38)),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20.0),
+                                        topRight: Radius.circular(20.0),
+                                      ),
+                                     ),
                                   height: height / 4,
                                   width: double.infinity,
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: width / 50, top: height / 100),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                image.addcatag(earbuds);
-                                              });
-                                            },
-                                            child: Text(earbuds)),
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                image.addcatag(laptops);
-                                              });
-                                            },
-                                            child: Text(laptops)),
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                image.addcatag(clothing);
-                                              });
-                                            },
-                                            child: Text(clothing)),
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                image.addcatag(shoes);
-                                              });
-                                            },
-                                            child: Text(shoes)),
-                                      
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                image.addcatag(mobile + ">");
-                                              });
-                                            },
-                                            child: Text(mobile)),
-
-                                      ],
+                                  child: Card(
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                          left: width / 50, top: height / 100),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children:
+                                                catagories.map<Widget>((url) {
+                                              int index =
+                                                  catagories.indexOf(url);
+                                              return Row(
+                                                children: [
+                                                  Container(
+                                                    child:
+                                                        Text(catagories[index]),
+                                                  ),
+                                                  IconButton(
+                                                      icon: Icon(Icons
+                                                          .arrow_drop_down),
+                                                      onPressed: null)
+                                                ],
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 )
@@ -368,15 +357,16 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                   focusedBorder: InputBorder.none),
                             ),
                           ),
-                           GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                checkbox = !checkbox;
-                              });
-                            },
-                            child: CheckboxText(check:checkbox,text: "Offer Price",)
-                          ),
-                         
+                          GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  checkbox = !checkbox;
+                                });
+                              },
+                              child: CheckboxText(
+                                check: checkbox,
+                                text: "Offer Price",
+                              )),
                           Container(
                             margin: EdgeInsets.only(
                                 right: width / 40, top: height / 100),
@@ -469,13 +459,15 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                seccheckbox = !seccheckbox;
-                              });
-                            },
-                            child: CheckboxText(check:seccheckbox,text: "Product",)
-                          ),
+                              onTap: () {
+                                setState(() {
+                                  seccheckbox = !seccheckbox;
+                                });
+                              },
+                              child: CheckboxText(
+                                check: seccheckbox,
+                                text: "Product",
+                              )),
                           GestureDetector(
                             onTap: () {
                               Navigator.pop(context);
