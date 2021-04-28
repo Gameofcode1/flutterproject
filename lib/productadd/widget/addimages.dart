@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-
-
 class AddImages extends StatelessWidget {
   final Function getImagefromcamera;
   final Function getImagefromGallery;
 
-  AddImages({this.getImagefromGallery,this.getImagefromcamera});
+  AddImages({this.getImagefromGallery, this.getImagefromcamera});
 
   @override
   Widget build(BuildContext context) {

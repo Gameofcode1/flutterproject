@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CheckboxText extends StatelessWidget {
-  String text;
-  bool check;
+  final String text;
+  final bool check;
 
   CheckboxText({this.check,this.text});
 

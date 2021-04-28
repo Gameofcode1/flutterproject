@@ -281,11 +281,11 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                   margin: EdgeInsets.only(
                                       right: width / 40, top: height / 100),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20.0),
-                                        topRight: Radius.circular(20.0),
-                                      ),
-                                     ),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20.0),
+                                      topRight: Radius.circular(20.0),
+                                    ),
+                                  ),
                                   height: height / 4,
                                   width: double.infinity,
                                   child: Card(
@@ -305,16 +305,35 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                                 catagories.map<Widget>((url) {
                                               int index =
                                                   catagories.indexOf(url);
-                                              return Row(
+                                              return Column(
                                                 children: [
-                                                  Container(
-                                                    child:
-                                                        Text(catagories[index]),
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        child: Text(
+                                                            catagories[index]),
+                                                      ),
+                                                      IconButton(
+                                                          icon: Icon(Icons
+                                                              .arrow_drop_down),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              image.check[
+                                                                      index] =
+                                                                  !image.check[
+                                                                      index];
+                                                            });
+                                                          })
+                                                    ],
                                                   ),
-                                                  IconButton(
-                                                      icon: Icon(Icons
-                                                          .arrow_drop_down),
-                                                      onPressed: null)
+                                                  image.check[index]
+                                                      ? Column(children: [
+                                                          for (var i in image
+                                                                  .allproduct[
+                                                              index])
+                                                            Text(i.toString())
+                                                        ])
+                                                      : Container()
                                                 ],
                                               );
                                             }).toList(),
