@@ -271,7 +271,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                         Icons.expand_more,
                                         color: Colors.black,
                                       )),
-                                  hintText: "catagoroes",
+                                  hintText: "Select Category",
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none),
                             ),
@@ -297,24 +297,24 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(clothing + ">");
+                                                image.addcatag(earbuds);
                                               });
                                             },
                                             child: Text(earbuds)),
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(earbuds + ">");
+                                                image.addcatag(laptops);
                                               });
                                             },
                                             child: Text(laptops)),
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
-                                                image.addcatag(laptops);
+                                                image.addcatag(clothing);
                                               });
                                             },
-                                            child: Text(clothing + ">")),
+                                            child: Text(clothing)),
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
@@ -322,13 +322,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                               });
                                             },
                                             child: Text(shoes)),
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                image.addcatag(clothing + ">");
-                                              });
-                                            },
-                                            child: Text(electronic)),
+                                      
                                         GestureDetector(
                                             onTap: () {
                                               setState(() {
@@ -336,13 +330,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                               });
                                             },
                                             child: Text(mobile)),
-                                        GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                image.addcatag(clothing + ">");
-                                              });
-                                            },
-                                            child: Text(clothing)),
+
                                       ],
                                     ),
                                   ),
@@ -359,7 +347,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
-                                  hintText: "ProductTitle",
+                                  hintText: "Product Title",
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none),
                             ),
@@ -386,7 +374,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                 checkbox = !checkbox;
                               });
                             },
-                            child: CheckboxText(check:checkbox,text: "OfferPrice",)
+                            child: CheckboxText(check:checkbox,text: "Offer Price",)
                           ),
                          
                           Container(
@@ -400,7 +388,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
-                                  hintText: "Regularform",
+                                  hintText: "Regular Price",
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none),
                             ),
@@ -475,7 +463,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             child: FormBuilderTextField(
                               name: "Textfield",
                               decoration: InputDecoration(
-                                  hintText: "Descroption",
+                                  hintText: "Description",
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none),
                             ),
