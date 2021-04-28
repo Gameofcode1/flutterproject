@@ -11,10 +11,11 @@ class Allimage extends ChangeNotifier {
 
   final List<String> catagories = ["Shoes", "Clothes", "Slippers"];
   final List allproduct = [["mobile", "tablet", "store"],["Shirt","paint","Tshirt"],["saugat"]];
+  final List<String> addcata=["saugat"];
 
 
   void deletecat(String card) {
-    catagories.remove(card);
+    addcata.remove(card);
     notifyListeners();
   }
 

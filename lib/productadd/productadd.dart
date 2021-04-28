@@ -203,8 +203,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: catagories.map<Widget>((url) {
-                          int index = catagories.indexOf(url);
+                        children: image.addcata.map<Widget>((url) {
+                          int index = image.addcata.indexOf(url);
                           return Stack(
                             children: [
                               Card(
@@ -218,7 +218,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                           vertical: height / 100,
                                           horizontal: width / 70),
                                       child: Text(
-                                        catagories[index],
+                                       image.addcata[index],
                                         style: TextStyle(fontSize: height / 80),
                                       ),
                                     )),
@@ -227,7 +227,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                 child: GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      image.deletecat(catagories[index]);
+                                      image.deletecat(image.addcata[index]);
                                     });
                                   },
                                   child: CircleAvatar(
@@ -286,7 +286,6 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                       topRight: Radius.circular(20.0),
                                     ),
                                   ),
-                                  height: height / 4,
                                   width: double.infinity,
                                   child: Card(
                                     child: Container(
@@ -305,36 +304,63 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                                 catagories.map<Widget>((url) {
                                               int index =
                                                   catagories.indexOf(url);
-                                              return Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                            catagories[index]),
-                                                      ),
-                                                      IconButton(
-                                                          icon: Icon(Icons
-                                                              .arrow_drop_down),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              image.check[
-                                                                      index] =
-                                                                  !image.check[
-                                                                      index];
-                                                            });
-                                                          })
-                                                    ],
-                                                  ),
-                                                  image.check[index]
-                                                      ? Column(children: [
-                                                          for (var i in image
-                                                                  .allproduct[
-                                                              index])
-                                                            Text(i.toString())
-                                                        ])
-                                                      : Container()
-                                                ],
+                                              return Container(
+                                                margin: EdgeInsets.only(
+                                                    left: width / 50,
+                                                    bottom: height / 90),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          child: Text(
+                                                              catagories[
+                                                                  index]),
+                                                        ),
+                                                        GestureDetector(
+                                                            child: Icon(Icons
+                                                                .arrow_drop_down),
+                                                            onTap: () {
+                                                              setState(() {
+                                                                image.check[
+                                                                        index] =
+                                                                    !image.check[
+                                                                        index];
+                                                              });
+                                                            })
+                                                      ],
+                                                    ),
+                                                    image.check[index]
+                                                        ? Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                                for (var i in image
+                                                                        .allproduct[
+                                                                    index])
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(
+                                                                          () {
+                                                                        image.addcata
+                                                                            .add(i);
+                                                                      });
+                                                                    },
+                                                                    child: Text(
+                                                                      i.toString(),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                    ),
+                                                                  )
+                                                              ])
+                                                        : Container()
+                                                  ],
+                                                ),
                                               );
                                             }).toList(),
                                           ),
