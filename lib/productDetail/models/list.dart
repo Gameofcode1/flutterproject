@@ -9,9 +9,9 @@ class Allimage extends ChangeNotifier {
     false,
   ];
 
-  final List<String> catagories = ["Shoes", "Clothes", "Slippers"];
-  final List allproduct = [["mobile", "tablet", "store"],["Shirt","paint","Tshirt"],["saugat"]];
-  final List<String> addcata=["saugat"];
+  final List<String> catagories = ["Clothing", "Electronics", "Fashions"];
+  final List allproduct = [["Paint", "Shirt", "Trouser"],["Mobiles","Tablet","Watches","Laptops"],["Sun Glasses","Shoes","Blazer"]];
+  final List<String> addcata=[];
 
 
   void deletecat(String card) {

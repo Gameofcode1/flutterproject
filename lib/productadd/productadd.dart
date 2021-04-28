@@ -145,7 +145,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                               Positioned(
                                                 bottom: height / 9,
                                                 right: height / 13,
-                                                child: GestureDetector(
+                                                child: InkWell(
+                                                  highlightColor: Colors.black,
                                                   onTap: () {
                                                     setState(() {
                                                       image.deleteTask(
@@ -224,9 +225,12 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                     )),
                               ),
                               Positioned(
-                                child: GestureDetector(
+                                child: InkWell(
+                                  highlightColor: Colors.black,
                                   onTap: () {
                                     setState(() {
+
+                                     
                                       image.deletecat(image.addcata[index]);
                                     });
                                   },
@@ -317,7 +321,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                                               catagories[
                                                                   index]),
                                                         ),
-                                                        GestureDetector(
+                                                       InkWell(
+                                                         highlightColor: Colors.orange,
                                                             child: Icon(Icons
                                                                 .arrow_drop_down),
                                                             onTap: () {
@@ -342,15 +347,17 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                                                 for (var i in image
                                                                         .allproduct[
                                                                     index])
-                                                                  GestureDetector(
+                                                                 InkWell(
+                                                                   highlightColor: Colors.orange[700],
                                                                     onTap: () {
                                                                       setState(
                                                                           () {
+                                                                            image.addcata.add(image.catagories[index]);
                                                                         image.addcata
                                                                             .add(i);
                                                                       });
                                                                     },
-                                                                    child: Text(
+                                                                    child: Text("•"+
                                                                       i.toString(),
                                                                       textAlign:
                                                                           TextAlign

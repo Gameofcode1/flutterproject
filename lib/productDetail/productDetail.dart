@@ -26,6 +26,7 @@ class _ProductDetailState extends State<ProductDetail> {
      final productData=Provider.of<Allimage>(context);
     final product=productData.images;
     final catagories=productData.catagories;
+    final allproduct=productData.addcata;
 
     return Scaffold(
       body: SafeArea(
@@ -91,12 +92,12 @@ class _ProductDetailState extends State<ProductDetail> {
                         children: <Widget>[
                             Row(            
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: catagories.map<Widget>((url) {
-                              int index = catagories.indexOf(url);
+                            children: allproduct.map<Widget>((url) {
+                              int index = allproduct.indexOf(url);
                               return  Padding(
                             padding: EdgeInsets.only(left: width / 20),
                             child: Text(
-                              catagories[index],
+                              allproduct[index],
                               style: TextStyle(
                                   color: Colors.brown,
                                   fontSize: height / 70,
