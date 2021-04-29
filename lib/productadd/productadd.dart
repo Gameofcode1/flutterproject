@@ -267,10 +267,12 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                           return Stack(
                             children: [
                               Card(
+                                margin: EdgeInsets.only(top:height/60,right:width/90),
                                 elevation: 1,
                                 child: Container(
+                                 
                                     padding: EdgeInsets.symmetric(
-                                        vertical: height / 600,
+                                        vertical: height / 400,
                                         horizontal: width / 20),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
@@ -283,6 +285,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                     )),
                               ),
                               Positioned(
+                                bottom: height/40,
+                                left: width/300,
                                 child: InkWell(
                                   highlightColor: Colors.black,
                                   onTap: () {
