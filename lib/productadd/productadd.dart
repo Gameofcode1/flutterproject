@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:myprofile/productDetail/constant.dart';
+import 'package:myprofile/productadd/categorypages/categorypages.dart';
 import 'package:provider/provider.dart';
 import 'package:myprofile/productDetail/models/list.dart';
+import './Listproduct/list.dart';
 import './widget/addimages.dart';
 
 import './widget/checkboxand text.dart';
@@ -111,7 +113,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(bottom:height/50),
+                      margin: EdgeInsets.only(bottom: height / 50),
                       child: Text(
                         "Photos",
                         style: TextStyle(fontSize: height / 50),
@@ -135,7 +137,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                               int index) {
                                             return index == allimages.length
                                                 ? Container(
-                                                  margin: EdgeInsets.only(left:width/90),
+                                                    margin: EdgeInsets.only(
+                                                        left: width / 90),
                                                     height: height / 10,
                                                     width: width / 5,
                                                     decoration: BoxDecoration(
@@ -267,10 +270,10 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                           return Stack(
                             children: [
                               Card(
-                                margin: EdgeInsets.only(top:height/60,right:width/90),
+                                margin: EdgeInsets.only(
+                                    top: height / 60, right: width / 90),
                                 elevation: 1,
                                 child: Container(
-                                 
                                     padding: EdgeInsets.symmetric(
                                         vertical: height / 400,
                                         horizontal: width / 20),
@@ -285,8 +288,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                     )),
                               ),
                               Positioned(
-                                bottom: height/40,
-                                left: width/300,
+                                bottom: height / 40,
+                                left: width / 300,
                                 child: InkWell(
                                   highlightColor: Colors.black,
                                   onTap: () {
@@ -362,82 +365,36 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children:
-                                                catagories.map<Widget>((url) {
-                                              int index =
-                                                  catagories.indexOf(url);
-                                              return Container(
-                                                margin: EdgeInsets.only(
-                                                    left: width / 50,
-                                                    bottom: height / 90),
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          child: Text(
-                                                              catagories[
-                                                                  index]),
-                                                        ),
-                                                        InkWell(
-                                                            highlightColor:
-                                                                Colors.orange,
-                                                            child: Icon(Icons
-                                                                .arrow_drop_down),
-                                                            onTap: () {
-                                                              setState(() {
-                                                                image.check[
-                                                                        index] =
-                                                                    !image.check[
-                                                                        index];
-                                                              });
-                                                            })
-                                                      ],
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                for (var i = 0;
+                                                    i < catagorie.length;
+                                                    i++)
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      image.addcata.add(
+                                                          catagorie[i]);
+
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                CategoryPages(
+                                                                    count: i),
+                                                          ));
+                                                    },
+                                                    child: Text(
+                                                      catagorie[i],
+                                                      style: TextStyle(
+                                                          color: Colors.black),
                                                     ),
-                                                    image.check[index]
-                                                        ? Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                                for (var i in image
-                                                                        .allproduct[
-                                                                    index])
-                                                                  InkWell(
-                                                                    highlightColor:
-                                                                        Colors.orange[
-                                                                            700],
-                                                                    onTap: () {
-                                                                      setState(
-                                                                          () {
-                                                                        image
-                                                                            .addcata
-                                                                            .add(image.catagories[index]);
-                                                                        image
-                                                                            .addcata
-                                                                            .add(i);
-                                                                      });
-                                                                    },
-                                                                    child: Text(
-                                                                      "•" +
-                                                                          i.toString(),
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                    ),
-                                                                  )
-                                                              ])
-                                                        : Container()
-                                                  ],
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ),
+                                                  ),
+                                              ]
+                                            
+                                              )
                                         ],
                                       ),
                                     ),

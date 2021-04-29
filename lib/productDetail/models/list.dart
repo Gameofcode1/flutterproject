@@ -9,7 +9,7 @@ class Allimage extends ChangeNotifier {
     false,
   ];
 
-  final List<String> catagories = ["Clothing", "Electronics", "Fashions"];
+  final List<String> catagories = ["Clothing", "Electronics", "Fashions","Food"];
   final List allproduct = [["Paint", "Shirt", "Trouser"],["Mobiles","Tablet","Watches","Laptops"],["Sun Glasses","Shoes","Blazer"]];
   final List<String> addcata=[];
 
