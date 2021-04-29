@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myprofile/productadd/Listproduct/list.dart';
-import 'package:myprofile/productadd/categorypages/subcatagory.dart';
+
 import 'package:myprofile/productadd/productadd.dart';
 import 'package:provider/provider.dart';
 import 'package:myprofile/productDetail/models/list.dart';
@@ -28,7 +28,6 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
                   icon: Icon(Icons.arrow_back_ios),
                   onPressed: () {
                     Navigator.pop(context);
-                   
                   },
                 ),
                 Text(
@@ -76,9 +75,7 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductAdd()
-                                    ));
+                                        builder: (context) => ProductAdd()));
                                 image.addcata.add(
                                   (count == 0)
                                       ? clothing[index]

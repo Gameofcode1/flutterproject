@@ -75,6 +75,18 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
   }
 
   bool iconclick = false;
+  String saugat;
+  List<String> newdata=List.from(catagorie);
+
+  onitemchanged(String value){
+    setState(() {
+      newdata=catagorie.where((string) => string.toLowerCase().contains(value.toLowerCase())).toList();
+    ;
+      
+
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +94,6 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
     var width = MediaQuery.of(context).size.width;
     final image = Provider.of<Allimage>(context);
     final allimages = image.images;
-
-    final catagories = image.catagories;
 
     return Scaffold(
       body: SafeArea(
@@ -327,6 +337,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                 top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
                               name: "Textfield",
+                              onChanged: onitemchanged,
                               decoration: InputDecoration(
                                   suffixIcon: GestureDetector(
                                       onTap: () {
@@ -344,62 +355,44 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             ),
                           ),
                           iconclick == true
-                              ? Container(
-                                  margin: EdgeInsets.only(
-                                      right: width / 40, top: height / 100),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.0),
-                                      topRight: Radius.circular(20.0),
-                                    ),
-                                  ),
-                                  width: double.infinity,
-                                  child: Card(
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          left: width / 50, top: height / 100),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                for (var i = 0;
-                                                    i < catagorie.length;
-                                                    i++)
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      image.addcata.add(
-                                                          catagorie[i]);
+                              ? Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Card(
+                                      child: Expanded(
+                                          child: Container(
+                                              width:
+                                                  MediaQuery.of(context).size.width,
+                                              height: height / 4,
+                                              child: ListView.builder(
+                                                  itemCount: newdata.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return TextButton(
+                                                      onPressed: () {
+                                                        image.addcata
+                                                            .add(newdata[index]);
 
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                CategoryPages(
-                                                                    count: i),
-                                                          ));
-                                                    },
-                                                    child: Text(
-                                                      catagorie[i],
-                                                      style: TextStyle(
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                              ]
-                                            
-                                              )
-                                        ],
-                                      ),
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  CategoryPages(
+                                                                      count: index),
+                                                            ));
+                                                      },
+                                                      child: Text(
+                                                        newdata[index],textAlign: TextAlign.start,
+                                                        style: TextStyle(
+                                                            color: Colors.black),
+                                                      ),
+                                                    );
+                                                  }))),
                                     ),
-                                  ),
-                                )
+                                ],
+                              )
                               : Container(),
                           Container(
                             margin: EdgeInsets.only(
