@@ -110,93 +110,151 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Photos",
-                      style: TextStyle(fontSize: height / 50),
+                    Container(
+                      margin: EdgeInsets.only(bottom:height/50),
+                      child: Text(
+                        "Photos",
+                        style: TextStyle(fontSize: height / 50),
+                      ),
                     ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Expanded(
-                              child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: height / 8,
-                                  child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      shrinkWrap: true,
-                                      physics: ScrollPhysics(),
-                                      itemCount: allimages.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return Stack(
-                                            overflow: Overflow.visible,
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    border:
-                                                        Border.all(width: 1.0)),
-                                                width: width / 5,
-                                                height: height / 9,
-                                                margin:
-                                                    EdgeInsets.only(left: 4.0),
-                                                child: allimages[index],
-                                              ),
-                                              Positioned(
-                                                bottom: height / 9,
-                                                right: height / 13,
-                                                child: InkWell(
-                                                  highlightColor: Colors.black,
-                                                  onTap: () {
-                                                    setState(() {
-                                                      image.deleteTask(
-                                                          allimages[index]);
-                                                    });
-                                                  },
-                                                  child: CircleAvatar(
-                                                    backgroundColor:
-                                                        Colors.orange,
-                                                    radius: height / 90,
-                                                    child: Icon(
-                                                      Icons.clear,
-                                                      size: height / 70,
-                                                      color: Colors.white,
+                          allimages.length > 0
+                              ? Expanded(
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: height / 9,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          physics: ScrollPhysics(),
+                                          itemCount: allimages.length + 1,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return index == allimages.length
+                                                ? Container(
+                                                  margin: EdgeInsets.only(left:width/90),
+                                                    height: height / 10,
+                                                    width: width / 5,
+                                                    decoration: BoxDecoration(
+                                                      border:
+                                                          Border.all(width: 1),
                                                     ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ]);
-                                      }))),
-                          Container(
-                            height: height / 9,
-                            width: width / 5,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1),
-                            ),
-                            child: GestureDetector(
-                                child: Icon(
-                                  Icons.add_photo_alternate,
-                                  size: height / 30,
-                                ),
-                                onTap: () {
-                                  showModalBottomSheet(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20.0),
-                                          topRight: Radius.circular(20.0),
-                                        ),
+                                                    child: GestureDetector(
+                                                        child: Icon(
+                                                          Icons
+                                                              .add_photo_alternate,
+                                                          size: height / 30,
+                                                        ),
+                                                        onTap: () {
+                                                          showModalBottomSheet(
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          20.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          20.0),
+                                                                ),
+                                                              ),
+                                                              context: context,
+                                                              builder:
+                                                                  (context) =>
+                                                                      AddImages(
+                                                                        getImagefromGallery:
+                                                                            () {
+                                                                          getImagefromGallery();
+                                                                        },
+                                                                        getImagefromcamera:
+                                                                            () {
+                                                                          getImagefromcamera();
+                                                                        },
+                                                                      ));
+                                                        }),
+                                                  )
+                                                : Stack(
+                                                    overflow: Overflow.visible,
+                                                    children: [
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              border:
+                                                                  Border.all(
+                                                                      width:
+                                                                          1.0)),
+                                                          width: width / 5,
+                                                          height: height / 9,
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  left: 4.0),
+                                                          child:
+                                                              allimages[index],
+                                                        ),
+                                                        Positioned(
+                                                          bottom: height / 10,
+                                                          right: height / 13,
+                                                          child: InkWell(
+                                                            highlightColor:
+                                                                Colors.black,
+                                                            onTap: () {
+                                                              setState(() {
+                                                                image.deleteTask(
+                                                                    allimages[
+                                                                        index]);
+                                                              });
+                                                            },
+                                                            child: CircleAvatar(
+                                                              backgroundColor:
+                                                                  Colors.orange,
+                                                              radius:
+                                                                  height / 90,
+                                                              child: Icon(
+                                                                Icons.clear,
+                                                                size:
+                                                                    height / 70,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ]);
+                                          })))
+                              : Container(
+                                  height: height / 10,
+                                  width: width / 5,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 1),
+                                  ),
+                                  child: GestureDetector(
+                                      child: Icon(
+                                        Icons.add_photo_alternate,
+                                        size: height / 30,
                                       ),
-                                      context: context,
-                                      builder: (context) => AddImages(
-                                            getImagefromGallery: () {
-                                              getImagefromGallery();
-                                            },
-                                            getImagefromcamera: () {
-                                              getImagefromcamera();
-                                            },
-                                          ));
-                                }),
-                          ),
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20.0),
+                                                topRight: Radius.circular(20.0),
+                                              ),
+                                            ),
+                                            context: context,
+                                            builder: (context) => AddImages(
+                                                  getImagefromGallery: () {
+                                                    getImagefromGallery();
+                                                  },
+                                                  getImagefromcamera: () {
+                                                    getImagefromcamera();
+                                                  },
+                                                ));
+                                      }),
+                                ),
                         ],
                       ),
                     ),
@@ -219,7 +277,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                           vertical: height / 100,
                                           horizontal: width / 70),
                                       child: Text(
-                                       image.addcata[index],
+                                        image.addcata[index],
                                         style: TextStyle(fontSize: height / 80),
                                       ),
                                     )),
@@ -229,8 +287,6 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                   highlightColor: Colors.black,
                                   onTap: () {
                                     setState(() {
-
-                                     
                                       image.deletecat(image.addcata[index]);
                                     });
                                   },
@@ -321,8 +377,9 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                                               catagories[
                                                                   index]),
                                                         ),
-                                                       InkWell(
-                                                         highlightColor: Colors.orange,
+                                                        InkWell(
+                                                            highlightColor:
+                                                                Colors.orange,
                                                             child: Icon(Icons
                                                                 .arrow_drop_down),
                                                             onTap: () {
@@ -347,18 +404,24 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                                                 for (var i in image
                                                                         .allproduct[
                                                                     index])
-                                                                 InkWell(
-                                                                   highlightColor: Colors.orange[700],
+                                                                  InkWell(
+                                                                    highlightColor:
+                                                                        Colors.orange[
+                                                                            700],
                                                                     onTap: () {
                                                                       setState(
                                                                           () {
-                                                                            image.addcata.add(image.catagories[index]);
-                                                                        image.addcata
+                                                                        image
+                                                                            .addcata
+                                                                            .add(image.catagories[index]);
+                                                                        image
+                                                                            .addcata
                                                                             .add(i);
                                                                       });
                                                                     },
-                                                                    child: Text("•"+
-                                                                      i.toString(),
+                                                                    child: Text(
+                                                                      "•" +
+                                                                          i.toString(),
                                                                       textAlign:
                                                                           TextAlign
                                                                               .start,
