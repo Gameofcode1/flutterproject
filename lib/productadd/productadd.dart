@@ -199,8 +199,8 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                                               allimages[index],
                                                         ),
                                                         Positioned(
-                                                          bottom: height / 10,
-                                                          right: height / 13,
+                                                          bottom: height / 11,
+                                                          right: height / 14,
                                                           child: InkWell(
                                                             highlightColor:
                                                                 Colors.black,

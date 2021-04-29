@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myprofile/productadd/Listproduct/list.dart';
+import 'package:myprofile/productadd/categorypages/subcatagory.dart';
+import 'package:myprofile/productadd/productadd.dart';
 import 'package:provider/provider.dart';
 import 'package:myprofile/productDetail/models/list.dart';
 
@@ -26,7 +28,7 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
                   icon: Icon(Icons.arrow_back_ios),
                   onPressed: () {
                     Navigator.pop(context);
-                    image.deletecat(catagorie[count]);
+                   
                   },
                 ),
                 Text(
@@ -75,14 +77,14 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          CategoryPages(count: index),
+                                          ProductAdd()
                                     ));
                                 image.addcata.add(
                                   (count == 0)
                                       ? clothing[index]
-                                      : (count == 2)
+                                      : (count == 1)
                                           ? electronic[index]
-                                          : (count == 3)
+                                          : (count == 2)
                                               ? fashion[index]
                                               : food[index],
                                 );

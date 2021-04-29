@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myprofile/notification/constant.dart';
 import 'package:myprofile/productadd/Listproduct/list.dart';
 import 'package:provider/provider.dart';
 import 'package:myprofile/productDetail/models/list.dart';
@@ -30,13 +29,13 @@ class SubCategoryPages extends StatelessWidget with ChangeNotifier {
                   },
                 ),
                 Text(
-                  (count == 0)
-                      ? catagorie[count]
+                  ((count == 0)
+                      ? clothing[count]
                       : (count == 2)
                           ? catagorie[count]
                           : (count == 3)
                               ? catagorie[count]
-                              : catagorie[count],
+                              : catagorie[count]),
                   style: TextStyle(fontSize: height / 40),
                 ),
                 SizedBox()
@@ -80,12 +79,7 @@ class SubCategoryPages extends StatelessWidget with ChangeNotifier {
                               ? fashion[index]
                               :food[index],);
 
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          SubCategoryPages(count: index),
-                                    ));
+                               
                               },
                               child: Text(
                                 (count == 0)
