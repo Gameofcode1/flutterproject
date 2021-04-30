@@ -75,17 +75,14 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
   }
 
   bool iconclick = false;
-  String saugat;
-  List<String> newdata=List.from(catagorie);
+  List<String> newdata = List.from(catagorie);
 
-  onitemchanged(String value){
+  onitemchanged(String value) {
     setState(() {
-      newdata=catagorie.where((string) => string.toLowerCase().contains(value.toLowerCase())).toList();
-    ;
-      
-
+      newdata = catagorie
+          .where((string) => string.toLowerCase().contains(value.toLowerCase()))
+          .toList();
     });
-
   }
 
   @override
@@ -336,6 +333,11 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             padding: EdgeInsets.only(
                                 top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
+                              onTap: () {
+                                setState(() {
+                                  iconclick = !iconclick;
+                                });
+                              },
                               name: "Textfield",
                               onChanged: onitemchanged,
                               decoration: InputDecoration(
@@ -356,15 +358,16 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                           ),
                           iconclick == true
                               ? Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Card(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Card(
                                       child: Expanded(
                                           child: Container(
-                                              width:
-                                                  MediaQuery.of(context).size.width,
-                                              height: height / 4,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: height / 4.5,
                                               child: ListView.builder(
                                                   itemCount: newdata.length,
                                                   itemBuilder:
@@ -372,27 +375,32 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                                           int index) {
                                                     return TextButton(
                                                       onPressed: () {
-                                                        image.addcata
-                                                            .add(newdata[index]);
-
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
                                                               builder: (context) =>
                                                                   CategoryPages(
-                                                                      count: index),
+                                                                      count:
+                                                                          index),
                                                             ));
                                                       },
                                                       child: Text(
-                                                        newdata[index],textAlign: TextAlign.start,
+                                                        newdata[index],
+                                                        textAlign:
+                                                            TextAlign.start,
                                                         style: TextStyle(
-                                                            color: Colors.black),
+                                                            color: Colors.black,
+                                                            fontSize:
+                                                                height / 60,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
                                                       ),
                                                     );
                                                   }))),
                                     ),
-                                ],
-                              )
+                                  ],
+                                )
                               : Container(),
                           Container(
                             margin: EdgeInsets.only(

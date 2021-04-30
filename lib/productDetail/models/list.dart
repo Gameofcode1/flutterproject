@@ -9,10 +9,18 @@ class Allimage extends ChangeNotifier {
     false,
   ];
 
-  final List<String> catagories = ["Clothing", "Electronics", "Fashions","Food"];
-  final List allproduct = [["Paint", "Shirt", "Trouser"],["Mobiles","Tablet","Watches","Laptops"],["Sun Glasses","Shoes","Blazer"]];
-  final List<String> addcata=[];
-
+  final List<String> catagories = [
+    "Clothing",
+    "Electronics",
+    "Fashions",
+    "Food"
+  ];
+  final List allproduct = [
+    ["Paint", "Shirt", "Trouser"],
+    ["Mobiles", "Tablet", "Watches", "Laptops"],
+    ["Sun Glasses", "Shoes", "Blazer"]
+  ];
+  final List<String> addcata = ["Shoe"];
 
   void deletecat(String card) {
     addcata.remove(card);
@@ -26,6 +34,18 @@ class Allimage extends ChangeNotifier {
 
   String addcatag(String items) {
     catagories.add(items);
+    notifyListeners();
+  }
+
+  String replace(start, end, replacement) {
+    ;
+    catagories.replaceRange(start, end, replacement);
+    notifyListeners();
+  }
+
+ clearandrep(String listadd) {
+    addcata.clear();
+     catagories.add(listadd);
     notifyListeners();
   }
 

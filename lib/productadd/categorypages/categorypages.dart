@@ -76,6 +76,9 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => ProductAdd()));
+                                image.addcata.clear();
+
+                                image.addcata.add(catagorie[count]);
                                 image.addcata.add(
                                   (count == 0)
                                       ? clothing[index]
