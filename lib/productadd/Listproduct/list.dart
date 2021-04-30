@@ -10,3 +10,8 @@ final List<String>  women= ["BreakFast", "Swe", "Rice","Meat"];
 final List<String> child= ["BreakFast", "Sweet", "Ri","Meat"];
 final List<String> causal= ["BreakFast", "Sweet", "Rice","M"];
 
+var images={
+  "katherine":"images/katherine.jpg",
+  "sun":"images/fruits.jpg",
+  "mon":"images/bicycle.jpg",
+};

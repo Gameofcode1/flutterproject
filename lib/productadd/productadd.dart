@@ -36,7 +36,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
     var image = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
-      Provider.of<Allimage>(context, listen: false).add(_image);
+      Provider.of<Allimage>(context, listen: false).imageadd(_image);
       Navigator.pop(context);
     });
   }
@@ -45,7 +45,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
     var image = await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       _image = File(image.path);
-      Provider.of<Allimage>(context, listen: false).add(_image);
+      Provider.of<Allimage>(context, listen: false).imageadd(_image);
       Navigator.pop(context);
     });
   }
@@ -76,10 +76,20 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
 
   bool iconclick = false;
   List<String> newdata = List.from(catagorie);
+  List<String> data = images.keys.toList();
+  List<String> search = ["sun"];
 
   onitemchanged(String value) {
     setState(() {
       newdata = catagorie
+          .where((string) => string.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
+  }
+
+  onvaluechanged(String value) {
+    setState(() {
+      search = data
           .where((string) => string.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });

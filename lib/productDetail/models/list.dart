@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'package:myprofile/productadd/Listproduct/list.dart';
+
 class Allimage extends ChangeNotifier {
   final List<Widget> images = [];
+
   final List<bool> check = [
     false,
     false,
@@ -21,6 +24,11 @@ class Allimage extends ChangeNotifier {
     ["Sun Glasses", "Shoes", "Blazer"]
   ];
   final List<String> addcata = ["Shoe"];
+
+  String imagesadd(imagename) {
+    images.add(Container(child: Image(image: AssetImage(imagename))));
+    notifyListeners();
+  }
 
   void deletecat(String card) {
     addcata.remove(card);
@@ -43,13 +51,13 @@ class Allimage extends ChangeNotifier {
     notifyListeners();
   }
 
- clearandrep(String listadd) {
+  clearandrep(String listadd) {
     addcata.clear();
-     catagories.add(listadd);
+    catagories.add(listadd);
     notifyListeners();
   }
 
-  Widget add(File addimg) {
+  Widget imageadd(File addimg) {
     images.add(
       Container(child: Image.file(addimg)),
     );
