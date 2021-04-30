@@ -4,7 +4,12 @@ import 'dart:io';
 import 'package:myprofile/productadd/Listproduct/list.dart';
 
 class Allimage extends ChangeNotifier {
-  final List<Widget> images = [];
+  final List<Widget> images = [
+    Image(image: AssetImage("images/katherine.jpg"))
+    
+    
+
+  ];
 
   final List<bool> check = [
     false,

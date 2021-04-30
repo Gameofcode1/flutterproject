@@ -367,51 +367,59 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             ),
                           ),
                           iconclick == true
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Card(
-                                      child: Expanded(
-                                          child: Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              height: height / 4.5,
-                                              child: ListView.builder(
-                                                  itemCount: newdata.length,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    return TextButton(
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  CategoryPages(
-                                                                      count:
-                                                                          index),
-                                                            ));
-                                                      },
-                                                      child: Text(
-                                                        newdata[index],
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize:
-                                                                height / 60,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                      ),
-                                                    );
-                                                  }))),
+                              ? Container(
+                                  margin: EdgeInsets.only(
+                                      right: width / 40, top: height / 100),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20.0),
+                                      topRight: Radius.circular(20.0),
                                     ),
-                                  ],
+                                  ),
+                                  width: double.infinity,
+                                  child: Container(
+                                    
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color:Color(0xffF3F3F3),
+                                    ),
+                                    margin: EdgeInsets.only(
+                                        left: width / 50, top: height / 100),
+                                    child: Column(
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: newdata.map<Widget>((url) {
+                                            int index = newdata.indexOf(url);
+
+                                            return TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CategoryPages(
+                                                              count: index),
+                                                    ));
+                                              },
+                                              child: Text(
+                                                newdata[index],
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: height / 60,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 )
-                              : Container(),
+                              : SizedBox.shrink(),
                           Container(
                             margin: EdgeInsets.only(
                                 right: width / 40, top: height / 100),
