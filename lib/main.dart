@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'profile/profile.dart';
 import './profile/checkuserintro.dart';
 import 'productDetail/models/list.dart';
+import './productadd/categorypages/categorypages.dart';
 
 void main() {
   runApp(Profile());
@@ -24,6 +25,8 @@ class Profile extends StatelessWidget {
         routes: {
           MyProfile.id: (context) => MyProfile(),
           EditText.id: (context) => EditText(),
+          CategoryPages.routeName:(context)=>CategoryPages()
+          
         },
       ),
     );

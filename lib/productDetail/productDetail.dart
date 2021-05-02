@@ -25,7 +25,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
      final productData=Provider.of<Allimage>(context);
     final product=productData.images;
-    final catagories=productData.catagories;
+
     final allproduct=productData.addcata;
 
     return Scaffold(

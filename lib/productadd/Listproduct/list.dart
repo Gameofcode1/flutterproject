@@ -1,4 +1,15 @@
-final List<String> catagorie = ["Clothing", "Electronics", "Fashions", "Food"];
+
+
+import '../models/titles.dart';
+final List<Titles> catagorie
+ = [
+   Titles(id:0,name: "Clothing"),
+    Titles(id:1,name: " Electronic"),
+     Titles(id:2,name: "Fashion"),
+      Titles(id:3,name: "Food"),
+ 
+   ];
+   
 final List<String> clothing = ["Men", "Women", "Child", "Casual"];
 final List<String> electronic = [
   "Laptop",
@@ -9,10 +20,6 @@ final List<String> electronic = [
 final List<String> fashion = ["Hoodie", "Glasses", "Gloves", "Scarf"];
 final List<String> food = ["BreakFast", "Sweet", "Rice"];
 
-final List<String> men = ["Shirt", "Paint", "Shoe", "Meat"];
-final List<String> women = ["BreakFast", "Swe", "Rice", "Meat"];
-final List<String> child = ["BreakFast", "Sweet", "Ri", "Meat"];
-final List<String> causal = ["BreakFast", "Sweet", "Rice", "M"];
 
 var images = {
   "katherine": "images/katherine.jpg",

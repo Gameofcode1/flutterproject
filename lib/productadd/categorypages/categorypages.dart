@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myprofile/productadd/Listproduct/list.dart';
+import 'package:myprofile/productadd/models/titles.dart';
 
 import 'package:myprofile/productadd/productadd.dart';
 import 'package:provider/provider.dart';
@@ -9,13 +10,16 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
   final int count;
 
   CategoryPages({this.count});
+  static const routeName = "maincatagory";
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     final image = Provider.of<Allimage>(context);
-    final allimages = image.images;
+    final productid = ModalRoute.of(context).settings.arguments as int;
+    final loadedproduct = catagorie.firstWhere((prod) => prod.id == productid);
+
     return Scaffold(
         body: SafeArea(
       child: Container(
@@ -31,13 +35,13 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
                   },
                 ),
                 Text(
-                  (count == 0)
-                      ? catagorie[count]
-                      : (count == 2)
-                          ? catagorie[count]
-                          : (count == 3)
-                              ? catagorie[count]
-                              : catagorie[count],
+                  (loadedproduct.id == 0)
+                      ? catagorie[loadedproduct.id].name
+                      : (loadedproduct.id == 1)
+                          ? catagorie[loadedproduct.id].name
+                          : (loadedproduct.id == 2)
+                              ? catagorie[loadedproduct.id].name
+                              : catagorie[loadedproduct.id].name,
                   style: TextStyle(fontSize: height / 40),
                 ),
                 SizedBox()
@@ -46,19 +50,19 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
             Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: ((count == 0)
+                children: ((loadedproduct.id == 0)
                         ? clothing
-                        : (count == 1)
+                        : (loadedproduct.id == 1)
                             ? electronic
-                            : (count == 2)
+                            : (loadedproduct.id == 2)
                                 ? fashion
                                 : food)
                     .map<Widget>((url) {
-                  int index = ((count == 0)
+                  int index = ((loadedproduct.id == 0)
                           ? clothing
-                          : (count == 1)
+                          : (loadedproduct.id == 1)
                               ? electronic
-                              : (count == 2)
+                              : (loadedproduct.id == 2)
                                   ? fashion
                                   : food)
                       .indexOf(url);
@@ -78,23 +82,23 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
                                         builder: (context) => ProductAdd()));
                                 image.addcata.clear();
 
-                                image.addcata.add(catagorie[count]);
+                                image.addcata.add(catagorie[productid].name);
                                 image.addcata.add(
-                                  (count == 0)
+                                  (loadedproduct.id == 0)
                                       ? clothing[index]
-                                      : (count == 1)
+                                      : (loadedproduct.id == 1)
                                           ? electronic[index]
-                                          : (count == 2)
+                                          : (loadedproduct.id == 2)
                                               ? fashion[index]
                                               : food[index],
                                 );
                               },
                               child: Text(
-                                (count == 0)
+                                (loadedproduct.id == 0)
                                     ? clothing[index]
-                                    : (count == 1)
+                                    : (loadedproduct.id == 1)
                                         ? electronic[index]
-                                        : (count == 2)
+                                        : (loadedproduct.id == 2)
                                             ? fashion[index]
                                             : food[index],
                                 style: TextStyle(color: Colors.black),

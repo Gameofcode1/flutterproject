@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:myprofile/productDetail/constant.dart';
 import 'package:myprofile/productadd/categorypages/categorypages.dart';
+import 'package:myprofile/productadd/models/titles.dart';
 import 'package:provider/provider.dart';
 import 'package:myprofile/productDetail/models/list.dart';
 import './Listproduct/list.dart';
@@ -20,14 +21,6 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
   File _image;
   bool checkbox = false;
   bool seccheckbox = false;
-
-  String clothing = "Clothing";
-  String electronic = "Electronics";
-  String mobile = "Mobile";
-  String games = "Games";
-  String shoes = "Shoes";
-  String earbuds = "Earbuds";
-  String laptops = "Laptops";
 
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
@@ -75,14 +68,15 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
   }
 
   bool iconclick = false;
-  List<String> newdata = List.from(catagorie);
+  List<Titles> newdata = List.from(catagorie);
   List<String> data = images.keys.toList();
   List<String> search = ["sun"];
 
   onitemchanged(String value) {
     setState(() {
       newdata = catagorie
-          .where((string) => string.toLowerCase().contains(value.toLowerCase()))
+          .where((string) =>
+              string.name.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
   }
@@ -378,10 +372,9 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                   ),
                                   width: double.infinity,
                                   child: Container(
-                                    
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.0),
-                                      color:Color(0xffF3F3F3),
+                                      color: Color(0xffF3F3F3),
                                     ),
                                     margin: EdgeInsets.only(
                                         left: width / 50, top: height / 100),
@@ -395,16 +388,10 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
 
                                             return TextButton(
                                               onPressed: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          CategoryPages(
-                                                              count: index),
-                                                    ));
+                                                 Navigator.of(context).pushNamed(CategoryPages.routeName,arguments: newdata[index].id);
                                               },
                                               child: Text(
-                                                newdata[index],
+                                                newdata[index].name,
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
                                                     color: Colors.black,

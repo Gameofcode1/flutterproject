@@ -1,6 +1,6 @@
 
-class Title{
+class Titles{
  int id;
 String name;
-Title({this.id,this.name});
+Titles({this.id,this.name});
 }

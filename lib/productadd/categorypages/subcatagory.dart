@@ -13,7 +13,6 @@ class SubCategoryPages extends StatelessWidget with ChangeNotifier {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     final image = Provider.of<Allimage>(context);
-    final allimages = image.images;
     return Scaffold(
         body: SafeArea(
       child: Container(
