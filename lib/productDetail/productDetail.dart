@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:myprofile/productadd/Listproduct/list.dart';
 import 'constant.dart';
 import './widget/clickcircle.dart';
 import './widget/colorselect.dart';
@@ -18,6 +19,11 @@ class _ProductDetailState extends State<ProductDetail> {
   int currentindex = 0;
   CarouselSlider carouselSlider;
 
+@override
+  void initState() {
+  
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -27,6 +33,8 @@ class _ProductDetailState extends State<ProductDetail> {
     final product=productData.images;
 
     final allproduct=productData.addcata;
+
+    
 
     return Scaffold(
       body: SafeArea(

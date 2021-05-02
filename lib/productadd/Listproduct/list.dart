@@ -22,7 +22,9 @@ final List<String> food = ["BreakFast", "Sweet", "Rice"];
 
 
 var images = {
+  "whi":"images/white.jpg",
   "katherine": "images/katherine.jpg",
   "sun": "images/fruits.jpg",
   "mon": "images/bicycle.jpg",
+
 };

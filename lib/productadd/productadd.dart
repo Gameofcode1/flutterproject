@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:myprofile/productDetail/constant.dart';
+import 'package:myprofile/productDetail/productDetail.dart';
 import 'package:myprofile/productadd/categorypages/categorypages.dart';
 import 'package:myprofile/productadd/models/titles.dart';
 import 'package:provider/provider.dart';
@@ -67,10 +68,16 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
       });
   }
 
+  TextEditingController desc = TextEditingController();
+  TextEditingController realprice = TextEditingController();
+  TextEditingController offerprice = TextEditingController();
+  TextEditingController cat = TextEditingController();
+  TextEditingController detail = TextEditingController();
+
   bool iconclick = false;
   List<Titles> newdata = List.from(catagorie);
   List<String> data = images.keys.toList();
-  List<String> search = ["sun"];
+  List<String> search = [];
 
   onitemchanged(String value) {
     setState(() {
@@ -87,6 +94,18 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
           .where((string) => string.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
+  }
+
+  @override
+  void initState() {
+    desc.text = Provider.of<Allimage>(context, listen: false).producttitle;
+    offerprice.text =
+        Provider.of<Allimage>(context, listen: false).offerprice.toString();
+    realprice.text =
+        Provider.of<Allimage>(context, listen: false).regularprice.toString();
+
+    detail.text =
+        Provider.of<Allimage>(context, listen: false).description.toString();
   }
 
   @override
@@ -337,6 +356,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             padding: EdgeInsets.only(
                                 top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
+                              controller: cat,
                               onTap: () {
                                 setState(() {
                                   iconclick = !iconclick;
@@ -388,7 +408,10 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
 
                                             return TextButton(
                                               onPressed: () {
-                                                 Navigator.of(context).pushNamed(CategoryPages.routeName,arguments: newdata[index].id);
+                                                Navigator.of(context).pushNamed(
+                                                    CategoryPages.routeName,
+                                                    arguments:
+                                                        newdata[index].id);
                                               },
                                               child: Text(
                                                 newdata[index].name,
@@ -416,6 +439,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             padding: EdgeInsets.only(
                                 top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
+                              controller: desc,
                               name: "Textfield",
                               decoration: InputDecoration(
                                   hintText: "Product Title",
@@ -432,9 +456,10 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             padding: EdgeInsets.only(
                                 top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
+                              controller: realprice,
                               name: "Textfield",
                               decoration: InputDecoration(
-                                  hintText: "Regularform",
+                                  hintText: "RegularPrice",
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none),
                             ),
@@ -447,7 +472,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                               },
                               child: CheckboxText(
                                 check: checkbox,
-                                text: "Offer Price",
+                                text: "OfferPrice",
                               )),
                           Container(
                             margin: EdgeInsets.only(
@@ -458,9 +483,17 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             padding: EdgeInsets.only(
                                 top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
+                              keyboardType: TextInputType.number,
+                              controller: offerprice,
+                              onChanged: (value) {
+                                setState(() {
+                                  image.onitemchange(
+                                      value: value, string: image.offerprice);
+                                });
+                              },
                               name: "Textfield",
                               decoration: InputDecoration(
-                                  hintText: "Regular Price",
+                                  hintText: "OfferPrice",
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none),
                             ),
@@ -533,6 +566,7 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                             padding: EdgeInsets.only(
                                 top: height / 200, left: width / 40),
                             child: FormBuilderTextField(
+                              controller: detail,
                               name: "Textfield",
                               decoration: InputDecoration(
                                   hintText: "Description",
@@ -551,9 +585,10 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                 text: "Product",
                               )),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
+                                        onTap:(){
+               Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>ProductDetail()));
+            } ,
                             child: Container(
                               width: double.infinity,
                               height: height / 13,

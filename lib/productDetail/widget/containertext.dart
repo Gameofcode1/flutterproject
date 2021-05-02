@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:myprofile/productDetail/models/list.dart';
 import '../constant.dart';
+import 'package:provider/provider.dart';
 
-class ContainerText extends StatelessWidget {
+class ContainerText extends StatelessWidget with ChangeNotifier {
   @override
   Widget build(BuildContext context) {
     var height=MediaQuery.of(context).size.height;
     var width=MediaQuery.of(context).size.width;
+    final data=Provider.of<Allimage>(context);
     return  Container(
                 color: Color(0xffF3F3F3),
                 child: Column(
@@ -13,19 +16,19 @@ class ContainerText extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top:height/50, left: width/20),
-                      child: Text("Men's Wool Runners-Natural Grey",
+                      child: Text(data.producttitle,
                           textAlign: TextAlign.start, style: kTitleDesc.copyWith(fontSize: height/40)),
                     ),
                     Row(
                       children: [
                         Padding(
                           padding: EdgeInsets.only(top:height/100, left: width/20),
-                          child: Text("Npr 5000", style: kTitleDesc.copyWith(fontSize: height/40)),
+                          child: Text("Npr"+data.regularprice.toString(), style: kTitleDesc.copyWith(fontSize: height/40)),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top:height/100, left: width/20),
                           child: Text(
-                            "NPR 7000 /-",
+                         "Npr"+data.offerprice.toString(),
                             style: TextStyle(
                                 decoration: TextDecoration.lineThrough,fontWeight: FontWeight.w200,
                                 fontSize: height/55),

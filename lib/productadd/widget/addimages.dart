@@ -16,7 +16,7 @@ class AddImages extends StatefulWidget {
 
 class _AddImagesState extends State<AddImages> {
   List<String> data = images.keys.toList();
-  List<String> search = ["sun"];
+  List<String> search = [];
   bool visibility = false;
   bool visible = true;
 
@@ -160,10 +160,13 @@ class _AddImagesState extends State<AddImages> {
                                   name: "Textfield",
                                   onTap: () {
                                     setState(() {
+                                     
                                       visibility = !visibility;
                                       visible = !visible;
                                     });
                                   },
+                                  
+                                  
                                   onChanged: onvaluechanged,
                                   decoration: InputDecoration(
                                       prefixIcon: Icon(

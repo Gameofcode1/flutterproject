@@ -330,7 +330,7 @@ class _EditTextState extends State<EditText> {
                         onChanged: (values) {
                           number = values;
                         },
-                        keyboardType: TextInputType.phone,
+                   
                         obscureText: false,
                         textAlign: TextAlign.left,
                         decoration: kEditDecoration.copyWith(
