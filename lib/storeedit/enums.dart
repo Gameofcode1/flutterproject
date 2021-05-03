@@ -1,0 +1,5 @@
+enum check{
+  category,
+  storestatue,
+
+}

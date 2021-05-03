@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:myprofile/productadd/Listproduct/list.dart';
+
 import 'constant.dart';
 import './widget/clickcircle.dart';
 import './widget/colorselect.dart';
