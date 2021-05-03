@@ -19,9 +19,8 @@ class StoreEdit extends StatefulWidget {
 }
 
 class _StoreEditState extends State<StoreEdit> {
-
-  TextEditingController optime=TextEditingController();
-   TextEditingController cltime=TextEditingController();
+  TextEditingController optime = TextEditingController();
+  TextEditingController cltime = TextEditingController();
 
   File _image;
 
@@ -33,7 +32,6 @@ class _StoreEditState extends State<StoreEdit> {
     });
   }
 
-
   Future getImagefromGallery() async {
     var image = await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
@@ -44,23 +42,16 @@ class _StoreEditState extends State<StoreEdit> {
 
   Future selectotime(BuildContext context) async {
     TimeOfDay otime =
-        await showTimePicker(
-
-          context: context, initialTime: openingtime
-        
-        );
+        await showTimePicker(context: context, initialTime: openingtime);
 
     if (otime != null) {
       openingtime = otime;
     }
   }
+
   Future selectctime(BuildContext context) async {
     TimeOfDay ctime =
-        await showTimePicker(
-
-          context: context, initialTime: closingtime
-        
-        );
+        await showTimePicker(context: context, initialTime: closingtime);
 
     if (ctime != null) {
       closingtime = ctime;
@@ -87,10 +78,9 @@ class _StoreEditState extends State<StoreEdit> {
   void initState() {
     openingtime = TimeOfDay.now();
     closingtime = TimeOfDay.now();
-   
+
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -405,7 +395,6 @@ class _StoreEditState extends State<StoreEdit> {
                           child: FormBuilderTextField(
                             onTap: () {
                               setState(() {
-                                
                                 storestatus = !storestatus;
                               });
                             },
@@ -414,8 +403,6 @@ class _StoreEditState extends State<StoreEdit> {
                             decoration: InputDecoration(
                                 suffixIcon: GestureDetector(
                                     onTap: () {
-                                     
-
                                       setState(() {
                                         storestatus = !storestatus;
                                       });
@@ -448,17 +435,18 @@ class _StoreEditState extends State<StoreEdit> {
                                             top: height / 200,
                                             left: width / 40),
                                         child: FormBuilderTextField(
-                                          onTap: (){
+                                          onTap: () {
                                             setState(() {
                                               selectotime(context);
                                             });
                                           },
-
-                                         
                                           name: "Textfield",
                                           decoration: InputDecoration(
-                                              
-                                              hintText: openingtime.hour.toString()+":"+openingtime.minute.toString(),
+                                              suffixIcon: Icon(Icons.schedule,color: Colors.orange[400],),
+                                              hintText: openingtime.hour
+                                                      .toString() +
+                                                  ":" +
+                                                  openingtime.minute.toString(),
                                               enabledBorder: InputBorder.none,
                                               focusedBorder: InputBorder.none),
                                         ),
@@ -479,16 +467,18 @@ class _StoreEditState extends State<StoreEdit> {
                                             top: height / 200,
                                             left: width / 40),
                                         child: FormBuilderTextField(
-                                          onTap: (){
+                                          onTap: () {
                                             setState(() {
                                               selectctime(context);
                                             });
                                           },
-                                        
                                           name: "Textfield",
                                           decoration: InputDecoration(
-                                              
-                                              hintText: closingtime.hour.toString()+":"+closingtime.minute.toString(),
+                                              suffixIcon: Icon(Icons.schedule,color: Colors.orange[400],),
+                                              hintText: closingtime.hour
+                                                      .toString() +
+                                                  ":" +
+                                                  closingtime.minute.toString(),
                                               enabledBorder: InputBorder.none,
                                               focusedBorder: InputBorder.none),
                                         ),
