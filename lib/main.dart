@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:myprofile/editpage/edit.dart';
 import 'package:myprofile/storeedit/Category/category.dart';
+import 'storeedit/screen/paymentedit.dart';
 import 'package:provider/provider.dart';
 import 'profile/profile.dart';
 import './profile/checkuserintro.dart';
 import 'productDetail/models/list.dart';
 import './productadd/categorypages/categorypages.dart';
 import "storeedit/provider/provider.dart";
+import 'storeedit/provider/categoryselect.dart';
+import 'storeedit/provider/paymentlist.dart';
 
 void main() {
   runApp(Profile());
@@ -21,10 +24,18 @@ class Profile extends StatelessWidget {
          ChangeNotifierProvider(
 
          create: (context)=>Allimage(),),
+
+          ChangeNotifierProvider(
+
+         create: (context)=>Paymentlist(),),
          ChangeNotifierProvider(create: 
-         (context)=>ListCategory()
-         )
-          
+         (context)=>ListCategory(),
+         
+         ),
+          ChangeNotifierProvider(
+
+         create: (context)=>CategorySelect(),),
+         
 
       ],
          
@@ -38,7 +49,8 @@ class Profile extends StatelessWidget {
             MyProfile.id: (context) => MyProfile(),
             EditText.id: (context) => EditText(),
             CategoryPages.routeName:(context)=>CategoryPages(),
-            CategoryPage.routeName:(context)=>CategoryPage()
+            CategoryPage.routeName:(context)=>CategoryPage(),
+            EditPayment.routename:(context)=>EditPayment()
             
           },
         ),

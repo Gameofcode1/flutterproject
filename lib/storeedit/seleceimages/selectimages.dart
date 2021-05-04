@@ -1,5 +1,3 @@
-    
-
 import 'package:flutter/material.dart';
 
 class SelectImages extends StatefulWidget {
@@ -16,7 +14,7 @@ class _SelectImagesState extends State<SelectImages> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+   
     return Container(
       padding: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
@@ -33,12 +31,11 @@ class _SelectImagesState extends State<SelectImages> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap:widget.getImagefromcamera,
+              onTap: widget.getImagefromcamera,
               child: Container(
                 child: Row(
                   children: [
                     Expanded(
-                      
                       child: CircleAvatar(
                         backgroundColor: Color(0xFFDADADA),
                         radius: height / 35,

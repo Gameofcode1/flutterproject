@@ -585,10 +585,12 @@ class _ProductAddState extends State<ProductAdd> with ChangeNotifier {
                                 text: "Product",
                               )),
                           GestureDetector(
-                                        onTap:(){
-               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>ProductDetail()));
-            } ,
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductDetail()));
+                            },
                             child: Container(
                               width: double.infinity,
                               height: height / 13,

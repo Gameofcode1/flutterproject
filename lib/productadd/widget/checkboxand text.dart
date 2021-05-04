@@ -17,11 +17,11 @@ class CheckboxText extends StatelessWidget {
         children: [
           Container(
               decoration: BoxDecoration(
-                border: Border.all(width: 1.0, color: Colors.black38),
+                border: Border.all(width: 1.0, color: Colors.black),
                 color: check ? Colors.orange[800] : Colors.white,
               ),
               height: height / 40,
-              width: width / 15,
+              width: width / 19,
               child: Icon(
                 Icons.check,
                 size: height / 50,

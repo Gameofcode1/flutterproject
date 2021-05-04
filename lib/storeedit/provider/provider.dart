@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 
@@ -20,19 +19,14 @@ class ListCategory extends ChangeNotifier {
     ChangeNotifier();
   }
 
-  void clearlist(){
+  void clearlist() {
     _storelist.clear();
   }
 
   File image;
 
-  void addimage(File catimage){
-    image=catimage;
+  void addimage(File catimage) {
+    image = catimage;
     ChangeNotifier();
-  
   }
-
-
-
-
 }

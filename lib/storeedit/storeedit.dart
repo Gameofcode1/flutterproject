@@ -1,9 +1,14 @@
 import 'dart:io';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:myprofile/storeedit/provider/paymentlist.dart';
+
+import 'screen/paymentedit.dart';
+
 import 'package:myprofile/productDetail/models/list.dart';
 import 'package:myprofile/productadd/Listproduct/list.dart';
 
 import 'package:myprofile/productadd/models/titles.dart';
+import 'package:myprofile/productadd/widget/checkboxand%20text.dart';
 import 'package:provider/provider.dart';
 import 'Category/category.dart';
 import 'provider/provider.dart';
@@ -58,6 +63,7 @@ class _StoreEditState extends State<StoreEdit> {
     }
   }
 
+  bool checkbox = false;
   bool storestatus = false;
   bool iconclick = false;
 
@@ -88,6 +94,7 @@ class _StoreEditState extends State<StoreEdit> {
     var width = MediaQuery.of(context).size.width;
     final image = Provider.of<Allimage>(context);
     final storeprovider = Provider.of<ListCategory>(context);
+    final payment = Provider.of<Paymentlist>(context);
 
     return ChangeNotifierProvider(
       create: (context) => ListCategory(),
@@ -144,10 +151,10 @@ class _StoreEditState extends State<StoreEdit> {
                             },
                             child: CircleAvatar(
                               backgroundColor: Color(0xff666666),
-                              radius: height / 16.6,
+                              radius: height / 13.6,
                               child: CircleAvatar(
                                 backgroundColor: Color(0xffDADADA),
-                                radius: height / 17,
+                                radius: height / 14,
                                 child: Icon(Icons.add_photo_alternate,
                                     color: Colors.black, size: height / 26),
                               ),
@@ -170,7 +177,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ));
                             },
                             child: CircleAvatar(
-                              radius: height / 17,
+                              radius: height / 14,
                               backgroundImage: FileImage(_image),
                             ),
                           ),
@@ -220,8 +227,8 @@ class _StoreEditState extends State<StoreEdit> {
                                 highlightColor: Colors.black,
                                 onTap: () {
                                   setState(() {
-                                    storeprovider
-                                        .deletelist(image.addcata[index]);
+                                    storeprovider.deletelist(
+                                        storeprovider.storelist[index]);
                                   });
                                 },
                                 child: CircleAvatar(
@@ -442,7 +449,10 @@ class _StoreEditState extends State<StoreEdit> {
                                           },
                                           name: "Textfield",
                                           decoration: InputDecoration(
-                                              suffixIcon: Icon(Icons.schedule,color: Colors.orange[400],),
+                                              suffixIcon: Icon(
+                                                Icons.schedule,
+                                                color: Colors.orange[400],
+                                              ),
                                               hintText: openingtime.hour
                                                       .toString() +
                                                   ":" +
@@ -474,7 +484,10 @@ class _StoreEditState extends State<StoreEdit> {
                                           },
                                           name: "Textfield",
                                           decoration: InputDecoration(
-                                              suffixIcon: Icon(Icons.schedule,color: Colors.orange[400],),
+                                              suffixIcon: Icon(
+                                                Icons.schedule,
+                                                color: Colors.orange[400],
+                                              ),
                                               hintText: closingtime.hour
                                                       .toString() +
                                                   ":" +
@@ -488,11 +501,80 @@ class _StoreEditState extends State<StoreEdit> {
                                 ),
                               )
                             : SizedBox.shrink(),
+                        GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                checkbox = !checkbox;
+                              });
+                            },
+                            child: CheckboxText(
+                              check: checkbox,
+                              text: "Delivery Availability",
+                            )),
+                        Container(
+                          margin: EdgeInsets.only(
+                              right: width / 20, top: height / 30),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Select Payment Method",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: height / 45)),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                      EditPayment.routename,
+                                    );
+                                  },
+                                  child: Text("Edit",
+                                      style: TextStyle(
+                                          color: Colors.orange,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: height / 47)),
+                                )
+                              ]),
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ]),
-          )
+          ),
+          payment.addpay == null
+              ? SizedBox.shrink()
+              : Row(children: [
+                  Expanded(
+                      child: Container(
+                    margin: EdgeInsets.only(left: width / 40),
+                    height: height / 7,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: payment.addpay.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.all(width / 80),
+                            child: Container(
+                              margin: EdgeInsets.only(top: height / 50),
+                              decoration: BoxDecoration(
+                                  border: Border.all(width: 1.0,color: Colors.black38),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: Color(0xffF3F3F3)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image(
+                                  height: height / 15,
+                                  width: width / 3,
+                                  image: AssetImage(
+                                    payment.addpay[index].image,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  ))
+                ])
         ]),
       ))),
     );
