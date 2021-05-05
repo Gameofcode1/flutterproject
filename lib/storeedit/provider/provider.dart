@@ -5,18 +5,28 @@ import 'package:flutter/cupertino.dart';
 class ListCategory extends ChangeNotifier {
   List<String> _storelist = [];
 
+
+Map<String,String> dummydata={
+  "shopname":"Gamer Bazzar",
+  "Producttitle":"Razer Mouse",
+  "Productdesc":" HyperSpeed - Wireless Ergonomic Gaming... 2.4GHz Wireless, Black"
+
+
+};
+
+
   List<String> get storelist {
     return [..._storelist];
   }
 
   void addlist(String name) {
     _storelist.add(name);
-    ChangeNotifier();
+   notifyListeners();
   }
 
   void deletelist(String name) {
     _storelist.remove(name);
-    ChangeNotifier();
+   notifyListeners();
   }
 
   void clearlist() {
@@ -25,8 +35,13 @@ class ListCategory extends ChangeNotifier {
 
   File image;
 
+
   void addimage(File catimage) {
-    image = catimage;
-    ChangeNotifier();
+    image=catimage;
+   notifyListeners();
   }
+
+  
+
+
 }

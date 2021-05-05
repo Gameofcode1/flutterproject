@@ -19,6 +19,8 @@ dependencies:
   intro_slider: ^2.3.4
   shared_preferences: ^0.5.12
   provider: ^4.0.0
+ 
+
   
  
   carousel_slider: ^3.0.0

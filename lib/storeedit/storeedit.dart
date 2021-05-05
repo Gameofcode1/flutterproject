@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:myprofile/profile/profile.dart';
+
 import 'package:myprofile/storeedit/provider/paymentlist.dart';
 
 import 'screen/paymentedit.dart';
-
-import 'package:myprofile/productDetail/models/list.dart';
 import 'package:myprofile/productadd/Listproduct/list.dart';
 
 import 'package:myprofile/productadd/models/titles.dart';
@@ -33,16 +33,18 @@ class _StoreEditState extends State<StoreEdit> {
     var image = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
       _image = File(image.path);
-      Navigator.pop(context);
     });
+    Navigator.pop(context);
+    Provider.of<ListCategory>(context, listen: false).addimage(_image);
   }
 
   Future getImagefromGallery() async {
     var image = await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       _image = File(image.path);
-      Navigator.pop(context);
     });
+    Navigator.pop(context);
+    Provider.of<ListCategory>(context, listen: false).addimage(_image);
   }
 
   Future selectotime(BuildContext context) async {
@@ -84,15 +86,26 @@ class _StoreEditState extends State<StoreEdit> {
   void initState() {
     openingtime = TimeOfDay.now();
     closingtime = TimeOfDay.now();
+    shopname.text =
+        Provider.of<ListCategory>(context, listen: false).dummydata['shopname'];
+    producttitle.text = Provider.of<ListCategory>(context, listen: false)
+        .dummydata['Producttitle'];
+    description.text = Provider.of<ListCategory>(context, listen: false)
+        .dummydata['Productdesc'];
 
     super.initState();
   }
 
+  TextEditingController shopname = TextEditingController();
+  TextEditingController producttitle = TextEditingController();
+  TextEditingController description = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
+
     var width = MediaQuery.of(context).size.width;
-    final image = Provider.of<Allimage>(context);
+
     final storeprovider = Provider.of<ListCategory>(context);
     final payment = Provider.of<Paymentlist>(context);
 
@@ -132,7 +145,7 @@ class _StoreEditState extends State<StoreEdit> {
               child: Container(
                 child: Stack(overflow: Overflow.visible, children: [
                   Container(
-                    child: _image == null
+                    child: storeprovider.image == null
                         ? GestureDetector(
                             onTap: () {
                               showModalBottomSheet(
@@ -178,7 +191,8 @@ class _StoreEditState extends State<StoreEdit> {
                             },
                             child: CircleAvatar(
                               radius: height / 14,
-                              backgroundImage: FileImage(_image),
+                              backgroundImage: FileImage(
+                                  Provider.of<ListCategory>(context).image),
                             ),
                           ),
                   ),
@@ -346,6 +360,7 @@ class _StoreEditState extends State<StoreEdit> {
                               top: height / 200, left: width / 40),
                           child: FormBuilderTextField(
                             name: "Textfield",
+                            controller: shopname,
                             decoration: InputDecoration(
                                 hintText: "Shop Name",
                                 enabledBorder: InputBorder.none,
@@ -363,6 +378,7 @@ class _StoreEditState extends State<StoreEdit> {
                               top: height / 200, left: width / 40),
                           child: FormBuilderTextField(
                             name: "Textfield",
+                            controller: producttitle,
                             decoration: InputDecoration(
                                 hintText: "Product Title",
                                 enabledBorder: InputBorder.none,
@@ -379,6 +395,7 @@ class _StoreEditState extends State<StoreEdit> {
                           padding: EdgeInsets.only(
                               top: height / 200, left: width / 40),
                           child: FormBuilderTextField(
+                            controller: description,
                             name: "Textfield",
                             decoration: InputDecoration(
                                 contentPadding:
@@ -513,6 +530,99 @@ class _StoreEditState extends State<StoreEdit> {
                             )),
                         Container(
                           margin: EdgeInsets.only(
+                              right: width / 40, top: height / 40),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text("Add Location",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: height / 50)),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: height / 50, right: width / 40),
+                          height: height / 9,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 1.0, color: Colors.black38),
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Color(0xffF3F3F3)),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              right: width / 40, top: height / 40),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              border: Border.all(
+                                  width: 1.0, color: Colors.black38)),
+                          padding: EdgeInsets.only(
+                              top: height / 200, left: width / 40),
+                          child: FormBuilderTextField(
+                            name: "Textfield",
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                hintText: "Longitude",
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              right: width / 40, top: height / 40),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              border: Border.all(
+                                  width: 1.0, color: Colors.black38)),
+                          padding: EdgeInsets.only(
+                              top: height / 200, left: width / 40),
+                          child: FormBuilderTextField(
+                                keyboardType: TextInputType.number,
+                            name: "Textfield",
+                            decoration: InputDecoration(
+                                hintText: "Latitude",
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              right: width / 40, top: height / 40),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              border: Border.all(
+                                  width: 1.0, color: Colors.black38)),
+                          padding: EdgeInsets.only(
+                              top: height / 200, left: width / 40),
+                          child: FormBuilderTextField(
+                            name: "Textfield",
+                            decoration: InputDecoration(
+                                hintText: "Street Address",
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              right: width / 40, top: height / 40),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              border: Border.all(
+                                  width: 1.0, color: Colors.black38)),
+                          padding: EdgeInsets.only(
+                              top: height / 200, left: width / 40),
+                          child: FormBuilderTextField(
+                            name: "Textfield",
+                            decoration: InputDecoration(
+                                hintText: "Location Hint",
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
                               right: width / 20, top: height / 30),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -520,7 +630,7 @@ class _StoreEditState extends State<StoreEdit> {
                                 Text("Select Payment Method",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w900,
-                                        fontSize: height / 45)),
+                                        fontSize: height / 38)),
                                 GestureDetector(
                                   onTap: () {
                                     Navigator.of(context).pushNamed(
@@ -545,7 +655,9 @@ class _StoreEditState extends State<StoreEdit> {
               : Row(children: [
                   Expanded(
                       child: Container(
-                    margin: EdgeInsets.only(left: width / 40),
+                        margin:
+                         EdgeInsets.only(
+                              right: width / 30,left: width/30),
                     height: height / 7,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -555,9 +667,12 @@ class _StoreEditState extends State<StoreEdit> {
                           return Padding(
                             padding: EdgeInsets.all(width / 80),
                             child: Container(
-                              margin: EdgeInsets.only(top: height / 50),
+                              margin: EdgeInsets.only(
+                                top: height / 50,
+                              ),
                               decoration: BoxDecoration(
-                                  border: Border.all(width: 1.0,color: Colors.black38),
+                                  border: Border.all(
+                                      width: 1.0, color: Colors.black38),
                                   borderRadius: BorderRadius.circular(5.0),
                                   color: Color(0xffF3F3F3)),
                               child: Padding(
@@ -574,7 +689,35 @@ class _StoreEditState extends State<StoreEdit> {
                           );
                         }),
                   ))
-                ])
+                ]),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyProfile()));
+              },
+              child: Container(
+                  width: double.infinity,
+                  height: height / 17,
+                  margin: EdgeInsets.only(
+                      top: height / 20,
+                      left: width / 35,
+                      right: width / 35,
+                      bottom: height / 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Color(0xffF08626),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Create Store",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(color: Colors.white, fontSize: height / 40),
+                    ),
+                  )),
+            ),
+          ),
         ]),
       ))),
     );

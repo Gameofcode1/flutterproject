@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'payment.dart';
 
-import 'payment.dart';
+
 
 class Paymentlist with ChangeNotifier {
   List<PaymentSelection> payment = [
@@ -11,11 +11,11 @@ class Paymentlist with ChangeNotifier {
       image: "images/nesewa.png",
     ),
     PaymentSelection(
-      name: "eSawa",
+      name: "fone pay",
       image: "images/fonepay.png",
     ),
     PaymentSelection(
-      name: "eSawa",
+      name: "khalti",
       image: "images/khalti.png",
     )
   ];
