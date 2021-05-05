@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'payment.dart';
 
-
-
 class Paymentlist with ChangeNotifier {
   List<PaymentSelection> payment = [
     PaymentSelection(
@@ -21,14 +19,17 @@ class Paymentlist with ChangeNotifier {
   ];
 
   List<Widget> items = [];
+  
 
   List<PaymentSelection> get addpay {
     return payment.where((element) => element.select).toList();
+
   }
+
+ 
 
   void change(bool change) {
     change = !change;
     notifyListeners();
   }
-
 }

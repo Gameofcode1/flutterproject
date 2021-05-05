@@ -9,8 +9,9 @@ class ListCategory extends ChangeNotifier {
 Map<String,String> dummydata={
   "shopname":"Gamer Bazzar",
   "Producttitle":"Razer Mouse",
-  "Productdesc":" HyperSpeed - Wireless Ergonomic Gaming... 2.4GHz Wireless, Black"
-
+  "Productdesc":" HyperSpeed - Wireless Ergonomic Gaming... 2.4GHz Wireless, Black",
+  "StreetAddres":"Kshetrapur2,Chitwan",
+  "LocationHint":"Google the address dude"
 
 };
 

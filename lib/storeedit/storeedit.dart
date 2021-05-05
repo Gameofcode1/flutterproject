@@ -1,12 +1,10 @@
 import 'dart:io';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:myprofile/profile/profile.dart';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:myprofile/storeedit/provider/paymentlist.dart';
-
 import 'screen/paymentedit.dart';
 import 'package:myprofile/productadd/Listproduct/list.dart';
-
 import 'package:myprofile/productadd/models/titles.dart';
 import 'package:myprofile/productadd/widget/checkboxand%20text.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +24,7 @@ class StoreEdit extends StatefulWidget {
 class _StoreEditState extends State<StoreEdit> {
   TextEditingController optime = TextEditingController();
   TextEditingController cltime = TextEditingController();
-
+  bool saugat = false;
   File _image;
 
   Future getImagefromcamera() async {
@@ -68,6 +66,8 @@ class _StoreEditState extends State<StoreEdit> {
   bool checkbox = false;
   bool storestatus = false;
   bool iconclick = false;
+  String latitude;
+  String longitude;
 
   List<Titles> newdata = List.from(catagorie);
 
@@ -84,22 +84,43 @@ class _StoreEditState extends State<StoreEdit> {
   TimeOfDay closingtime;
   @override
   void initState() {
+    getcurrentlocation();
+lat.text=latitude; 
+
     openingtime = TimeOfDay.now();
     closingtime = TimeOfDay.now();
     shopname.text =
         Provider.of<ListCategory>(context, listen: false).dummydata['shopname'];
+  
     producttitle.text = Provider.of<ListCategory>(context, listen: false)
         .dummydata['Producttitle'];
     description.text = Provider.of<ListCategory>(context, listen: false)
         .dummydata['Productdesc'];
+        streetname.text = Provider.of<ListCategory>(context, listen: false)
+        .dummydata['StreetAddres'];
+        locationhint.text = Provider.of<ListCategory>(context, listen: false)
+        .dummydata['LocationHint'];
 
     super.initState();
+  }
+
+  Future getcurrentlocation() async {
+    final geoposition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      latitude = geoposition.latitude.toString();
+      longitude = geoposition.longitude.toString();
+    });
   }
 
   TextEditingController shopname = TextEditingController();
   TextEditingController producttitle = TextEditingController();
   TextEditingController description = TextEditingController();
-
+  TextEditingController lat = TextEditingController();
+  TextEditingController lon = TextEditingController();
+  TextEditingController streetname = TextEditingController();
+  TextEditingController locationhint = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -107,7 +128,7 @@ class _StoreEditState extends State<StoreEdit> {
     var width = MediaQuery.of(context).size.width;
 
     final storeprovider = Provider.of<ListCategory>(context);
-    final payment = Provider.of<Paymentlist>(context);
+    final payment = Provider.of<Paymentlist>(context, listen: true);
 
     return ChangeNotifierProvider(
       create: (context) => ListCategory(),
@@ -562,9 +583,11 @@ class _StoreEditState extends State<StoreEdit> {
                               top: height / 200, left: width / 40),
                           child: FormBuilderTextField(
                             name: "Textfield",
+                            controller: lat,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
-                                hintText: "Longitude",
+
+                                hintText: latitude,
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none),
                           ),
@@ -579,10 +602,11 @@ class _StoreEditState extends State<StoreEdit> {
                           padding: EdgeInsets.only(
                               top: height / 200, left: width / 40),
                           child: FormBuilderTextField(
-                                keyboardType: TextInputType.number,
+                            controller: lat,
+                            keyboardType: TextInputType.number,
                             name: "Textfield",
                             decoration: InputDecoration(
-                                hintText: "Latitude",
+                                hintText:longitude,
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none),
                           ),
@@ -598,6 +622,7 @@ class _StoreEditState extends State<StoreEdit> {
                               top: height / 200, left: width / 40),
                           child: FormBuilderTextField(
                             name: "Textfield",
+                            controller: streetname,
                             decoration: InputDecoration(
                                 hintText: "Street Address",
                                 enabledBorder: InputBorder.none,
@@ -615,6 +640,7 @@ class _StoreEditState extends State<StoreEdit> {
                               top: height / 200, left: width / 40),
                           child: FormBuilderTextField(
                             name: "Textfield",
+                            controller: locationhint,
                             decoration: InputDecoration(
                                 hintText: "Location Hint",
                                 enabledBorder: InputBorder.none,
@@ -650,14 +676,13 @@ class _StoreEditState extends State<StoreEdit> {
                   ),
                 ]),
           ),
-          payment.addpay == null
-              ? SizedBox.shrink()
+          payment.addpay.length == 0
+              ? Container()
               : Row(children: [
                   Expanded(
                       child: Container(
-                        margin:
-                         EdgeInsets.only(
-                              right: width / 30,left: width/30),
+                    margin:
+                        EdgeInsets.only(right: width / 30, left: width / 30),
                     height: height / 7,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -693,6 +718,8 @@ class _StoreEditState extends State<StoreEdit> {
           Center(
             child: GestureDetector(
               onTap: () {
+                print(latitude);
+
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyProfile()));
               },
@@ -700,10 +727,10 @@ class _StoreEditState extends State<StoreEdit> {
                   width: double.infinity,
                   height: height / 17,
                   margin: EdgeInsets.only(
-                      top: height / 20,
+                      top: height / 50,
                       left: width / 35,
                       right: width / 35,
-                      bottom: height / 20),
+                      bottom: height / 50),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
                     color: Color(0xffF08626),
@@ -718,6 +745,8 @@ class _StoreEditState extends State<StoreEdit> {
                   )),
             ),
           ),
+         
+        
         ]),
       ))),
     );
