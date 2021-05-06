@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:latlong/latlong.dart'; 
+import 'package:latlong/latlong.dart';
 import 'package:myprofile/profile/profile.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:myprofile/storeedit/provider/paymentlist.dart';
@@ -191,7 +191,7 @@ class _StoreEditState extends State<StoreEdit> {
                                                   ));
                                         },
                                         child: CircleAvatar(
-                                          backgroundColor:Colors.black26,
+                                          backgroundColor: Colors.black26,
                                           radius: height / 13.6,
                                           child: CircleAvatar(
                                             backgroundColor: Color(0xffDADADA),
@@ -331,7 +331,7 @@ class _StoreEditState extends State<StoreEdit> {
                                 child: Column(
                                   children: [
                                     Container(
-                                        height: height/16,
+                                      height: height / 16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 70),
                                       decoration: BoxDecoration(
@@ -383,12 +383,18 @@ class _StoreEditState extends State<StoreEdit> {
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10.0),
-                                                color: Color(0xffF3F3F3),
+                                                color: Color(0xffF3F3F3)
+                                                    .withOpacity(0.8),
                                               ),
                                               margin: EdgeInsets.only(
-                                                  left: width / 50,
+                                                  left: width / 24,
+                                                  right: width / 20,
                                                   top: height / 80),
                                               child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   Column(
                                                     mainAxisAlignment:
@@ -413,10 +419,10 @@ class _StoreEditState extends State<StoreEdit> {
                                                           textAlign:
                                                               TextAlign.start,
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
+                                                              color: Colors
+                                                                  .black54,
                                                               fontSize:
-                                                                  height / 60,
+                                                                  height / 55,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .normal),
@@ -430,7 +436,7 @@ class _StoreEditState extends State<StoreEdit> {
                                           )
                                         : SizedBox.shrink(),
                                     Container(
-                                        height: height/16,
+                                      height: height / 16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -451,7 +457,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
-                                        height: height/16,
+                                      height: height / 16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -495,7 +501,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
-                                        height: height/16,
+                                      height: height / 16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -533,7 +539,6 @@ class _StoreEditState extends State<StoreEdit> {
                                     ),
                                     storestatus == true
                                         ? Container(
-
                                             child: Row(
                                               children: [
                                                 Expanded(
@@ -705,10 +710,8 @@ class _StoreEditState extends State<StoreEdit> {
                                                   ),
                                                 ]),
                                           ),
-
                                     Container(
-                                        height: height/16,
-
+                                      height: height / 16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -721,7 +724,6 @@ class _StoreEditState extends State<StoreEdit> {
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
                                         name: "Textfield",
-                                       
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                             hintText: latitude.toString(),
@@ -730,7 +732,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
-                                        height: height/16,
+                                      height: height / 16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -742,7 +744,6 @@ class _StoreEditState extends State<StoreEdit> {
                                       padding: EdgeInsets.only(
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
-                                       
                                         keyboardType: TextInputType.number,
                                         name: "Textfield",
                                         decoration: InputDecoration(
@@ -752,7 +753,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
-                                        height: height/16,
+                                      height: height / 16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -773,7 +774,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
-                                        height: height/16,
+                                      height: height / 16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
