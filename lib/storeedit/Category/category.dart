@@ -23,15 +23,15 @@ class CategoryPage extends StatefulWidget with ChangeNotifier {
 List<Catclass> searchcat = List.from(citems);
 
 class _CategoryPageState extends State<CategoryPage> {
-  onitemchange(String value) {
+
+  onitemchang(String value) {
     setState(() {
       searchcat = citems
-          .where((element) =>
-              element.title.toLowerCase().contains(value.toLowerCase()))
+          .where((string) =>
+              string.title.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
   }
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -81,26 +81,31 @@ class _CategoryPageState extends State<CategoryPage> {
                 border: Border.all(width: 1.0, color: Colors.black38),
                 borderRadius: BorderRadius.circular(30.0)),
             padding: EdgeInsets.only(top: height / 300, left: width / 40),
-            child: FormBuilderTextField(
-              name: "Textfield",
-              onChanged: onitemchange,
-              decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.only(left: width / 3.4, top: height / 60),
-                  suffixIcon: Icon(
-                    Icons.search,
-                    color: Colors.orange,
-                  ),
-                  hintText: "Search Store...",
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none),
+            child: Container(
+              height: height/20,
+              child: FormBuilderTextField(
+                name: "Textfield",
+                onChanged: onitemchang,
+                decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.only(left: width / 3.4, top: height / 100),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.orange,
+                    ),
+                    hintText: "Search Store...",
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none),
+              ),
             ),
           ),
           Expanded(
             child: Container(
               margin: EdgeInsets.only(left: width / 43, right: width / 43),
               child: GridView.builder(
+                
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  
                       maxCrossAxisExtent: 200,
                       childAspectRatio: 6 / 3.3,
                       crossAxisSpacing: 1.0,
@@ -108,16 +113,15 @@ class _CategoryPageState extends State<CategoryPage> {
                   itemCount: searchcat.length,
                   itemBuilder: (BuildContext ctx, index) {
                     return ChangeNotifierProvider.value(
-                        value: citems[index], child: CategoryCard());
+                        value: searchcat[index], child: CategoryCard());
                   }),
             ),
           ),
           GestureDetector(
-            onTap: () {
+            onTap: () {    
               listcat.cat.clear();
-              listcat.clearlist();
+              
               listcat.newpay();
-               listcat.addlist(catagorie[productid].name);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => StoreEdit()));
             },

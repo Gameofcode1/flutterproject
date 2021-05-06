@@ -12,11 +12,12 @@ class CheckboxText extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.only(top: height / 50),
+      margin: EdgeInsets.only(top: height / 50,left: width/80),
       child: Row(
         children: [
           Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(3.0),
                 border: Border.all(width: 1.0, color: Colors.black),
                 color: check ? Colors.orange[800] : Colors.white,
               ),
@@ -29,7 +30,7 @@ class CheckboxText extends StatelessWidget {
               )),
           Padding(
             padding: EdgeInsets.only(left: width / 50),
-            child: Text(text),
+            child: Text(text,style: TextStyle(fontSize: height/52,fontWeight: FontWeight.w600,),),
           )
         ],
       ),

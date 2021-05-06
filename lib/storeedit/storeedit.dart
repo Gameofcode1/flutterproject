@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:latlong/latlong.dart';
-
+import 'package:latlong/latlong.dart'; 
 import 'package:myprofile/profile/profile.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:myprofile/storeedit/provider/paymentlist.dart';
@@ -192,7 +191,7 @@ class _StoreEditState extends State<StoreEdit> {
                                                   ));
                                         },
                                         child: CircleAvatar(
-                                          backgroundColor: Color(0xff666666),
+                                          backgroundColor:Colors.black26,
                                           radius: height / 13.6,
                                           child: CircleAvatar(
                                             backgroundColor: Color(0xffDADADA),
@@ -332,6 +331,7 @@ class _StoreEditState extends State<StoreEdit> {
                                 child: Column(
                                   children: [
                                     Container(
+                                        height: height/16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 70),
                                       decoration: BoxDecoration(
@@ -430,6 +430,7 @@ class _StoreEditState extends State<StoreEdit> {
                                           )
                                         : SizedBox.shrink(),
                                     Container(
+                                        height: height/16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -450,6 +451,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
+                                        height: height/16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -493,6 +495,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
+                                        height: height/16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -530,6 +533,7 @@ class _StoreEditState extends State<StoreEdit> {
                                     ),
                                     storestatus == true
                                         ? Container(
+
                                             child: Row(
                                               children: [
                                                 Expanded(
@@ -701,7 +705,10 @@ class _StoreEditState extends State<StoreEdit> {
                                                   ),
                                                 ]),
                                           ),
+
                                     Container(
+                                        height: height/16,
+
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -714,7 +721,7 @@ class _StoreEditState extends State<StoreEdit> {
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
                                         name: "Textfield",
-                                        controller: lat,
+                                       
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                             hintText: latitude.toString(),
@@ -723,6 +730,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
+                                        height: height/16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -734,7 +742,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       padding: EdgeInsets.only(
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
-                                        controller: lat,
+                                       
                                         keyboardType: TextInputType.number,
                                         name: "Textfield",
                                         decoration: InputDecoration(
@@ -744,6 +752,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
+                                        height: height/16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -756,6 +765,7 @@ class _StoreEditState extends State<StoreEdit> {
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
                                         name: "Textfield",
+                                        controller: streetname,
                                         decoration: InputDecoration(
                                             hintText: "Street Address",
                                             enabledBorder: InputBorder.none,
@@ -763,6 +773,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       ),
                                     ),
                                     Container(
+                                        height: height/16,
                                       margin: EdgeInsets.only(
                                           right: width / 40, top: height / 40),
                                       decoration: BoxDecoration(
@@ -775,6 +786,7 @@ class _StoreEditState extends State<StoreEdit> {
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
                                         name: "Textfield",
+                                        controller: locationhint,
                                         decoration: InputDecoration(
                                             hintText: "Location Hint",
                                             enabledBorder: InputBorder.none,

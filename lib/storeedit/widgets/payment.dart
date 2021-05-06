@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:myprofile/productadd/widget/checkboxand%20text.dart';
-
 import 'package:provider/provider.dart';
 import '../provider/payment.dart';
 
@@ -19,7 +17,7 @@ class _PaymentState extends State<Payment> {
     var width = MediaQuery.of(context).size.width;
 
     return Container(
-      margin: EdgeInsets.only(left: width / 30, top: height / 70),
+      margin: EdgeInsets.only(left: width / 20, top: height / 70),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,26 +31,34 @@ class _PaymentState extends State<Payment> {
                 check: paymentl.select,
                 text: paymentl.name,
               )),
-          Container(
-            margin: EdgeInsets.only(left: width / 20),
-            child: Container(
-              margin: EdgeInsets.only(top: height / 90),
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 1.0,
-                      color: paymentl.select ? Colors.orange : Colors.black38),
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: Color(0xffF3F3F3)),
-              child: Padding(
-                padding: EdgeInsets.all(height/50),
-                child: Image(
-                  image: AssetImage(paymentl.image),
-                  height: height / 11,
-                  width: width/2.5,
-
-                ),
+          Row(
+            children: [
+              Visibility(
+                visible: paymentl.select ? true : false,
+                child: Container(width: width / 15),
               ),
-            ),
+              Container(
+                margin: EdgeInsets.only(left: width / 100),
+                child: Container(
+                  margin: EdgeInsets.only(top: height / 50),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 1.0,
+                          color:
+                              paymentl.select ? Colors.orange : Colors.black38),
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: Color(0xffF3F3F3)),
+                  child: Padding(
+                    padding: EdgeInsets.all(height / 50),
+                    child: Image(
+                      image: AssetImage(paymentl.image),
+                      height: height / 11,
+                      width: width / 2.5,
+                    ),
+                  ),
+                ),
+              )
+            ],
           )
         ],
       ),

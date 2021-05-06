@@ -16,10 +16,12 @@ class EditPayment extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
               child: Container(
+                 margin: EdgeInsets.only( top: height / 70,left: width/70),
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             IconButton(
+            Row(children: [
+               IconButton(
                 icon: Icon(
                   Icons.arrow_back,
                   size: height / 29,
@@ -29,7 +31,7 @@ class EditPayment extends StatelessWidget {
                 },
               ),
             Container(
-               margin: EdgeInsets.only( top: height / 70,left: width/30),
+              
                   width: width / 3,
                           child: Text("Add Payment",
                   style: TextStyle(
@@ -37,6 +39,8 @@ class EditPayment extends StatelessWidget {
                       fontWeight: FontWeight.w900,
                       fontSize: height / 45)),
             ),
+            ],),
+            
             Expanded(
               child: ListView.builder(
                   itemCount: payment.length,
@@ -56,7 +60,7 @@ class EditPayment extends StatelessWidget {
                 Provider.of<Paymentlist>(context).addpay;
               },
               child: Container(
-                  margin: EdgeInsets.only(left: width / 3, bottom: height / 10),
+                  margin: EdgeInsets.only(left: width / 3, bottom: height / 20),
                   width: width / 3,
                   height: height / 20,
                   decoration: BoxDecoration(

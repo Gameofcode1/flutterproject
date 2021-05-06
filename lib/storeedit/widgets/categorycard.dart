@@ -18,7 +18,7 @@ class _CategoryCardState extends State<CategoryCard> {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-             color:data.check?Color(0xffF08626).withOpacity(0.6): Color(0xffF3F3F3),
+             color:data.check?Color(0xffF08626).withOpacity(0.2): Color(0xffF3F3F3),
 
             
             ),
