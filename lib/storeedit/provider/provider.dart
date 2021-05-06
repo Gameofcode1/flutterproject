@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:myprofile/storeedit/provider/catclass.dart';
+import 'package:myprofile/storeedit/provider/categoryselect.dart';
 
 class ListCategory extends ChangeNotifier {
   List<String> _storelist = [];
@@ -25,13 +27,15 @@ Map<String,String> dummydata={
    notifyListeners();
   }
 
-  void deletelist(String name) {
-    _storelist.remove(name);
+
+  void deletelist(Catclass name) {
+   cat.remove(name);
    notifyListeners();
   }
 
   void clearlist() {
     _storelist.clear();
+    
   }
 
   File image;
@@ -41,6 +45,16 @@ Map<String,String> dummydata={
     image=catimage;
    notifyListeners();
   }
+
+List<Catclass> cat=[];
+
+List<Catclass> newpay(){
+  return
+ cat= citems.where((element) => element.check).toList();
+  
+}
+
+
 
   
 

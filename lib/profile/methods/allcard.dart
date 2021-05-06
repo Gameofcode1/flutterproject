@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/newcard.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:myprofile/referralcode/refferalcode.dart';
 import 'package:myprofile/productDetail/productDetail.dart';
 import 'package:myprofile/InroductionScreen/introduction.dart';
 import"package:myprofile/storeedit/storeedit.dart";

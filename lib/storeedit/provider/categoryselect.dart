@@ -1,66 +1,69 @@
-import '../widgets/categorycard.dart';
+import 'package:myprofile/storeedit/provider/catclass.dart';
+
 import 'package:flutter/material.dart';
 
-class CategorySelect with ChangeNotifier {
-  List<CategoryCard> citems = [
-    CategoryCard(
+
+  List<Catclass> citems = [
+    Catclass(
       icon: Icons.house,
       title: "Real Estate",
     ),
-    CategoryCard(
+    Catclass(
       icon: Icons.electrical_services,
       title: "Electronics",
     ),
-    CategoryCard(
+    Catclass(
       icon: Icons.time_to_leave,
       title: "Vechicle",
     ),
-    CategoryCard(
+    Catclass(
       icon: Icons.weekend,
       title: "Furnitures",
     ),
-    CategoryCard(
+    Catclass(
       icon: Icons.music_note,
       title: "Music Items",
     ),
-    CategoryCard(icon: Icons.medical_services, 
+    Catclass(icon: Icons.medical_services, 
     title: "Medical"),
-    CategoryCard(icon: Icons.delivery_dining,
+    Catclass(icon: Icons.delivery_dining,
      title: "Delivery"),
-    CategoryCard(
+    Catclass(
       icon: Icons.local_hotel,
       title: "Local Hotel",
     ),
-    CategoryCard(
+    Catclass(
       icon: Icons.house,
       title: "Real Estate",
     ),
-    CategoryCard(
+    Catclass(
       icon: Icons.electrical_services,
       title: "Electronics",
     ),
-    CategoryCard(
+    Catclass(
       icon: Icons.time_to_leave,
       title: "Vechicle",
     ),
-    CategoryCard(
+    Catclass(
       icon: Icons.weekend,
       title: "Furnitures",
     ),
-    CategoryCard(
+    Catclass(
       icon: Icons.music_note,
       title: "Music Items",
     ),
-    CategoryCard(icon: Icons.medical_services, 
+    Catclass(icon: Icons.medical_services, 
     title: "Medical"),
-    CategoryCard(icon: Icons.delivery_dining,
+    Catclass(icon: Icons.delivery_dining,
      title: "Delivery"),
-    CategoryCard(
+    Catclass(
       icon: Icons.local_hotel,
       title: "Local Hotel",
     ),
+
 
 
   ];
+  
  
-}
+

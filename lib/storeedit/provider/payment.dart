@@ -10,6 +10,7 @@ class PaymentSelection with ChangeNotifier {
 
   void change(){
     select=!select;
+    
   }
 }
 

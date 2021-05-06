@@ -107,6 +107,7 @@ class CategoryPages extends StatelessWidget with ChangeNotifier {
                         ],
                       ));
                 }).toList()),
+                
           ])),
     ));
   }
