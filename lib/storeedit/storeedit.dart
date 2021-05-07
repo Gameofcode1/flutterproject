@@ -3,7 +3,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:latlong/latlong.dart';
 import 'package:myprofile/profile/profile.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:myprofile/storeedit/provider/datetime.dart';
 import 'package:myprofile/storeedit/provider/paymentlist.dart';
+import 'package:myprofile/storeedit/screen/location.dart';
+import './screen/location.dart';
 import 'screen/paymentedit.dart';
 import 'package:myprofile/productadd/Listproduct/list.dart';
 import 'package:myprofile/productadd/models/titles.dart';
@@ -17,7 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'constannt.dart';
 import 'package:flutter_map/flutter_map.dart';
-
 
 class StoreEdit extends StatefulWidget {
   @override
@@ -48,58 +50,32 @@ class _StoreEditState extends State<StoreEdit> {
     Provider.of<ListCategory>(context, listen: false).addimage(_image);
   }
 
-  Future selectotime(BuildContext context) async {
-    TimeOfDay otime =
-        await showTimePicker(context: context, initialTime: openingtime);
-
-    if (otime != null) {
-      openingtime = otime;
-    }
-  }
-
-String firstcat;
-String secondcat;
-
-
-
-
+  String firstcat;
+  String secondcat;
   var concatenate = StringBuffer();
-  void items(){
-
-     Provider.of<ListCategory>(context, listen: false).cat.forEach((element) {
-       concatenate.write(element.title+",");
-        
-     }
-      
-    );
-    secondcat= concatenate.toString();
+  void items() {
+    Provider.of<ListCategory>(context, listen: false).cat.forEach((element) {
+      concatenate.write(element.title + ",");
+    });
+    secondcat = concatenate.toString();
   }
 
-  var maincategory=StringBuffer();
-  void maincategories(){
-    Provider.of<ListCategory>(context, listen: false).storelist.forEach((element) {
+  var maincategory = StringBuffer();
+  void maincategories() {
+    Provider.of<ListCategory>(context, listen: false)
+        .storelist
+        .forEach((element) {
       maincategory.write(element);
-      
-      
     });
-    firstcat=maincategory.toString();
-
+    firstcat = maincategory.toString();
   }
 
   String sumchar;
-  void addchar(){
-    sumchar=firstcat+">"+secondcat;
-    
-  }
-
-
-  Future selectctime(BuildContext context) async {
-    TimeOfDay ctime =
-        await showTimePicker(context: context, initialTime: closingtime);
-
-    if (ctime != null) {
-      closingtime = ctime;
-    }
+  void addchar() {
+    if (firstcat.length > 0)
+      sumchar = firstcat + ">" + secondcat;
+    else
+      sumchar = "";
   }
 
   bool checkbox = false;
@@ -119,21 +95,17 @@ String secondcat;
     });
   }
 
-  
-
-
   TimeOfDay openingtime;
   TimeOfDay closingtime;
   @override
   void initState() {
-
+    super.initState();
+    Provider.of<DateAndTimeSlect>(context, listen: false).gettime();
     getcurrentlocation();
-     items();
-     
+    items();
+
     maincategories();
-addchar();
-    openingtime = TimeOfDay.now();
-    closingtime = TimeOfDay.now();
+    addchar();
     shopname.text =
         Provider.of<ListCategory>(context, listen: false).dummydata['shopname'];
 
@@ -145,7 +117,7 @@ addchar();
         .dummydata['StreetAddres'];
     locationhint.text = Provider.of<ListCategory>(context, listen: false)
         .dummydata['LocationHint'];
-categorye.text=sumchar.toString();
+    categorye.text = sumchar.toString();
     super.initState();
   }
 
@@ -165,15 +137,15 @@ categorye.text=sumchar.toString();
   TextEditingController lon = TextEditingController();
   TextEditingController streetname = TextEditingController();
   TextEditingController locationhint = TextEditingController();
-  TextEditingController categorye=TextEditingController();
-  TextEditingController maincat=TextEditingController();
+  TextEditingController categorye = TextEditingController();
+  TextEditingController maincat = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
 
     var width = MediaQuery.of(context).size.width;
-
+    var selecttime = Provider.of<DateAndTimeSlect>(context);
     final storeprovider = Provider.of<ListCategory>(context);
     final payment = Provider.of<Paymentlist>(context, listen: true);
 
@@ -290,7 +262,7 @@ categorye.text=sumchar.toString();
                               Text("Add Store Description",
                                   style:
                                       kHeading.copyWith(fontSize: height / 50)),
-                              storeprovider.cat.length==0
+                              storeprovider.cat.length == 0
                                   ? SizedBox.shrink()
                                   : Row(children: [
                                       Expanded(
@@ -585,52 +557,61 @@ categorye.text=sumchar.toString();
                                     ),
                                     storestatus == true
                                         ? Container(
+                                            margin: EdgeInsets.only(
+                                                top: height / 50),
                                             child: Row(
                                               children: [
                                                 Expanded(
                                                   child: Container(
-                                                    margin: EdgeInsets.only(
-                                                        right: width / 40,
-                                                        top: height / 40),
                                                     decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          width: 1.0,
+                                                          color: Colors.black38,
+                                                        ),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(5.0),
-                                                        border: Border.all(
-                                                            width: 1.0,
-                                                            color: Colors
-                                                                .black38)),
-                                                    padding: EdgeInsets.only(
-                                                        top: height / 200,
-                                                        left: width / 40),
-                                                    child: FormBuilderTextField(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          selectotime(context);
-                                                        });
-                                                      },
-                                                      name: "Textfield",
-                                                      decoration:
-                                                          InputDecoration(
-                                                              suffixIcon: Icon(
-                                                                Icons.schedule,
-                                                                color: Colors
-                                                                        .orange[
-                                                                    400],
-                                                              ),
-                                                              hintText: openingtime
+                                                                .circular(5.0)),
+                                                    height: height / 16,
+                                                    child: Row(
+                                                      children: [
+                                                        Expanded(
+                                                          flex: 3,
+                                                          child: Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left:
+                                                                        width /
+                                                                            6),
+                                                            child: Text(
+                                                              selecttime
+                                                                      .openingtime
                                                                       .hour
                                                                       .toString() +
                                                                   ":" +
-                                                                  openingtime
+                                                                  selecttime
+                                                                      .openingtime
                                                                       .minute
                                                                       .toString(),
-                                                              enabledBorder:
-                                                                  InputBorder
-                                                                      .none,
-                                                              focusedBorder:
-                                                                  InputBorder
-                                                                      .none),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: IconButton(
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                selecttime
+                                                                    .selectotime(
+                                                                        context);
+                                                              });
+                                                            },
+                                                            icon: Icon(
+                                                              Icons.schedule,
+                                                              color: Colors
+                                                                  .black38,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
@@ -638,46 +619,56 @@ categorye.text=sumchar.toString();
                                                   child: Container(
                                                     margin: EdgeInsets.only(
                                                         right: width / 40,
-                                                        top: height / 40),
+                                                        left: width / 45),
                                                     decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          width: 1.0,
+                                                          color: Colors.black38,
+                                                        ),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(5.0),
-                                                        border: Border.all(
-                                                            width: 1.0,
-                                                            color: Colors
-                                                                .black38)),
-                                                    padding: EdgeInsets.only(
-                                                        top: height / 200,
-                                                        left: width / 40),
-                                                    child: FormBuilderTextField(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          selectctime(context);
-                                                        });
-                                                      },
-                                                      name: "Textfield",
-                                                      decoration:
-                                                          InputDecoration(
-                                                              suffixIcon: Icon(
-                                                                Icons.schedule,
-                                                                color: Colors
-                                                                        .orange[
-                                                                    400],
-                                                              ),
-                                                              hintText: closingtime
+                                                                .circular(5.0)),
+                                                    height: height / 16,
+                                                    child: Row(
+                                                      children: [
+                                                        Expanded(
+                                                          flex: 3,
+                                                          child: Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left:
+                                                                        width /
+                                                                            6),
+                                                            child: Text(
+                                                              selecttime
+                                                                      .closingtime
                                                                       .hour
                                                                       .toString() +
                                                                   ":" +
-                                                                  closingtime
+                                                                  selecttime
+                                                                      .closingtime
                                                                       .minute
                                                                       .toString(),
-                                                              enabledBorder:
-                                                                  InputBorder
-                                                                      .none,
-                                                              focusedBorder:
-                                                                  InputBorder
-                                                                      .none),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: IconButton(
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                selecttime
+                                                                    .selectctime(
+                                                                        context);
+                                                              });
+                                                            },
+                                                            icon: Icon(
+                                                              Icons.schedule,
+                                                              color: Colors
+                                                                  .black38,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
@@ -695,17 +686,42 @@ categorye.text=sumchar.toString();
                                           check: checkbox,
                                           text: "Delivery Availability",
                                         )),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          right: width / 40, top: height / 40),
-                                      child: Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text("Add Location",
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w900,
-                                                fontSize: height / 50)),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                       Container(
+                                        margin: EdgeInsets.only(
+                                            right: width / 40, top: height / 40,),
+                                        child: Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Text("Add Location",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w900,
+                                                  fontSize: height / 50)),
+                                        ),
                                       ),
+                                      GestureDetector(
+                                              onTap: () {
+                                                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EditLocation()));
+                                               
+                                                
+                                              },
+                                              child: Container(
+                                                 margin: EdgeInsets.only(
+                                            right: width / 30, top: height / 40),
+                                                child: Text("Edit",
+                                                    style: TextStyle(
+                                                        color: Colors.orange,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: height / 47)),
+                                              ),
+                                            )
+
+                                    ],
+                                                                        
                                     ),
                                     latitude == null
                                         ? Container()
@@ -790,7 +806,6 @@ categorye.text=sumchar.toString();
                                       padding: EdgeInsets.only(
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
-                                  
                                         keyboardType: TextInputType.number,
                                         name: "Textfield",
                                         decoration: InputDecoration(
@@ -946,7 +961,6 @@ categorye.text=sumchar.toString();
                               )),
                         ),
                       ),
-                      storeprovider.cat.length==0?Text("saugat"):Text(maincategory.toString())
                     ],
                   )))),
     );

@@ -73,8 +73,7 @@ class _CategoryPageState extends State<CategoryPage> {
           ),
           Container(
             margin: EdgeInsets.only(
-                right: width / 30,
-                top: height / 80,
+               
                 left: width / 40,
                 bottom: height / 100),
             decoration: BoxDecoration(
@@ -82,13 +81,13 @@ class _CategoryPageState extends State<CategoryPage> {
                 borderRadius: BorderRadius.circular(30.0)),
             padding: EdgeInsets.only(top: height / 300, left: width / 40),
             child: Container(
-              height: height/20,
+             
               child: FormBuilderTextField(
                 name: "Textfield",
                 onChanged: onitemchang,
                 decoration: InputDecoration(
                     contentPadding:
-                        EdgeInsets.only(left: width / 3.4, top: height / 100),
+                        EdgeInsets.only(left: width / 3.4, top: height / 60),
                     suffixIcon: Icon(
                       Icons.search,
                       color: Colors.orange,
@@ -137,7 +136,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 ),
                 child: Center(
                   child: Text(
-                    "Create Store",
+                    "Save",
                     textAlign: TextAlign.center,
                     style:
                         TextStyle(color: Colors.white, fontSize: height / 40),

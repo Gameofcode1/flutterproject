@@ -15,6 +15,18 @@ class Paymentlist with ChangeNotifier {
     PaymentSelection(
       name: "khalti",
       image: "images/khalti.png",
+    ),
+     PaymentSelection(
+      name: "eSawa",
+      image: "images/nesewa.png",
+    ),
+    PaymentSelection(
+      name: "fone pay",
+      image: "images/fonepay.png",
+    ),
+    PaymentSelection(
+      name: "khalti",
+      image: "images/khalti.png",
     )
   ];
 

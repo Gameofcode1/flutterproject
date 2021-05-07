@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myprofile/editpage/edit.dart';
 import 'package:myprofile/storeedit/Category/category.dart';
+import 'package:myprofile/storeedit/provider/datetime.dart';
 import 'storeedit/screen/paymentedit.dart';
 import 'package:provider/provider.dart';
 import 'profile/profile.dart';
@@ -22,12 +23,20 @@ class Profile extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => Allimage(),
         ),
+        
         ChangeNotifierProvider(
           create: (context) => Paymentlist(),
         ),
+
+        ChangeNotifierProvider(
+          create: (context)=>DateAndTimeSlect()
+
+        ),
+        
         ChangeNotifierProvider(
           create: (context) => ListCategory(),
         ),
+        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -43,4 +52,7 @@ class Profile extends StatelessWidget {
       ),
     );
   }
+}
+
+class DateAndTimeSlectimage {
 }

@@ -17,51 +17,33 @@ class _PaymentState extends State<Payment> {
     var width = MediaQuery.of(context).size.width;
 
     return Container(
-      margin: EdgeInsets.only(left: width / 20, top: height / 70),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-              onTap: () {
-                setState(() {
-                  paymentl.change();
-                });
-              },
-              child: CheckboxText(
-                check: paymentl.select,
-                text: paymentl.name,
-              )),
-          Row(
-            children: [
-              Visibility(
-                visible: paymentl.select ? true : false,
-                child: Container(width: width / 15),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: width / 100),
-                child: Container(
-                  margin: EdgeInsets.only(top: height / 50),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 1.0,
-                          color:
-                              paymentl.select ? Colors.orange : Colors.black38),
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: Color(0xffF3F3F3)),
-                  child: Padding(
-                    padding: EdgeInsets.all(height / 50),
-                    child: Image(
-                      image: AssetImage(paymentl.image),
-                      height: height / 11,
-                      width: width / 2.5,
-                    ),
-                  ),
+        margin: EdgeInsets.only(left: width / 120, top: height / 500),
+        child: Container(
+          margin: EdgeInsets.only(left: width / 100),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                paymentl.change();
+              });
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: height / 150,right: width/40),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 1.0,
+                      color: paymentl.select ? Colors.orange : Color(0xffF3F3F3)),
+                  borderRadius: BorderRadius.circular(5.0),
+                  color: Color(0xffF3F3F3)),
+              child: Padding(
+                padding: EdgeInsets.all(height / 50),
+                child: Image(
+                  image: AssetImage(paymentl.image),
+                  height: height / 11,
+                  width: width / 2.5,
                 ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
+              ),
+            ),
+          ),
+        ));
   }
 }
