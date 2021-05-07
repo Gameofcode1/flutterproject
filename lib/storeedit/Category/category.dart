@@ -118,7 +118,8 @@ class _CategoryPageState extends State<CategoryPage> {
             ),
           ),
           GestureDetector(
-            onTap: () {    
+            onTap: () { listcat.clearlist();
+              listcat.addlist(catagorie[productid].name);
               listcat.cat.clear();
               
               listcat.newpay();

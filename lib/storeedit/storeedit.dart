@@ -16,8 +16,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'constannt.dart';
-
 import 'package:flutter_map/flutter_map.dart';
+
 
 class StoreEdit extends StatefulWidget {
   @override
@@ -57,6 +57,42 @@ class _StoreEditState extends State<StoreEdit> {
     }
   }
 
+String firstcat;
+String secondcat;
+
+
+
+
+  var concatenate = StringBuffer();
+  void items(){
+
+     Provider.of<ListCategory>(context, listen: false).cat.forEach((element) {
+       concatenate.write(element.title+",");
+        
+     }
+      
+    );
+    secondcat= concatenate.toString();
+  }
+
+  var maincategory=StringBuffer();
+  void maincategories(){
+    Provider.of<ListCategory>(context, listen: false).storelist.forEach((element) {
+      maincategory.write(element);
+      
+      
+    });
+    firstcat=maincategory.toString();
+
+  }
+
+  String sumchar;
+  void addchar(){
+    sumchar=firstcat+">"+secondcat;
+    
+  }
+
+
   Future selectctime(BuildContext context) async {
     TimeOfDay ctime =
         await showTimePicker(context: context, initialTime: closingtime);
@@ -83,12 +119,19 @@ class _StoreEditState extends State<StoreEdit> {
     });
   }
 
+  
+
+
   TimeOfDay openingtime;
   TimeOfDay closingtime;
   @override
   void initState() {
-    getcurrentlocation();
 
+    getcurrentlocation();
+     items();
+     
+    maincategories();
+addchar();
     openingtime = TimeOfDay.now();
     closingtime = TimeOfDay.now();
     shopname.text =
@@ -102,7 +145,7 @@ class _StoreEditState extends State<StoreEdit> {
         .dummydata['StreetAddres'];
     locationhint.text = Provider.of<ListCategory>(context, listen: false)
         .dummydata['LocationHint'];
-
+categorye.text=sumchar.toString();
     super.initState();
   }
 
@@ -122,6 +165,8 @@ class _StoreEditState extends State<StoreEdit> {
   TextEditingController lon = TextEditingController();
   TextEditingController streetname = TextEditingController();
   TextEditingController locationhint = TextEditingController();
+  TextEditingController categorye=TextEditingController();
+  TextEditingController maincat=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +290,7 @@ class _StoreEditState extends State<StoreEdit> {
                               Text("Add Store Description",
                                   style:
                                       kHeading.copyWith(fontSize: height / 50)),
-                              storeprovider.cat.length == 0
+                              storeprovider.cat.length==0
                                   ? SizedBox.shrink()
                                   : Row(children: [
                                       Expanded(
@@ -344,6 +389,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       padding: EdgeInsets.only(
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
+                                        controller: categorye,
                                         onTap: () {
                                           setState(() {
                                             iconclick = !iconclick;
@@ -744,6 +790,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       padding: EdgeInsets.only(
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
+                                  
                                         keyboardType: TextInputType.number,
                                         name: "Textfield",
                                         decoration: InputDecoration(
@@ -899,6 +946,7 @@ class _StoreEditState extends State<StoreEdit> {
                               )),
                         ),
                       ),
+                      storeprovider.cat.length==0?Text("saugat"):Text(maincategory.toString())
                     ],
                   )))),
     );
