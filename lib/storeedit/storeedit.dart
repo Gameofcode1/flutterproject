@@ -362,98 +362,123 @@ class _StoreEditState extends State<StoreEdit> {
                                       padding: EdgeInsets.only(
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
+                                        readOnly: true,
                                         controller: categorye,
                                         onTap: () {
                                           setState(() {
-                                            iconclick = !iconclick;
+                                            showModalBottomSheet(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(20.0),
+                                                    topRight:
+                                                        Radius.circular(20.0),
+                                                  ),
+                                                ),
+                                                context: context,
+                                                builder: (context) => Container(
+                                                    height: height / 3.6,
+                                                    margin: EdgeInsets.only(
+                                                        right: width / 40,
+                                                        top: height / 100),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                20.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                20.0),
+                                                      ),
+                                                    ),
+                                                    width: double.infinity,
+                                                    child: Container(
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: newdata
+                                                                .map<Widget>(
+                                                                    (url) {
+                                                              int index =
+                                                                  newdata
+                                                                      .indexOf(
+                                                                          url);
+
+                                                              return TextButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.of(context).pushNamed(
+                                                                        CategoryPage
+                                                                            .routeName,
+                                                                        arguments:
+                                                                            newdata[index].id);
+                                                                  },
+                                                                  child: Row(
+                                                                   
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 3,
+                                                                        child: SizedBox()),
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child: CircleAvatar(
+                                                                            backgroundColor: Colors.black26,
+                                                                            child: Icon(
+                                                                              newdata[index].icons,
+                                                                              color: Colors.black,
+                                                                            )),
+                                                                      ),
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child:
+                                                                            Text(
+                                                                          newdata[index]
+                                                                              .name,
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style: TextStyle(
+                                                                              color: Colors.black,
+                                                                              fontSize: height / 55,
+                                                                              fontWeight: FontWeight.normal),
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                        flex: 3,
+                                                                        
+                                                                        child: SizedBox()),
+                                                                    ],
+                                                                  ));
+                                                            }).toList(),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )));
                                           });
                                         },
                                         name: "Textfield",
                                         onChanged: onitemchanged,
                                         decoration: InputDecoration(
                                             suffixIcon: GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    iconclick = !iconclick;
-                                                  });
-                                                },
                                                 child: Icon(
-                                                  Icons.expand_more,
-                                                  color: Colors.black,
-                                                )),
+                                              Icons.expand_more,
+                                              color: Colors.black,
+                                            )),
                                             hintText: "Select Category",
                                             enabledBorder: InputBorder.none,
                                             focusedBorder: InputBorder.none),
                                       ),
                                     ),
-                                    iconclick == true
-                                        ? Container(
-                                            margin: EdgeInsets.only(
-                                                right: width / 40,
-                                                top: height / 100),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(20.0),
-                                                topRight: Radius.circular(20.0),
-                                              ),
-                                            ),
-                                            width: double.infinity,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                color: Color(0xffF3F3F3)
-                                                    .withOpacity(0.8),
-                                              ),
-                                              margin: EdgeInsets.only(
-                                                  left: width / 24,
-                                                  right: width / 20,
-                                                  top: height / 80),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: newdata
-                                                        .map<Widget>((url) {
-                                                      int index =
-                                                          newdata.indexOf(url);
-
-                                                      return TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pushNamed(
-                                                                  CategoryPage
-                                                                      .routeName,
-                                                                  arguments:
-                                                                      newdata[index]
-                                                                          .id);
-                                                        },
-                                                        child: Text(
-                                                          newdata[index].name,
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black54,
-                                                              fontSize:
-                                                                  height / 55,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal),
-                                                        ),
-                                                      );
-                                                    }).toList(),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        : SizedBox.shrink(),
                                     Container(
                                       height: height / 16,
                                       margin: EdgeInsets.only(
@@ -811,7 +836,9 @@ class _StoreEditState extends State<StoreEdit> {
                                         margin: EdgeInsets.only(
                                             left: width / 40, top: height / 50),
                                         child: Text(
-                                          latitude.toString(),style: TextStyle(color: Colors.black38),
+                                          latitude.toString(),
+                                          style:
+                                              TextStyle(color: Colors.black38),
                                         ),
                                       ),
                                     ),
@@ -831,7 +858,9 @@ class _StoreEditState extends State<StoreEdit> {
                                         margin: EdgeInsets.only(
                                             left: width / 40, top: height / 50),
                                         child: Text(
-                                          longitude.toString(),style: TextStyle(color: Colors.black38),
+                                          longitude.toString(),
+                                          style:
+                                              TextStyle(color: Colors.black38),
                                         ),
                                       ),
                                     ),
@@ -850,7 +879,11 @@ class _StoreEditState extends State<StoreEdit> {
                                       child: Container(
                                         margin: EdgeInsets.only(
                                             left: width / 40, top: height / 50),
-                                        child: Text(streetname,style: TextStyle(color: Colors.black38),),
+                                        child: Text(
+                                          streetname,
+                                          style:
+                                              TextStyle(color: Colors.black38),
+                                        ),
                                       ),
                                     ),
                                     Container(
@@ -868,7 +901,9 @@ class _StoreEditState extends State<StoreEdit> {
                                       child: Container(
                                         margin: EdgeInsets.only(
                                             left: width / 40, top: height / 50),
-                                        child: Text(locationhint,style: TextStyle(color: Colors.black38)),
+                                        child: Text(locationhint,
+                                            style: TextStyle(
+                                                color: Colors.black38)),
                                       ),
                                     ),
                                     Container(

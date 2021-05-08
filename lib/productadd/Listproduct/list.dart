@@ -1,12 +1,20 @@
 
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import '../models/titles.dart';
 final List<Titles> catagorie
  = [
-   Titles(id:0,name: "Clothing"),
-    Titles(id:1,name: " Electronic"),
-     Titles(id:2,name: "Fashion"),
-      Titles(id:3,name: "Food"),
+   Titles(
+
+     id:0,name: "Clothing",icons:Icons.house,),
+    Titles(
+      id:1,name: "Electronic",icons:Icons.check),
+     Titles(
+       id:2,name: "Fashion",icons:Icons.chat_sharp),
+      Titles(
+        id:3,name: "Food",icons:Icons.ac_unit),
  
    ];
    
