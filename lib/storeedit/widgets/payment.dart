@@ -27,11 +27,12 @@ class _PaymentState extends State<Payment> {
               });
             },
             child: Container(
-              margin: EdgeInsets.only(top: height / 150,right: width/40),
+              margin: EdgeInsets.only(top: height / 150, right: width / 40),
               decoration: BoxDecoration(
                   border: Border.all(
                       width: 1.0,
-                      color: paymentl.select ? Colors.orange : Color(0xffF3F3F3)),
+                      color:
+                          paymentl.select ? Colors.orange : Color(0xffF3F3F3)),
                   borderRadius: BorderRadius.circular(5.0),
                   color: Color(0xffF3F3F3)),
               child: Padding(

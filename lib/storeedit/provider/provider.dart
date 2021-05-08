@@ -53,6 +53,18 @@ List<Catclass> newpay(){
  cat= citems.where((element) => element.check).toList();
   
 }
+onstreetchange(String value){
+  dummydata["StreetAddres"]=value;
+  notifyListeners();
+
+
+}
+onlocationchange(String value){
+  dummydata["LocationHint"]=value;
+  notifyListeners();
+
+
+}
 
 
 

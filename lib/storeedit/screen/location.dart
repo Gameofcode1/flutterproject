@@ -47,7 +47,7 @@ class _EditLocationState extends State<EditLocation> {
         child: Scaffold(
             body: ListView(children: [
       Container(
-        margin: EdgeInsets.only(top: height / 70, left: width / 40),
+        margin: EdgeInsets.only(left: width / 40),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             children: [
@@ -68,19 +68,10 @@ class _EditLocationState extends State<EditLocation> {
               ),
             ],
           ),
-          Center(
-            child: Container(
-                margin: EdgeInsets.only(
-                    bottom: height / 60, right: width / 9, top: height / 60),
-                child: Image(
-                  image: AssetImage("images/locations.png"),
-                  height: height / 7,
-                )),
-          ),
           latitude == null
               ? Container()
               : Container(
-                  margin: EdgeInsets.only(top: height / 200, right: width / 40),
+                  margin: EdgeInsets.only(top: height / 30, right: width / 40),
                   height: height / 9,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -151,6 +142,12 @@ class _EditLocationState extends State<EditLocation> {
                 border: Border.all(width: 1.0, color: Colors.black38)),
             padding: EdgeInsets.only(top: height / 200, left: width / 40),
             child: FormBuilderTextField(
+              onChanged: (value) {
+                setState(() {
+                  Provider.of<ListCategory>(context, listen: false)
+                      .onstreetchange(value);
+                });
+              },
               name: "Textfield",
               controller: streetname,
               decoration: InputDecoration(
@@ -167,6 +164,12 @@ class _EditLocationState extends State<EditLocation> {
                 border: Border.all(width: 1.0, color: Colors.black38)),
             padding: EdgeInsets.only(top: height / 200, left: width / 40),
             child: FormBuilderTextField(
+              onChanged: (value) {
+                setState(() {
+                  Provider.of<ListCategory>(context, listen: false)
+                      .onlocationchange(value);
+                });
+              },
               name: "Textfield",
               controller: locationhint,
               decoration: InputDecoration(
@@ -177,9 +180,11 @@ class _EditLocationState extends State<EditLocation> {
           ),
           Center(
             child: GestureDetector(
-              onTap: (){Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => StoreEdit()));},
-                          child: Container(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => StoreEdit()));
+              },
+              child: Container(
                   width: double.infinity,
                   height: height / 20,
                   margin: EdgeInsets.only(top: height / 20, right: width / 40),
