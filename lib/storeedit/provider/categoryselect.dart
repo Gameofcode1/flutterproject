@@ -3,12 +3,16 @@ import 'package:myprofile/storeedit/provider/catclass.dart';
 import 'package:flutter/material.dart';
 
 
+
+
   List<Catclass> citems = [
     Catclass(
+      check: true,
       icon: Icons.house,
       title: "Real Estate",
     ),
     Catclass(
+      check: true,
       icon: Icons.electrical_services,
       title: "Electronics",
     ),
@@ -64,6 +68,7 @@ import 'package:flutter/material.dart';
 
 
   ];
+  
   
  
 

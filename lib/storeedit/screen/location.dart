@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
+import 'package:myprofile/editpage/constant.dart';
 import 'package:myprofile/storeedit/provider/provider.dart';
 import 'package:myprofile/storeedit/storeedit.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +29,7 @@ class _EditLocationState extends State<EditLocation> {
         .dummydata['LocationHint'];
     super.initState();
   }
-
+double currentzoom;
   Future getcurrentlocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -37,7 +37,15 @@ class _EditLocationState extends State<EditLocation> {
       latitude = geoposition.latitude;
       longitude = geoposition.longitude;
     });
+    if(latitude!=null){
+      currentzoom=currentzoom-1;
+      mapcontroller.move(LatLng(latitude, longitude),currentzoom);
+      
+
+
+    }
   }
+  var mapcontroller=MapController();
 
   @override
   Widget build(BuildContext context) {
@@ -103,79 +111,67 @@ class _EditLocationState extends State<EditLocation> {
                       ]),
                 ),
           Container(
-            height: height / 16,
-            margin: EdgeInsets.only(right: width / 40, top: height / 40),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(width: 1.0, color: Colors.black38)),
-            padding: EdgeInsets.only(top: height / 200, left: width / 40),
-            child: FormBuilderTextField(
-              name: "Textfield",
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  hintText: latitude.toString(),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none),
+            height: height / 15,
+            margin: EdgeInsets.only(top: height / 30, right: width / 50),
+            child: TextField(
+              readOnly: true,
+              obscureText: false,
+              textAlign: TextAlign.left,
+              decoration: kEditDecoration.copyWith(
+                hintText: latitude.toString(),
+                labelText: " latitude",
+              ),
             ),
           ),
           Container(
-            height: height / 16,
-            margin: EdgeInsets.only(right: width / 40, top: height / 40),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(width: 1.0, color: Colors.black38)),
-            padding: EdgeInsets.only(top: height / 200, left: width / 40),
-            child: FormBuilderTextField(
-              keyboardType: TextInputType.number,
-              name: "Textfield",
-              decoration: InputDecoration(
-                  hintText: longitude.toString(),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none),
+            height: height / 15,
+            margin: EdgeInsets.only(top: height / 30, right: width / 50),
+            child: TextField(
+              obscureText: false,
+              readOnly: true,
+              textAlign: TextAlign.left,
+              decoration: kEditDecoration.copyWith(
+                hintText: longitude.toString(),
+                labelText: " longitude",
+              ),
             ),
           ),
           Container(
-            height: height / 16,
-            margin: EdgeInsets.only(right: width / 40, top: height / 40),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(width: 1.0, color: Colors.black38)),
-            padding: EdgeInsets.only(top: height / 200, left: width / 40),
-            child: FormBuilderTextField(
+            height: height / 15,
+            margin: EdgeInsets.only(top: height / 30, right: width / 50),
+            child: TextField(
               onChanged: (value) {
                 setState(() {
                   Provider.of<ListCategory>(context, listen: false)
                       .onstreetchange(value);
                 });
               },
-              name: "Textfield",
               controller: streetname,
-              decoration: InputDecoration(
-                  hintText: "Street Address",
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none),
+              obscureText: false,
+              textAlign: TextAlign.left,
+              decoration: kEditDecoration.copyWith(
+                hintText: "Street Address",
+                labelText: "Street Address",
+              ),
             ),
           ),
           Container(
-            height: height / 16,
-            margin: EdgeInsets.only(right: width / 40, top: height / 40),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(width: 1.0, color: Colors.black38)),
-            padding: EdgeInsets.only(top: height / 200, left: width / 40),
-            child: FormBuilderTextField(
+            height: height / 15,
+            margin: EdgeInsets.only(top: height / 30, right: width / 50),
+            child: TextField(
               onChanged: (value) {
                 setState(() {
                   Provider.of<ListCategory>(context, listen: false)
                       .onlocationchange(value);
                 });
               },
-              name: "Textfield",
               controller: locationhint,
-              decoration: InputDecoration(
-                  hintText: "Location Hint",
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none),
+              obscureText: false,
+              textAlign: TextAlign.left,
+              decoration: kEditDecoration.copyWith(
+                hintText: "Location Hint",
+                labelText: "Location Hint",
+              ),
             ),
           ),
           Center(

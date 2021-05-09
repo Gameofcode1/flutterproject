@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:myprofile/editpage/constant.dart';
 import 'package:myprofile/profile/profile.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:myprofile/storeedit/provider/datetime.dart';
@@ -19,7 +21,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'constannt.dart';
-import 'package:flutter_map/flutter_map.dart';
 
 class StoreEdit extends StatefulWidget {
   @override
@@ -54,10 +55,12 @@ class _StoreEditState extends State<StoreEdit> {
   String secondcat;
   var concatenate = StringBuffer();
   void items() {
-    Provider.of<ListCategory>(context, listen: false).cat.forEach((element) {
-      concatenate.write(element.title + ",");
+    setState(() {
+      Provider.of<ListCategory>(context, listen: false).cat.forEach((element) {
+        concatenate.write(element.title + ",");
+      });
+      secondcat = concatenate.toString();
     });
-    secondcat = concatenate.toString();
   }
 
   var maincategory = StringBuffer();
@@ -83,6 +86,7 @@ class _StoreEditState extends State<StoreEdit> {
   bool iconclick = false;
   double latitude;
   double longitude;
+  bool categorycheck = false;
 
   List<Titles> newdata = List.from(catagorie);
 
@@ -362,108 +366,9 @@ class _StoreEditState extends State<StoreEdit> {
                                       padding: EdgeInsets.only(
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
-                                        readOnly: true,
-                                        controller: categorye,
                                         onTap: () {
                                           setState(() {
-                                            showModalBottomSheet(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(20.0),
-                                                    topRight:
-                                                        Radius.circular(20.0),
-                                                  ),
-                                                ),
-                                                context: context,
-                                                builder: (context) => Container(
-                                                    height: height / 3.6,
-                                                    margin: EdgeInsets.only(
-                                                        right: width / 40,
-                                                        top: height / 100),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                20.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                20.0),
-                                                      ),
-                                                    ),
-                                                    width: double.infinity,
-                                                    child: Container(
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: newdata
-                                                                .map<Widget>(
-                                                                    (url) {
-                                                              int index =
-                                                                  newdata
-                                                                      .indexOf(
-                                                                          url);
-
-                                                              return TextButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.of(context).pushNamed(
-                                                                        CategoryPage
-                                                                            .routeName,
-                                                                        arguments:
-                                                                            newdata[index].id);
-                                                                  },
-                                                                  child: Row(
-                                                                   
-                                                                    children: [
-                                                                      Expanded(
-                                                                        flex: 3,
-                                                                        child: SizedBox()),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child: CircleAvatar(
-                                                                            backgroundColor: Colors.black26,
-                                                                            child: Icon(
-                                                                              newdata[index].icons,
-                                                                              color: Colors.black,
-                                                                            )),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Text(
-                                                                          newdata[index]
-                                                                              .name,
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                          style: TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontSize: height / 55,
-                                                                              fontWeight: FontWeight.normal),
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 3,
-                                                                        
-                                                                        child: SizedBox()),
-                                                                    ],
-                                                                  ));
-                                                            }).toList(),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )));
+                                            categorycheck = !categorycheck;
                                           });
                                         },
                                         name: "Textfield",
@@ -479,75 +384,126 @@ class _StoreEditState extends State<StoreEdit> {
                                             focusedBorder: InputBorder.none),
                                       ),
                                     ),
+                                    categorycheck
+                                        ? Row(children: [
+                                            Expanded(
+                                                child: Container(
+                                              margin: EdgeInsets.only(
+                                                top: height / 40,
+                                                right: width / 30,
+                                              ),
+                                              height: height / 10,
+                                              child: 
+                                              newdata.isEmpty?Center(child: Container(child:Text("No Category found"))):
+                                              ListView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  shrinkWrap: true,
+                                                  itemCount: newdata.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pushNamed(
+                                                                CategoryPage
+                                                                    .routeName,
+                                                                arguments:
+                                                                    newdata[index]
+                                                                        .id);
+                                                      },
+                                                      child: Column(
+                                                        children: [
+                                                          CircleAvatar(
+                                                              backgroundColor:
+                                                                  Color(
+                                                                      0xffF3F3F3),
+                                                              radius:
+                                                                  height / 40,
+                                                              child: Icon(
+                                                                newdata[index]
+                                                                    .icons,
+                                                                color: Colors
+                                                                    .black,
+                                                                size:
+                                                                    height / 50,
+                                                              )),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: height /
+                                                                        100),
+                                                            child: Text(
+                                                              newdata[index]
+                                                                  .name,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      height /
+                                                                          55,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  }),
+                                            ))
+                                          ])
+                                        : Container(),
                                     Container(
                                       height: height / 16,
                                       margin: EdgeInsets.only(
-                                          right: width / 40, top: height / 40),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1.0,
-                                              color: Colors.black38),
-                                          borderRadius:
-                                              BorderRadius.circular(5.0)),
-                                      padding: EdgeInsets.only(
-                                          top: height / 200, left: width / 40),
-                                      child: FormBuilderTextField(
-                                        name: "Textfield",
+                                          top: height / 30, right: width / 50),
+                                      child: TextField(
+                                        obscureText: false,
                                         controller: shopname,
-                                        decoration: InputDecoration(
-                                            hintText: "Shop Name",
-                                            enabledBorder: InputBorder.none,
-                                            focusedBorder: InputBorder.none),
+                                        textAlign: TextAlign.left,
+                                        decoration: kEditDecoration.copyWith(
+                                          hintText: "Shop Name",
+                                          labelText: "Shop Name",
+                                        ),
                                       ),
                                     ),
                                     Container(
-                                      height: height / 16,
                                       margin: EdgeInsets.only(
-                                          right: width / 40, top: height / 40),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                          border: Border.all(
-                                              width: 1.0,
-                                              color: Colors.black38)),
-                                      padding: EdgeInsets.only(
-                                          top: height / 200, left: width / 40),
-                                      child: FormBuilderTextField(
-                                        name: "Textfield",
+                                          top: height / 30, right: width / 50),
+                                      child: TextField(
+                                        obscureText: false,
                                         controller: producttitle,
-                                        decoration: InputDecoration(
-                                            hintText: "Product Title",
-                                            enabledBorder: InputBorder.none,
-                                            focusedBorder: InputBorder.none),
+                                        textAlign: TextAlign.left,
+                                        decoration: kEditDecoration.copyWith(
+                                          hintText: "Product Title",
+                                          labelText: "Product Title",
+                                        ),
                                       ),
                                     ),
                                     Container(
                                       margin: EdgeInsets.only(
-                                          right: width / 40, top: height / 40),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                          border: Border.all(
-                                              width: 1.0,
-                                              color: Colors.black38)),
-                                      padding: EdgeInsets.only(
-                                          top: height / 200, left: width / 40),
-                                      child: FormBuilderTextField(
+                                          top: height / 30, right: width / 50),
+                                      child: TextField(
+                                        obscureText: false,
                                         controller: description,
-                                        name: "Textfield",
-                                        decoration: InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    vertical: height / 24),
-                                            hintText: "Description",
-                                            enabledBorder: InputBorder.none,
-                                            focusedBorder: InputBorder.none),
+                                        textAlign: TextAlign.left,
+                                        decoration: kEditDecoration.copyWith(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: height / 17,
+                                              horizontal: 10),
+                                          hintText: "Description",
+                                          labelText: "Description",
+                                        ),
                                       ),
                                     ),
                                     Container(
                                       height: height / 16,
                                       margin: EdgeInsets.only(
-                                          right: width / 40, top: height / 40),
+                                          top: height / 30, right: width / 50),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(5.0),
@@ -558,6 +514,7 @@ class _StoreEditState extends State<StoreEdit> {
                                       padding: EdgeInsets.only(
                                           top: height / 200, left: width / 40),
                                       child: FormBuilderTextField(
+                                        readOnly: true,
                                         onTap: () {
                                           setState(() {
                                             storestatus = !storestatus;
@@ -743,7 +700,7 @@ class _StoreEditState extends State<StoreEdit> {
                                           ),
                                           child: Align(
                                             alignment: Alignment.topLeft,
-                                            child: Text("Add Location",
+                                            child: Text("Location",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w900,
@@ -760,7 +717,7 @@ class _StoreEditState extends State<StoreEdit> {
                                           },
                                           child: Container(
                                             margin: EdgeInsets.only(
-                                                right: width / 30,
+                                                right: width / 20,
                                                 top: height / 40),
                                             child: Text("Edit",
                                                 style: TextStyle(
@@ -775,7 +732,7 @@ class _StoreEditState extends State<StoreEdit> {
                                         ? Container()
                                         : Container(
                                             margin: EdgeInsets.only(
-                                                top: height / 50,
+                                                top: height / 30,
                                                 right: width / 40),
                                             height: height / 9,
                                             width: double.infinity,
@@ -821,102 +778,16 @@ class _StoreEditState extends State<StoreEdit> {
                                                 ]),
                                           ),
                                     Container(
-                                      width: double.infinity,
-                                      margin: EdgeInsets.only(
-                                          right: width / 40, top: height / 40),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1.0,
-                                            color: Colors.black38,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(5.0)),
-                                      height: height / 16,
-                                      child: Container(
-                                        margin: EdgeInsets.only(
-                                            left: width / 40, top: height / 50),
-                                        child: Text(
-                                          latitude.toString(),
-                                          style:
-                                              TextStyle(color: Colors.black38),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      margin: EdgeInsets.only(
-                                          right: width / 40, top: height / 40),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1.0,
-                                            color: Colors.black38,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(5.0)),
-                                      height: height / 16,
-                                      child: Container(
-                                        margin: EdgeInsets.only(
-                                            left: width / 40, top: height / 50),
-                                        child: Text(
-                                          longitude.toString(),
-                                          style:
-                                              TextStyle(color: Colors.black38),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      margin: EdgeInsets.only(
-                                          right: width / 40, top: height / 40),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1.0,
-                                            color: Colors.black38,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(5.0)),
-                                      height: height / 16,
-                                      child: Container(
-                                        margin: EdgeInsets.only(
-                                            left: width / 40, top: height / 50),
-                                        child: Text(
-                                          streetname,
-                                          style:
-                                              TextStyle(color: Colors.black38),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      margin: EdgeInsets.only(
-                                          right: width / 40, top: height / 40),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1.0,
-                                            color: Colors.black38,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(5.0)),
-                                      height: height / 16,
-                                      child: Container(
-                                        margin: EdgeInsets.only(
-                                            left: width / 40, top: height / 50),
-                                        child: Text(locationhint,
-                                            style: TextStyle(
-                                                color: Colors.black38)),
-                                      ),
-                                    ),
-                                    Container(
                                       margin: EdgeInsets.only(
                                           right: width / 20, top: height / 30),
                                       child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Select Payment Method",
+                                            Text("Payment Method",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w900,
-                                                    fontSize: height / 38)),
+                                                    fontSize: height / 50)),
                                             GestureDetector(
                                               onTap: () {
                                                 Navigator.of(context).pushNamed(

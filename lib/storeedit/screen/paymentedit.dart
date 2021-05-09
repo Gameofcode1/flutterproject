@@ -31,41 +31,61 @@ class EditPayment extends StatelessWidget {
                         Navigator.pop(context);
                       },
                     ),
-                    Container(
-                      width: width / 3,
-                      child: Text("Add Payment",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: height / 45)),
-                    ),
+                   
                   ],
                 ),
+                
                 Center(
                   child: Container(
-                    margin: EdgeInsets.only(bottom: height/30),
+                      margin: EdgeInsets.only(bottom: height / 50),
                       child: Image(
-                    image: AssetImage("images/payment.png"),
-                    height: height / 4,
-                  )),
+                        image: AssetImage("images/pays.png"),
+                        height: height / 4,
+                      )),
                 ),
+                 Center(
+                   child: Container(
+                      margin: EdgeInsets.only(bottom: height / 70),
+                      
+                        child: Text("Payment Methods",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: height / 35)),
+                      ),
+                 ),
+                 Center(
+                   child: Container(
+                      margin: EdgeInsets.only(bottom: height / 20),
+                      
+                        child: Text("Click on payment cards to toggle Selection and save",
+                            style: TextStyle(
+                              fontWeight:FontWeight.w300,
+                                
+                                fontSize: height / 55)),
+                      ),
+                 ),
+
                 Expanded(
-                    child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio: 6 / 3.3,
-                            crossAxisSpacing: 1.0,
-                            mainAxisSpacing: 1.0),
-                        itemCount: payment.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          {
-                            return ChangeNotifierProvider.value(
-                              value: payment[index],
-                              child: Container(
-                                child: Payment(),
-                              ),
-                            );
-                          }
-                        })),
+                    child: Container(
+                  margin: EdgeInsets.only(left: width / 20, right: width / 20),
+                  child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200,
+                          childAspectRatio: 8 / 4,
+                          crossAxisSpacing: 3.0,
+                          mainAxisSpacing: 5.0),
+                      itemCount: payment.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        {
+                          return ChangeNotifierProvider.value(
+                            value: payment[index],
+                            child: Container(
+                              child: Payment(),
+                            ),
+                          );
+                        }
+                      }),
+                )),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context,

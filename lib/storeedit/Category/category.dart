@@ -23,7 +23,6 @@ class CategoryPage extends StatefulWidget with ChangeNotifier {
 List<Catclass> searchcat = List.from(citems);
 
 class _CategoryPageState extends State<CategoryPage> {
-
   onitemchang(String value) {
     setState(() {
       searchcat = citems
@@ -32,6 +31,7 @@ class _CategoryPageState extends State<CategoryPage> {
           .toList();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -72,18 +72,15 @@ class _CategoryPageState extends State<CategoryPage> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(
-               
-                left: width / 40,
-                bottom: height / 100),
+            margin: EdgeInsets.only(left: width / 40, bottom: height / 100),
             decoration: BoxDecoration(
                 border: Border.all(width: 1.0, color: Colors.black38),
                 borderRadius: BorderRadius.circular(30.0)),
             padding: EdgeInsets.only(top: height / 300, left: width / 40),
             child: Container(
-             
               child: FormBuilderTextField(
                 name: "Textfield",
+               
                 onChanged: onitemchang,
                 decoration: InputDecoration(
                     contentPadding:
@@ -101,26 +98,29 @@ class _CategoryPageState extends State<CategoryPage> {
           Expanded(
             child: Container(
               margin: EdgeInsets.only(left: width / 43, right: width / 43),
-              child: GridView.builder(
-                
+              child:
+              searchcat.isEmpty?Center(child: Text("No Category found")):
+              
+               GridView.builder(
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  
                       maxCrossAxisExtent: 200,
                       childAspectRatio: 6 / 3.3,
                       crossAxisSpacing: 1.0,
                       mainAxisSpacing: 1.0),
                   itemCount: searchcat.length,
                   itemBuilder: (BuildContext ctx, index) {
-                    return ChangeNotifierProvider.value(
-                        value: searchcat[index], child: CategoryCard());
+                    return  ChangeNotifierProvider.value(
+                            value: searchcat[index], child: CategoryCard());
                   }),
             ),
           ),
+          searchcat.isEmpty?Container():
           GestureDetector(
-            onTap: () { listcat.clearlist();
+            onTap: () {
+              listcat.clearlist();
               listcat.addlist(catagorie[productid].name);
               listcat.cat.clear();
-              
+
               listcat.newpay();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => StoreEdit()));
