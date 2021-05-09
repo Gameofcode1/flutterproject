@@ -389,10 +389,10 @@ class _StoreEditState extends State<StoreEdit> {
                                             Expanded(
                                                 child: Container(
                                               margin: EdgeInsets.only(
-                                                top: height / 40,
+                                                top: height / 30,
                                                 right: width / 30,
                                               ),
-                                              height: height / 10,
+                                              height: height / 8,
                                               child: 
                                               newdata.isEmpty?Center(child: Container(child:Text("No Category found"))):
                                               ListView.builder(
