@@ -29,23 +29,33 @@ class _EditLocationState extends State<EditLocation> {
         .dummydata['LocationHint'];
     super.initState();
   }
-double currentzoom;
+
+  List<Marker> markers = [];
+  double currentzoom;
   Future getcurrentlocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     setState(() {
       latitude = geoposition.latitude;
       longitude = geoposition.longitude;
+      markers = [
+        new Marker(
+          width: 80.0,
+          height: 80.0,
+          point: LatLng(latitude, longitude),
+          builder: (ctx) => new Container(
+            child: Icon(Icons.place, color: Colors.red),
+          ),
+        ),
+      ];
     });
-    if(latitude!=null){
-      currentzoom=currentzoom-1;
-      mapcontroller.move(LatLng(latitude, longitude),currentzoom);
-      
-
-
+    if (latitude != null) {
+      currentzoom = currentzoom - 1;
+      mapcontroller.move(LatLng(latitude, longitude), currentzoom);
     }
   }
-  var mapcontroller=MapController();
+
+  var mapcontroller = MapController();
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +97,25 @@ double currentzoom;
                       borderRadius: BorderRadius.circular(5.0),
                       color: Color(0xffF3F3F3)),
                   child: FlutterMap(
+                      children: [],
                       options: MapOptions(
+                        onTap: (LatLng point) {
+                          print('tapped');
+                          setState(() {
+                            markers.clear();
+                            latitude=point.latitude;
+                            longitude=point.longitude;
+                            markers.add(Marker(
+                              width: 80.0,
+                            
+                              height: 80.0,
+                              point: point,
+                              builder: (ctx) => new Container(
+                                child: Icon(Icons.place, color: Colors.green),
+                              ),
+                            ));
+                          });
+                        },
                         center: LatLng(latitude, longitude),
                         zoom: 13.0,
                       ),
@@ -97,16 +125,7 @@ double currentzoom;
                                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                             subdomains: ['a', 'b', 'c']),
                         MarkerLayerOptions(
-                          markers: [
-                            new Marker(
-                              width: 80.0,
-                              height: 80.0,
-                              point: LatLng(latitude, longitude),
-                              builder: (ctx) => new Container(
-                                child: Icon(Icons.place, color: Colors.red),
-                              ),
-                            ),
-                          ],
+                          markers: markers,
                         ),
                       ]),
                 ),

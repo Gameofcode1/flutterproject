@@ -127,12 +127,23 @@ class _StoreEditState extends State<StoreEdit> {
     super.initState();
   }
 
+  List<Marker> markers = [];
   Future getcurrentlocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     setState(() {
       latitude = geoposition.latitude;
       longitude = geoposition.longitude;
+      markers = [
+        new Marker(
+          width: 80.0,
+          height: 80.0,
+          point: LatLng(latitude, longitude),
+          builder: (ctx) => new Container(
+            child: Icon(Icons.place, color: Colors.red),
+          ),
+        ),
+      ];
     });
   }
 
@@ -393,67 +404,73 @@ class _StoreEditState extends State<StoreEdit> {
                                                 right: width / 30,
                                               ),
                                               height: height / 8,
-                                              child: 
-                                              newdata.isEmpty?Center(child: Container(child:Text("No Category found"))):
-                                              ListView.builder(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  shrinkWrap: true,
-                                                  itemCount: newdata.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pushNamed(
-                                                                CategoryPage
-                                                                    .routeName,
-                                                                arguments:
-                                                                    newdata[index]
-                                                                        .id);
-                                                      },
-                                                      child: Column(
-                                                        children: [
-                                                          CircleAvatar(
-                                                              backgroundColor:
-                                                                  Color(
-                                                                      0xffF3F3F3),
-                                                              radius:
-                                                                  height / 40,
-                                                              child: Icon(
-                                                                newdata[index]
-                                                                    .icons,
-                                                                color: Colors
-                                                                    .black,
-                                                                size:
-                                                                    height / 50,
-                                                              )),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    top: height /
-                                                                        100),
-                                                            child: Text(
-                                                              newdata[index]
-                                                                  .name,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize:
+                                              child: newdata.isEmpty
+                                                  ? Center(
+                                                      child: Container(
+                                                          child: Text(
+                                                              "No Category found")))
+                                                  : ListView.builder(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      shrinkWrap: true,
+                                                      itemCount: newdata.length,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pushNamed(
+                                                                    CategoryPage
+                                                                        .routeName,
+                                                                    arguments:
+                                                                        newdata[index]
+                                                                            .id);
+                                                          },
+                                                          child: Column(
+                                                            children: [
+                                                              CircleAvatar(
+                                                                  backgroundColor:
+                                                                      Color(
+                                                                          0xffF3F3F3),
+                                                                  radius:
                                                                       height /
-                                                                          55,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal),
-                                                            ),
+                                                                          40,
+                                                                  child: Icon(
+                                                                    newdata[index]
+                                                                        .icons,
+                                                                    color: Colors
+                                                                        .black,
+                                                                    size:
+                                                                        height /
+                                                                            50,
+                                                                  )),
+                                                              Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        top: height /
+                                                                            100),
+                                                                child: Text(
+                                                                  newdata[index]
+                                                                      .name,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          height /
+                                                                              55,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  }),
+                                                        );
+                                                      }),
                                             ))
                                           ])
                                         : Container(),
@@ -744,7 +761,28 @@ class _StoreEditState extends State<StoreEdit> {
                                                     BorderRadius.circular(5.0),
                                                 color: Color(0xffF3F3F3)),
                                             child: FlutterMap(
+                                                children: [],
+                                              
                                                 options: MapOptions(
+                                                  onTap: (LatLng point) {
+                                                    print('tapped');
+                                                    setState(() {
+                                                      
+                                                      markers.clear();
+                                                      markers.add(Marker(
+                                                        width: 80.0,
+                                                        height: 80.0,
+                                                        point: point,
+                                                        builder: (ctx) =>
+                                                            new Container(
+                                                          child: Icon(
+                                                              Icons.place,
+                                                              color:
+                                                                  Colors.green),
+                                                        ),
+                                                      ));
+                                                    });
+                                                  },
                                                   center: LatLng(
                                                       latitude, longitude),
                                                   zoom: 13.0,
@@ -759,21 +797,7 @@ class _StoreEditState extends State<StoreEdit> {
                                                         'c'
                                                       ]),
                                                   MarkerLayerOptions(
-                                                    markers: [
-                                                      new Marker(
-                                                        width: 80.0,
-                                                        height: 80.0,
-                                                        point: LatLng(latitude,
-                                                            longitude),
-                                                        builder: (ctx) =>
-                                                            new Container(
-                                                          child: Icon(
-                                                              Icons.place,
-                                                              color:
-                                                                  Colors.red),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    markers: markers,
                                                   ),
                                                 ]),
                                           ),
