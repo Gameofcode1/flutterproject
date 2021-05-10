@@ -1,5 +1,7 @@
 import 'dart:ui';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:myprofile/changepassword/changepassword.dart';
 import 'package:myprofile/editpage/edit.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -84,12 +86,34 @@ class _MyProfileState extends State<MyProfile> {
     image();
   }
 
+Color black=Colors.black;
   @override
   Widget build(BuildContext context) {
     final data = MediaQuery.of(context);
     var height = MediaQuery.of(context).size.height;
+  
 
     return Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
+        index: 0,
+        height: height / 14,
+        items: <Widget>[
+          Icon(Icons.house, size: height / 30,color: black,),
+          Icon(Icons.add_shopping_cart, size: height / 30),
+          Icon(Icons.add_circle, size: height / 30),
+          Icon(Icons.person_outline, size: height / 30),
+        ],
+        color: Color(0xffF3F3F3),
+        buttonBackgroundColor: Color(0xffF3F3F3),
+        backgroundColor: Colors.white,
+        
+        animationCurve: Curves.easeInOut,
+        animationDuration: Duration(milliseconds: 600),
+        onTap: (index) {
+        
+        },
+        letIndexChange: (index) => true,
+      ),
       body: SafeArea(
         child: Container(
           child: ListView(
