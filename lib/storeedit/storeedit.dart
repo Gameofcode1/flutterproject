@@ -6,6 +6,7 @@ import 'package:myprofile/editpage/constant.dart';
 import 'package:myprofile/profile/profile.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:myprofile/storeedit/provider/datetime.dart';
+import 'package:myprofile/storeedit/provider/fluttermap.dart';
 import 'package:myprofile/storeedit/provider/paymentlist.dart';
 import 'package:myprofile/storeedit/screen/location.dart';
 import './screen/location.dart';
@@ -109,7 +110,7 @@ class _StoreEditState extends State<StoreEdit> {
     Provider.of<DateAndTimeSlect>(context, listen: false).gettime();
     getcurrentlocation();
     items();
-
+  
     maincategories();
     addchar();
     shopname.text =
@@ -134,18 +135,19 @@ class _StoreEditState extends State<StoreEdit> {
     setState(() {
       latitude = geoposition.latitude;
       longitude = geoposition.longitude;
-      markers = [
-        new Marker(
+      if (Provider.of<MapMarker>(context, listen: false).markers.isEmpty) {
+        Provider.of<MapMarker>(context, listen: false).addnoneditmarker(Marker(
           width: 80.0,
           height: 80.0,
           point: LatLng(latitude, longitude),
           builder: (ctx) => new Container(
             child: Icon(Icons.place, color: Colors.red),
           ),
-        ),
-      ];
+        ));
+      }
     });
   }
+
 
   TextEditingController shopname = TextEditingController();
   TextEditingController producttitle = TextEditingController();
@@ -164,6 +166,7 @@ class _StoreEditState extends State<StoreEdit> {
     var selecttime = Provider.of<DateAndTimeSlect>(context);
     final storeprovider = Provider.of<ListCategory>(context);
     final payment = Provider.of<Paymentlist>(context, listen: true);
+    final mapmarkers = Provider.of<MapMarker>(context, listen: true);
 
     return ChangeNotifierProvider(
       create: (context) => ListCategory(),
@@ -761,30 +764,17 @@ class _StoreEditState extends State<StoreEdit> {
                                                     BorderRadius.circular(5.0),
                                                 color: Color(0xffF3F3F3)),
                                             child: FlutterMap(
+                                               
                                                 children: [],
-                                              
                                                 options: MapOptions(
-                                                  onTap: (LatLng point) {
-                                                    print('tapped');
-                                                    setState(() {
+                                                  center: (mapmarkers.lat !=
+                                                          null)
+                                                      ? 
+                                                    
+                                                      LatLng(mapmarkers.lat,
+                                                          mapmarkers.long):LatLng(
+                                                          latitude, longitude),
                                                       
-                                                      markers.clear();
-                                                      markers.add(Marker(
-                                                        width: 80.0,
-                                                        height: 80.0,
-                                                        point: point,
-                                                        builder: (ctx) =>
-                                                            new Container(
-                                                          child: Icon(
-                                                              Icons.place,
-                                                              color:
-                                                                  Colors.green),
-                                                        ),
-                                                      ));
-                                                    });
-                                                  },
-                                                  center: LatLng(
-                                                      latitude, longitude),
                                                   zoom: 13.0,
                                                 ),
                                                 layers: [
@@ -797,8 +787,10 @@ class _StoreEditState extends State<StoreEdit> {
                                                         'c'
                                                       ]),
                                                   MarkerLayerOptions(
-                                                    markers: markers,
-                                                  ),
+                                                      markers: Provider.of<
+                                                          MapMarker>(
+                                                    context,
+                                                  ).noneedit),
                                                 ]),
                                           ),
                                     Container(

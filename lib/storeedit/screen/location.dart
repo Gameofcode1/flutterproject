@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:myprofile/editpage/constant.dart';
+import 'package:myprofile/storeedit/provider/fluttermap.dart';
 import 'package:myprofile/storeedit/provider/provider.dart';
 import 'package:myprofile/storeedit/storeedit.dart';
 import 'package:provider/provider.dart';
@@ -27,10 +28,11 @@ class _EditLocationState extends State<EditLocation> {
         .dummydata['StreetAddres'];
     locationhint.text = Provider.of<ListCategory>(context, listen: false)
         .dummydata['LocationHint'];
+    lat.text = latitude.toString();
+    lon.text = longitude.toString();
     super.initState();
   }
 
-  List<Marker> markers = [];
   double currentzoom;
   Future getcurrentlocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
@@ -38,21 +40,16 @@ class _EditLocationState extends State<EditLocation> {
     setState(() {
       latitude = geoposition.latitude;
       longitude = geoposition.longitude;
-      markers = [
-        new Marker(
-          width: 80.0,
-          height: 80.0,
-          point: LatLng(latitude, longitude),
-          builder: (ctx) => new Container(
-            child: Icon(Icons.place, color: Colors.red),
-          ),
+      if( Provider.of<MapMarker>(context, listen: false).markers.isEmpty){
+      Provider.of<MapMarker>(context, listen: false).addmarker(Marker(
+        width: 80.0,
+        height: 80.0,
+        point: LatLng(latitude, longitude),
+        builder: (ctx) => new Container(
+          child: Icon(Icons.place, color: Colors.red),
         ),
-      ];
+      ));}
     });
-    if (latitude != null) {
-      currentzoom = currentzoom - 1;
-      mapcontroller.move(LatLng(latitude, longitude), currentzoom);
-    }
   }
 
   var mapcontroller = MapController();
@@ -102,18 +99,22 @@ class _EditLocationState extends State<EditLocation> {
                         onTap: (LatLng point) {
                           print('tapped');
                           setState(() {
-                            markers.clear();
-                            latitude=point.latitude;
-                            longitude=point.longitude;
-                            markers.add(Marker(
-                              width: 80.0,
-                            
-                              height: 80.0,
-                              point: point,
-                              builder: (ctx) => new Container(
-                                child: Icon(Icons.place, color: Colors.green),
-                              ),
-                            ));
+                             Provider.of<MapMarker>(context, listen: false).clearaddmarker();
+
+                            latitude = point.latitude;
+                            longitude = point.longitude;
+
+                            Provider.of<MapMarker>(context, listen: false)
+                                .markers
+                                .add(Marker(
+                                  width: 80.0,
+                                  height: 80.0,
+                                  point: point,
+                                  builder: (ctx) => new Container(
+                                    child:
+                                        Icon(Icons.place, color: Colors.red),
+                                  ),
+                                ));
                           });
                         },
                         center: LatLng(latitude, longitude),
@@ -125,34 +126,44 @@ class _EditLocationState extends State<EditLocation> {
                                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                             subdomains: ['a', 'b', 'c']),
                         MarkerLayerOptions(
-                          markers: markers,
+                          markers: Provider.of<MapMarker>(
+                            context,
+                          ).markers,
                         ),
                       ]),
                 ),
           Container(
-            height: height / 15,
+            width: double.infinity,
             margin: EdgeInsets.only(top: height / 30, right: width / 50),
-            child: TextField(
-              readOnly: true,
-              obscureText: false,
-              textAlign: TextAlign.left,
-              decoration: kEditDecoration.copyWith(
-                hintText: latitude.toString(),
-                labelText: " latitude",
-              ),
+            decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1.0,
+                  color: Colors.black38,
+                ),
+                borderRadius: BorderRadius.circular(5.0)),
+            height: height / 18,
+            child: Container(
+              margin: EdgeInsets.only(left: width / 30, top: height / 70),
+              child: Text(
+                latitude==null?"Latitude":
+                latitude.toString(), textAlign: TextAlign.left),
             ),
           ),
           Container(
-            height: height / 15,
+            width: double.infinity,
             margin: EdgeInsets.only(top: height / 30, right: width / 50),
-            child: TextField(
-              obscureText: false,
-              readOnly: true,
-              textAlign: TextAlign.left,
-              decoration: kEditDecoration.copyWith(
-                hintText: longitude.toString(),
-                labelText: " longitude",
-              ),
+            decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1.0,
+                  color: Colors.black38,
+                ),
+                borderRadius: BorderRadius.circular(5.0)),
+            height: height / 18,
+            child: Container(
+              margin: EdgeInsets.only(left: width / 30, top: height / 70),
+              child: Text(
+                latitude==null?"Longitude":
+                longitude.toString(), textAlign: TextAlign.left),
             ),
           ),
           Container(
@@ -196,6 +207,20 @@ class _EditLocationState extends State<EditLocation> {
           Center(
             child: GestureDetector(
               onTap: () {
+                setState(() {
+                 Provider.of<MapMarker>(context,listen: false).addlatlong(latitude, longitude);
+                  Provider.of<MapMarker>(context,listen: false).clearnonmarker();
+                  Provider.of<MapMarker>(context, listen: false)
+                      .addnoneditmarker(Marker(
+                    width: 80.0,
+                    height: 80.0,
+                    point: LatLng(latitude, longitude),
+                    builder: (ctx) => new Container(
+                      child: Icon(Icons.place, color: Colors.red),
+                    ),
+                  ));
+                });
+
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => StoreEdit()));
               },

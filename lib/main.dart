@@ -9,6 +9,7 @@ import './profile/checkuserintro.dart';
 import 'productDetail/models/list.dart';
 import './productadd/categorypages/categorypages.dart';
 import "storeedit/provider/provider.dart";
+import 'storeedit/provider/fluttermap.dart';
 import 'storeedit/provider/paymentlist.dart';
 
 void main() {
@@ -22,6 +23,9 @@ class Profile extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => Allimage(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MapMarker(),
         ),
         
         ChangeNotifierProvider(
