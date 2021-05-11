@@ -735,7 +735,7 @@ class _StoreEditState extends State<StoreEdit> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          EditLocation(saugat: widget.lati,pudasaini: widget.loti,)));
+                                                          EditLocation(newlat: widget.lati,newlon: widget.loti,)));
                                             });
                                           },
                                           child: Container(

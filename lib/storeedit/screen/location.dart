@@ -10,9 +10,9 @@ import 'package:myprofile/storeedit/storeedit.dart';
 import 'package:provider/provider.dart';
 
 class EditLocation extends StatefulWidget {
-  double saugat;
-  double pudasaini;
-  EditLocation({this.saugat, this.pudasaini});
+  double newlat;
+  double newlon;
+  EditLocation({this.newlat, this.newlon});
   @override
   _EditLocationState createState() => _EditLocationState();
 }
@@ -29,7 +29,7 @@ TextEditingController locationhint = TextEditingController();
 class _EditLocationState extends State<EditLocation> {
   @override
   void initState() {
-    addd();
+
     Future.delayed(Duration.zero, () async {
       getcurrentlocation();
     });
@@ -46,9 +46,7 @@ class _EditLocationState extends State<EditLocation> {
   MapController maps = MapController();
   MapController next = MapController();
   double currentzoom = 17;
-  addd() {
-    setState(() {});
-  }
+
 
   Future getcurrentlocation() async {
     try {
@@ -59,7 +57,7 @@ class _EditLocationState extends State<EditLocation> {
         longitude = geoposition.longitude;
       });
       maps.move(LatLng(geoposition.latitude, geoposition.longitude), maps.zoom);
-      next.move(LatLng(widget.saugat, widget.pudasaini), maps.zoom);
+      next.move(LatLng(widget.newlat, widget.newlon), maps.zoom);
     } catch (e) {
       print(e);
     }
@@ -85,11 +83,15 @@ class _EditLocationState extends State<EditLocation> {
                       height: height / 2,
                       width: double.infinity,
                       decoration: BoxDecoration(color: Color(0xffF3F3F3)),
-                      child: widget.saugat == null
+                      child: widget.newlat == null
                           ? FlutterMap(
                               children: [],
                               mapController: maps,
                               options: MapOptions(
+                                minZoom: 11.0,
+                                maxZoom: 17.0,
+                                interactiveFlags: InteractiveFlag.pinchZoom |
+                                    InteractiveFlag.drag,
                                 onPositionChanged: (mapPosition, bool) {
                                   setState(() {
                                     latitude = maps.center.latitude;
@@ -124,13 +126,17 @@ class _EditLocationState extends State<EditLocation> {
                               children: [],
                               mapController: next,
                               options: MapOptions(
+                                minZoom: 11.0,
+                                maxZoom: 17.0,
+                                interactiveFlags: InteractiveFlag.pinchZoom |
+                                    InteractiveFlag.drag,
                                 onPositionChanged: (mapPosition, bool) {
                                   setState(() {
-                                    widget.saugat = next.center.latitude;
-                                    widget.pudasaini = next.center.longitude;
+                                    widget.newlat = next.center.latitude;
+                                    widget.newlon = next.center.longitude;
                                   });
                                 },
-                                center: LatLng(widget.saugat, widget.pudasaini),
+                                center: LatLng(widget.newlat, widget.newlon),
                                 zoom: currentzoom,
                               ),
                               layers: [
@@ -146,8 +152,7 @@ class _EditLocationState extends State<EditLocation> {
                                   Marker(
                                     width: 80.0,
                                     height: 80.0,
-                                    point:
-                                        LatLng(widget.saugat, widget.pudasaini),
+                                    point: LatLng(widget.newlat, widget.newlon),
                                     builder: (ctx) => new Container(
                                       child: Icon(Icons.place,
                                           size: height / 20, color: Colors.red),
@@ -176,7 +181,6 @@ class _EditLocationState extends State<EditLocation> {
                         ),
                       ],
                     ),
-                   
                   ],
                 ),
           Container(
@@ -194,14 +198,16 @@ class _EditLocationState extends State<EditLocation> {
                     borderRadius: BorderRadius.circular(5.0)),
                 height: height / 18,
                 child: Container(
-                  margin: EdgeInsets.only(left: width / 30, top: height / 70),
-                  child:widget.saugat==null?
-                   Text(
-                      latitude == null ? "Latitude" : latitude.toString(),
-                      textAlign: TextAlign.left): Text(
-                      latitude == null ? "Latitude" : widget.pudasaini.toString(),
-                      textAlign: TextAlign.left)
-                ),
+                    margin: EdgeInsets.only(left: width / 30, top: height / 70),
+                    child: widget.newlat == null
+                        ? Text(
+                            latitude == null ? "Latitude" : latitude.toString(),
+                            textAlign: TextAlign.left)
+                        : Text(
+                            latitude == null
+                                ? "Latitude"
+                                : widget.newlon.toString(),
+                            textAlign: TextAlign.left)),
               ),
               Container(
                 width: double.infinity,
@@ -214,15 +220,18 @@ class _EditLocationState extends State<EditLocation> {
                     borderRadius: BorderRadius.circular(5.0)),
                 height: height / 18,
                 child: Container(
-                  margin: EdgeInsets.only(left: width / 30, top: height / 70),
-                  child: 
-                  widget.saugat==null?
-                  Text(
-                      latitude == null ? "Longitude" : longitude.toString(),
-                      textAlign: TextAlign.left):Text(
-                      latitude == null ? "Longitude" : widget.saugat.toString(),
-                      textAlign: TextAlign.left)
-                ),
+                    margin: EdgeInsets.only(left: width / 30, top: height / 70),
+                    child: widget.newlat == null
+                        ? Text(
+                            latitude == null
+                                ? "Longitude"
+                                : longitude.toString(),
+                            textAlign: TextAlign.left)
+                        : Text(
+                            latitude == null
+                                ? "Longitude"
+                                : widget.newlat.toString(),
+                            textAlign: TextAlign.left)),
               ),
               Container(
                 height: height / 15,
@@ -265,22 +274,19 @@ class _EditLocationState extends State<EditLocation> {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    widget.saugat==null?
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => StoreEdit(
-                            
-                                  lati: latitude,
-                                  loti: longitude,
-                                ))):Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => StoreEdit(
-                            
-                                  lati: widget.saugat,
-                                  loti: widget.pudasaini
-                                )));
+                    widget.newlat == null
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StoreEdit(
+                                      lati: latitude,
+                                      loti: longitude,
+                                    )))
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StoreEdit(
+                                    lati: widget.newlat, loti: widget.newlon)));
                   },
                   child: Container(
                       width: double.infinity,
