@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
+
 import 'package:latlong/latlong.dart';
 import 'package:myprofile/editpage/constant.dart';
-import 'package:myprofile/storeedit/provider/fluttermap.dart';
+
 import 'package:myprofile/storeedit/provider/provider.dart';
 import 'package:myprofile/storeedit/storeedit.dart';
 import 'package:provider/provider.dart';
 
 class EditLocation extends StatefulWidget {
+  double saugat;
+  double pudasaini;
+  EditLocation({this.saugat, this.pudasaini});
   @override
   _EditLocationState createState() => _EditLocationState();
 }
 
+// double newlatitude;
+// double newlongitude;
 double latitude;
 double longitude;
 TextEditingController lat = TextEditingController();
@@ -23,7 +29,11 @@ TextEditingController locationhint = TextEditingController();
 class _EditLocationState extends State<EditLocation> {
   @override
   void initState() {
-    getcurrentlocation();
+    addd();
+    Future.delayed(Duration.zero, () async {
+      getcurrentlocation();
+    });
+
     streetname.text = Provider.of<ListCategory>(context, listen: false)
         .dummydata['StreetAddres'];
     locationhint.text = Provider.of<ListCategory>(context, listen: false)
@@ -33,23 +43,26 @@ class _EditLocationState extends State<EditLocation> {
     super.initState();
   }
 
-  double currentzoom;
+  MapController maps = MapController();
+  MapController next = MapController();
+  double currentzoom = 17;
+  addd() {
+    setState(() {});
+  }
+
   Future getcurrentlocation() async {
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    setState(() {
-      latitude = geoposition.latitude;
-      longitude = geoposition.longitude;
-      if( Provider.of<MapMarker>(context, listen: false).markers.isEmpty){
-      Provider.of<MapMarker>(context, listen: false).addmarker(Marker(
-        width: 80.0,
-        height: 80.0,
-        point: LatLng(latitude, longitude),
-        builder: (ctx) => new Container(
-          child: Icon(Icons.place, color: Colors.red),
-        ),
-      ));}
-    });
+    try {
+      final geoposition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      setState(() {
+        latitude = geoposition.latitude;
+        longitude = geoposition.longitude;
+      });
+      maps.move(LatLng(geoposition.latitude, geoposition.longitude), maps.zoom);
+      next.move(LatLng(widget.saugat, widget.pudasaini), maps.zoom);
+    } catch (e) {
+      print(e);
+    }
   }
 
   var mapcontroller = MapController();
@@ -61,189 +74,237 @@ class _EditLocationState extends State<EditLocation> {
     return SafeArea(
         child: Scaffold(
             body: ListView(children: [
-      Container(
-        margin: EdgeInsets.only(left: width / 40),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: height / 29,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              Container(
-                width: width / 3,
-                child: Text("Edit Location",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900, fontSize: height / 45)),
-              ),
-            ],
-          ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           latitude == null
               ? Container()
-              : Container(
-                  margin: EdgeInsets.only(top: height / 30, right: width / 40),
-                  height: height / 9,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.0, color: Colors.black38),
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: Color(0xffF3F3F3)),
-                  child: FlutterMap(
-                      children: [],
-                      options: MapOptions(
-                        onTap: (LatLng point) {
-                          print('tapped');
-                          setState(() {
-                             Provider.of<MapMarker>(context, listen: false).clearaddmarker();
-
-                            latitude = point.latitude;
-                            longitude = point.longitude;
-
-                            Provider.of<MapMarker>(context, listen: false)
-                                .markers
-                                .add(Marker(
-                                  width: 80.0,
-                                  height: 80.0,
-                                  point: point,
-                                  builder: (ctx) => new Container(
-                                    child:
-                                        Icon(Icons.place, color: Colors.red),
-                                  ),
-                                ));
-                          });
-                        },
-                        center: LatLng(latitude, longitude),
-                        zoom: 13.0,
-                      ),
-                      layers: [
-                        new TileLayerOptions(
-                            urlTemplate:
-                                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                            subdomains: ['a', 'b', 'c']),
-                        MarkerLayerOptions(
-                          markers: Provider.of<MapMarker>(
-                            context,
-                          ).markers,
+              : Stack(
+                  children: [
+                    Container(
+                      height: height / 2,
+                      width: double.infinity,
+                      decoration: BoxDecoration(color: Color(0xffF3F3F3)),
+                      child: widget.saugat == null
+                          ? FlutterMap(
+                              children: [],
+                              mapController: maps,
+                              options: MapOptions(
+                                onPositionChanged: (mapPosition, bool) {
+                                  setState(() {
+                                    latitude = maps.center.latitude;
+                                    longitude = maps.center.longitude;
+                                  });
+                                },
+                                center: LatLng(latitude, longitude),
+                                zoom: currentzoom,
+                              ),
+                              layers: [
+                                new TileLayerOptions(
+                                    urlTemplate:
+                                        "https://api.mapbox.com/styles/v1/saugatt/ckojr740403wm17pc74woklrr/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                    additionalOptions: {
+                                      'access_token':
+                                          "pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                      'id': "mapbox.mapbox-streets-v8"
+                                    }),
+                                MarkerLayerOptions(markers: [
+                                  Marker(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    point: LatLng(latitude, longitude),
+                                    builder: (ctx) => new Container(
+                                      child: Icon(Icons.place,
+                                          size: height / 20, color: Colors.red),
+                                    ),
+                                  )
+                                ]),
+                              ])
+                          : FlutterMap(
+                              children: [],
+                              mapController: next,
+                              options: MapOptions(
+                                onPositionChanged: (mapPosition, bool) {
+                                  setState(() {
+                                    widget.saugat = next.center.latitude;
+                                    widget.pudasaini = next.center.longitude;
+                                  });
+                                },
+                                center: LatLng(widget.saugat, widget.pudasaini),
+                                zoom: currentzoom,
+                              ),
+                              layers: [
+                                new TileLayerOptions(
+                                    urlTemplate:
+                                        "https://api.mapbox.com/styles/v1/saugatt/ckojr740403wm17pc74woklrr/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                    additionalOptions: {
+                                      'access_token':
+                                          "pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                      'id': "mapbox.mapbox-streets-v8"
+                                    }),
+                                MarkerLayerOptions(markers: [
+                                  Marker(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    point:
+                                        LatLng(widget.saugat, widget.pudasaini),
+                                    builder: (ctx) => new Container(
+                                      child: Icon(Icons.place,
+                                          size: height / 20, color: Colors.red),
+                                    ),
+                                  )
+                                ]),
+                              ]),
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            size: height / 29,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
-                      ]),
-                ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.only(top: height / 30, right: width / 50),
-            decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1.0,
-                  color: Colors.black38,
-                ),
-                borderRadius: BorderRadius.circular(5.0)),
-            height: height / 18,
-            child: Container(
-              margin: EdgeInsets.only(left: width / 30, top: height / 70),
-              child: Text(
-                latitude==null?"Latitude":
-                latitude.toString(), textAlign: TextAlign.left),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.only(top: height / 30, right: width / 50),
-            decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1.0,
-                  color: Colors.black38,
-                ),
-                borderRadius: BorderRadius.circular(5.0)),
-            height: height / 18,
-            child: Container(
-              margin: EdgeInsets.only(left: width / 30, top: height / 70),
-              child: Text(
-                latitude==null?"Longitude":
-                longitude.toString(), textAlign: TextAlign.left),
-            ),
-          ),
-          Container(
-            height: height / 15,
-            margin: EdgeInsets.only(top: height / 30, right: width / 50),
-            child: TextField(
-              onChanged: (value) {
-                setState(() {
-                  Provider.of<ListCategory>(context, listen: false)
-                      .onstreetchange(value);
-                });
-              },
-              controller: streetname,
-              obscureText: false,
-              textAlign: TextAlign.left,
-              decoration: kEditDecoration.copyWith(
-                hintText: "Street Address",
-                labelText: "Street Address",
-              ),
-            ),
-          ),
-          Container(
-            height: height / 15,
-            margin: EdgeInsets.only(top: height / 30, right: width / 50),
-            child: TextField(
-              onChanged: (value) {
-                setState(() {
-                  Provider.of<ListCategory>(context, listen: false)
-                      .onlocationchange(value);
-                });
-              },
-              controller: locationhint,
-              obscureText: false,
-              textAlign: TextAlign.left,
-              decoration: kEditDecoration.copyWith(
-                hintText: "Location Hint",
-                labelText: "Location Hint",
-              ),
-            ),
-          ),
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                 Provider.of<MapMarker>(context,listen: false).addlatlong(latitude, longitude);
-                  Provider.of<MapMarker>(context,listen: false).clearnonmarker();
-                  Provider.of<MapMarker>(context, listen: false)
-                      .addnoneditmarker(Marker(
-                    width: 80.0,
-                    height: 80.0,
-                    point: LatLng(latitude, longitude),
-                    builder: (ctx) => new Container(
-                      child: Icon(Icons.place, color: Colors.red),
+                        Container(
+                          width: width / 3,
+                          child: Text("Edit Location",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: height / 45)),
+                        ),
+                      ],
                     ),
-                  ));
-                });
-
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => StoreEdit()));
-              },
-              child: Container(
-                  width: double.infinity,
-                  height: height / 20,
-                  margin: EdgeInsets.only(top: height / 20, right: width / 40),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    color: Color(0xffF08626),
+                   
+                  ],
+                ),
+          Container(
+            decoration: BoxDecoration(),
+            padding: EdgeInsets.only(left: width / 40, right: width / 70),
+            child: Column(children: [
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: height / 30, right: width / 50),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1.0,
+                      color: Colors.black38,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0)),
+                height: height / 18,
+                child: Container(
+                  margin: EdgeInsets.only(left: width / 30, top: height / 70),
+                  child:widget.saugat==null?
+                   Text(
+                      latitude == null ? "Latitude" : latitude.toString(),
+                      textAlign: TextAlign.left): Text(
+                      latitude == null ? "Latitude" : widget.pudasaini.toString(),
+                      textAlign: TextAlign.left)
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: height / 30, right: width / 50),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1.0,
+                      color: Colors.black38,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0)),
+                height: height / 18,
+                child: Container(
+                  margin: EdgeInsets.only(left: width / 30, top: height / 70),
+                  child: 
+                  widget.saugat==null?
+                  Text(
+                      latitude == null ? "Longitude" : longitude.toString(),
+                      textAlign: TextAlign.left):Text(
+                      latitude == null ? "Longitude" : widget.saugat.toString(),
+                      textAlign: TextAlign.left)
+                ),
+              ),
+              Container(
+                height: height / 15,
+                margin: EdgeInsets.only(top: height / 30, right: width / 50),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      Provider.of<ListCategory>(context, listen: false)
+                          .onstreetchange(value);
+                    });
+                  },
+                  controller: streetname,
+                  obscureText: false,
+                  textAlign: TextAlign.left,
+                  decoration: kEditDecoration.copyWith(
+                    hintText: "Street Address",
+                    labelText: "Street Address",
                   ),
-                  child: Center(
-                    child: Text(
-                      "Change",
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(color: Colors.white, fontSize: height / 40),
-                    ),
-                  )),
-            ),
-          ),
-        ]),
-      ),
+                ),
+              ),
+              Container(
+                height: height / 15,
+                margin: EdgeInsets.only(top: height / 30, right: width / 50),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      Provider.of<ListCategory>(context, listen: false)
+                          .onlocationchange(value);
+                    });
+                  },
+                  controller: locationhint,
+                  obscureText: false,
+                  textAlign: TextAlign.left,
+                  decoration: kEditDecoration.copyWith(
+                    hintText: "Location Hint",
+                    labelText: "Location Hint",
+                  ),
+                ),
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    widget.saugat==null?
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StoreEdit(
+                            
+                                  lati: latitude,
+                                  loti: longitude,
+                                ))):Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StoreEdit(
+                            
+                                  lati: widget.saugat,
+                                  loti: widget.pudasaini
+                                )));
+                  },
+                  child: Container(
+                      width: double.infinity,
+                      height: height / 20,
+                      margin:
+                          EdgeInsets.only(top: height / 20, right: width / 40),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Color(0xffF08626),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Change",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white, fontSize: height / 40),
+                        ),
+                      )),
+                ),
+              ),
+            ]),
+          )
+        ],
+      )
     ])));
   }
 }

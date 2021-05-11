@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
@@ -6,7 +7,6 @@ import 'package:myprofile/editpage/constant.dart';
 import 'package:myprofile/profile/profile.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:myprofile/storeedit/provider/datetime.dart';
-import 'package:myprofile/storeedit/provider/fluttermap.dart';
 import 'package:myprofile/storeedit/provider/paymentlist.dart';
 import 'package:myprofile/storeedit/screen/location.dart';
 import './screen/location.dart';
@@ -24,6 +24,10 @@ import 'package:image_picker/image_picker.dart';
 import 'constannt.dart';
 
 class StoreEdit extends StatefulWidget {
+  final double lati;
+  final double loti;
+  StoreEdit({this.lati, this.loti});
+
   @override
   _StoreEditState createState() => _StoreEditState();
 }
@@ -106,11 +110,14 @@ class _StoreEditState extends State<StoreEdit> {
   TimeOfDay closingtime;
   @override
   void initState() {
+    Future.delayed(Duration.zero, () async {
+      getcurrentlocation();
+    });
     super.initState();
     Provider.of<DateAndTimeSlect>(context, listen: false).gettime();
-    getcurrentlocation();
+
     items();
-  
+
     maincategories();
     addchar();
     shopname.text =
@@ -128,26 +135,18 @@ class _StoreEditState extends State<StoreEdit> {
     super.initState();
   }
 
+  MapController mapController = MapController();
+
   List<Marker> markers = [];
   Future getcurrentlocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+
     setState(() {
       latitude = geoposition.latitude;
       longitude = geoposition.longitude;
-      if (Provider.of<MapMarker>(context, listen: false).markers.isEmpty) {
-        Provider.of<MapMarker>(context, listen: false).addnoneditmarker(Marker(
-          width: 80.0,
-          height: 80.0,
-          point: LatLng(latitude, longitude),
-          builder: (ctx) => new Container(
-            child: Icon(Icons.place, color: Colors.red),
-          ),
-        ));
-      }
     });
   }
-
 
   TextEditingController shopname = TextEditingController();
   TextEditingController producttitle = TextEditingController();
@@ -166,8 +165,7 @@ class _StoreEditState extends State<StoreEdit> {
     var selecttime = Provider.of<DateAndTimeSlect>(context);
     final storeprovider = Provider.of<ListCategory>(context);
     final payment = Provider.of<Paymentlist>(context, listen: true);
-    final mapmarkers = Provider.of<MapMarker>(context, listen: true);
-
+   
     return ChangeNotifierProvider(
       create: (context) => ListCategory(),
       child: Scaffold(
@@ -729,11 +727,16 @@ class _StoreEditState extends State<StoreEdit> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        EditLocation()));
+                                            SchedulerBinding.instance
+                                                .addPostFrameCallback((_) {
+                                              // add your code here.
+
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          EditLocation(saugat: widget.lati,pudasaini: widget.loti,)));
+                                            });
                                           },
                                           child: Container(
                                             margin: EdgeInsets.only(
@@ -763,35 +766,76 @@ class _StoreEditState extends State<StoreEdit> {
                                                 borderRadius:
                                                     BorderRadius.circular(5.0),
                                                 color: Color(0xffF3F3F3)),
-                                            child: FlutterMap(
-                                               
-                                                children: [],
-                                                options: MapOptions(
-                                                  center: (mapmarkers.lat !=
-                                                          null)
-                                                      ? 
-                                                    
-                                                      LatLng(mapmarkers.lat,
-                                                          mapmarkers.long):LatLng(
+                                            child: (widget.lati != null)
+                                                ? FlutterMap(
+                                                    children: [],
+                                                    options: MapOptions(
+                                                      center: LatLng(
+                                                          widget.lati,
+                                                          widget.loti),
+                                                      zoom: 13.0,
+                                                    ),
+                                                    layers: [
+                                                      new TileLayerOptions(
+                                                          urlTemplate:
+                                                              "https://api.mapbox.com/styles/v1/saugatt/ckojr740403wm17pc74woklrr/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                                          additionalOptions: {
+                                                            'access_token':
+                                                                "pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                                            'id':
+                                                                "mapbox.mapbox-streets-v8"
+                                                          }),
+                                                      MarkerLayerOptions(
+                                                          markers: [
+                                                            Marker(
+                                                              width: 80.0,
+                                                              height: 80.0,
+                                                              point: LatLng(
+                                                                  widget.lati,
+                                                                  widget.loti),
+                                                              builder: (ctx) =>
+                                                                  new Container(
+                                                                child: Icon(
+                                                                    Icons.place,
+                                                                    color: Colors
+                                                                        .red),
+                                                              ),
+                                                            )
+                                                          ]),
+                                                    ])
+                                                : FlutterMap(
+                                                    children: [],
+                                                    options: MapOptions(
+                                                      center: LatLng(
                                                           latitude, longitude),
-                                                      
-                                                  zoom: 13.0,
-                                                ),
-                                                layers: [
-                                                  new TileLayerOptions(
-                                                      urlTemplate:
-                                                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                                                      subdomains: [
-                                                        'a',
-                                                        'b',
-                                                        'c'
-                                                      ]),
-                                                  MarkerLayerOptions(
-                                                      markers: Provider.of<
-                                                          MapMarker>(
-                                                    context,
-                                                  ).noneedit),
-                                                ]),
+                                                      zoom: 13.0,
+                                                    ),
+                                                    layers: [
+                                                      new TileLayerOptions(
+                                                          urlTemplate:
+                                                              "https://api.mapbox.com/styles/v1/saugatt/ckojr740403wm17pc74woklrr/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                                          additionalOptions: {
+                                                            'access_token':
+                                                                "pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                                            'id':
+                                                                "mapbox.mapbox-streets-v8"
+                                                          }),
+                                                      MarkerLayerOptions(
+                                                          markers:  [ Marker(
+                                                              width: 80.0,
+                                                              height: 80.0,
+                                                              point: LatLng(
+                                                                  latitude,
+                                                                 longitude),
+                                                              builder: (ctx) =>
+                                                                  new Container(
+                                                                child: Icon(
+                                                                    Icons.place,
+                                                                    color: Colors
+                                                                        .red),
+                                                              ),
+                                                            )]),
+                                                    ]),
                                           ),
                                     Container(
                                       margin: EdgeInsets.only(
