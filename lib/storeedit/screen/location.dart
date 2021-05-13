@@ -29,7 +29,6 @@ TextEditingController locationhint = TextEditingController();
 class _EditLocationState extends State<EditLocation> {
   @override
   void initState() {
-
     Future.delayed(Duration.zero, () async {
       getcurrentlocation();
     });
@@ -43,10 +42,10 @@ class _EditLocationState extends State<EditLocation> {
     super.initState();
   }
 
+  bool isloading = true;
   MapController maps = MapController();
   MapController next = MapController();
   double currentzoom = 17;
-
 
   Future getcurrentlocation() async {
     try {
@@ -56,11 +55,10 @@ class _EditLocationState extends State<EditLocation> {
         latitude = geoposition.latitude;
         longitude = geoposition.longitude;
       });
+
       maps.move(LatLng(geoposition.latitude, geoposition.longitude), maps.zoom);
       next.move(LatLng(widget.newlat, widget.newlon), maps.zoom);
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   var mapcontroller = MapController();
@@ -85,9 +83,11 @@ class _EditLocationState extends State<EditLocation> {
                       decoration: BoxDecoration(color: Color(0xffF3F3F3)),
                       child: widget.newlat == null
                           ? FlutterMap(
+                            
                               children: [],
                               mapController: maps,
                               options: MapOptions(
+                               
                                 minZoom: 11.0,
                                 maxZoom: 17.0,
                                 interactiveFlags: InteractiveFlag.pinchZoom |

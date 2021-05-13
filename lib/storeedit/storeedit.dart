@@ -108,11 +108,18 @@ class _StoreEditState extends State<StoreEdit> {
   String locationhint;
   TimeOfDay openingtime;
   TimeOfDay closingtime;
+
+bool check=true;
+
   @override
   void initState() {
-    Future.delayed(Duration.zero, () async {
+    if(check=true){
+      Future.delayed(Duration.zero, () async {
       getcurrentlocation();
     });
+    check=false;
+    }
+    
     super.initState();
     Provider.of<DateAndTimeSlect>(context, listen: false).gettime();
 
@@ -139,12 +146,18 @@ class _StoreEditState extends State<StoreEdit> {
 
   List<Marker> markers = [];
   Future getcurrentlocation() async {
+    setState(() {
+      isloading = false;
+    });
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
     setState(() {
       latitude = geoposition.latitude;
       longitude = geoposition.longitude;
+    });
+    setState(() {
+      isloading = true;
     });
   }
 
@@ -157,6 +170,14 @@ class _StoreEditState extends State<StoreEdit> {
   TextEditingController categorye = TextEditingController();
   TextEditingController maincat = TextEditingController();
 
+  bool isloading = true;
+
+  @override
+  void dispose() {
+    getcurrentlocation();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -165,7 +186,7 @@ class _StoreEditState extends State<StoreEdit> {
     var selecttime = Provider.of<DateAndTimeSlect>(context);
     final storeprovider = Provider.of<ListCategory>(context);
     final payment = Provider.of<Paymentlist>(context, listen: true);
-   
+
     return ChangeNotifierProvider(
       create: (context) => ListCategory(),
       child: Scaffold(
@@ -735,7 +756,10 @@ class _StoreEditState extends State<StoreEdit> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          EditLocation(newlat: widget.lati,newlon: widget.loti,)));
+                                                          EditLocation(
+                                                            newlat: widget.lati,
+                                                            newlon: widget.loti,
+                                                          )));
                                             });
                                           },
                                           child: Container(
@@ -751,8 +775,13 @@ class _StoreEditState extends State<StoreEdit> {
                                         )
                                       ],
                                     ),
-                                    latitude == null
-                                        ? Container()
+                                    isloading == false
+                                        ? Container(
+                                            height: height / 9,
+                                            child: Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                          )
                                         : Container(
                                             margin: EdgeInsets.only(
                                                 top: height / 30,
@@ -821,12 +850,13 @@ class _StoreEditState extends State<StoreEdit> {
                                                                 "mapbox.mapbox-streets-v8"
                                                           }),
                                                       MarkerLayerOptions(
-                                                          markers:  [ Marker(
+                                                          markers: [
+                                                            Marker(
                                                               width: 80.0,
                                                               height: 80.0,
                                                               point: LatLng(
                                                                   latitude,
-                                                                 longitude),
+                                                                  longitude),
                                                               builder: (ctx) =>
                                                                   new Container(
                                                                 child: Icon(
@@ -834,7 +864,8 @@ class _StoreEditState extends State<StoreEdit> {
                                                                     color: Colors
                                                                         .red),
                                                               ),
-                                                            )]),
+                                                            )
+                                                          ]),
                                                     ]),
                                           ),
                                     Container(

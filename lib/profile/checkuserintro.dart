@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myprofile/profile/mainpage.dart';
 import 'package:myprofile/profile/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:myprofile/InroductionScreen/introduction.dart';
@@ -20,7 +21,7 @@ class _CheckUserIntroState extends State<CheckUserIntro> {
 
     if (_seen) {
       Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new MyProfile()));
+          new MaterialPageRoute(builder: (context) => new MainPage()));
     } else {
       await prefs.setBool('seen', true);
       Navigator.of(context).pushReplacement(
