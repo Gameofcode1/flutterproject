@@ -81,24 +81,25 @@ class _EditLocationState extends State<EditLocation> {
                       height: height / 2,
                       width: double.infinity,
                       decoration: BoxDecoration(color: Color(0xffF3F3F3)),
-                      child: widget.newlat == null
-                          ? FlutterMap(
-                            
+                      child: FlutterMap(
                               children: [],
-                              mapController: maps,
-                              options: MapOptions(
-                               
+                              mapController: widget.newlat == null?maps:next,
+                              options: MapOptions(                             
                                 minZoom: 11.0,
                                 maxZoom: 17.0,
                                 interactiveFlags: InteractiveFlag.pinchZoom |
                                     InteractiveFlag.drag,
                                 onPositionChanged: (mapPosition, bool) {
+                                  widget.newlat == null?
                                   setState(() {
                                     latitude = maps.center.latitude;
                                     longitude = maps.center.longitude;
+                                  }): setState(() {
+                                    widget.newlat = next.center.latitude;
+                                    widget.newlon = next.center.longitude;
                                   });
                                 },
-                                center: LatLng(latitude, longitude),
+                                center:widget.newlat == null? LatLng(latitude, longitude):LatLng(widget.newlat, widget.newlon),
                                 zoom: currentzoom,
                               ),
                               layers: [
@@ -114,7 +115,7 @@ class _EditLocationState extends State<EditLocation> {
                                   Marker(
                                     width: 80.0,
                                     height: 80.0,
-                                    point: LatLng(latitude, longitude),
+                                    point: widget.newlat == null?LatLng(latitude, longitude): LatLng(widget.newlat, widget.newlon),
                                     builder: (ctx) => new Container(
                                       child: Icon(Icons.place,
                                           size: height / 20, color: Colors.red),
@@ -122,44 +123,7 @@ class _EditLocationState extends State<EditLocation> {
                                   )
                                 ]),
                               ])
-                          : FlutterMap(
-                              children: [],
-                              mapController: next,
-                              options: MapOptions(
-                                minZoom: 11.0,
-                                maxZoom: 17.0,
-                                interactiveFlags: InteractiveFlag.pinchZoom |
-                                    InteractiveFlag.drag,
-                                onPositionChanged: (mapPosition, bool) {
-                                  setState(() {
-                                    widget.newlat = next.center.latitude;
-                                    widget.newlon = next.center.longitude;
-                                  });
-                                },
-                                center: LatLng(widget.newlat, widget.newlon),
-                                zoom: currentzoom,
-                              ),
-                              layers: [
-                                new TileLayerOptions(
-                                    urlTemplate:
-                                        "https://api.mapbox.com/styles/v1/saugatt/ckojr740403wm17pc74woklrr/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
-                                    additionalOptions: {
-                                      'access_token':
-                                          "pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
-                                      'id': "mapbox.mapbox-streets-v8"
-                                    }),
-                                MarkerLayerOptions(markers: [
-                                  Marker(
-                                    width: 80.0,
-                                    height: 80.0,
-                                    point: LatLng(widget.newlat, widget.newlon),
-                                    builder: (ctx) => new Container(
-                                      child: Icon(Icons.place,
-                                          size: height / 20, color: Colors.red),
-                                    ),
-                                  )
-                                ]),
-                              ]),
+                        
                     ),
                     Row(
                       children: [
