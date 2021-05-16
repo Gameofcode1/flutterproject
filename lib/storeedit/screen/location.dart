@@ -202,10 +202,10 @@ class _EditLocationState extends State<EditLocation> {
                 margin: EdgeInsets.only(top: height / 30, right: width / 50),
                 child: TextField(
                   onChanged: (value) {
-                    setState(() {
+                    
                       Provider.of<ListCategory>(context, listen: false)
                           .onstreetchange(value);
-                    });
+                  
                   },
                   controller: streetname,
                   obscureText: false,
@@ -221,10 +221,10 @@ class _EditLocationState extends State<EditLocation> {
                 margin: EdgeInsets.only(top: height / 30, right: width / 50),
                 child: TextField(
                   onChanged: (value) {
-                    setState(() {
+                   
                       Provider.of<ListCategory>(context, listen: false)
                           .onlocationchange(value);
-                    });
+                    
                   },
                   controller: locationhint,
                   obscureText: false,

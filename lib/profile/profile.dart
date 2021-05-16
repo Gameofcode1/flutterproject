@@ -1,11 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'package:myprofile/editpage/edit.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-
 
 import './methods/allcard.dart';
 import 'constants.dart';
@@ -87,8 +84,6 @@ class _MyProfileState extends State<MyProfile> {
     image();
   }
 
- 
-
   Color black = Colors.black;
   @override
   Widget build(BuildContext context) {
@@ -96,7 +91,6 @@ class _MyProfileState extends State<MyProfile> {
     var height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-     
       body: SafeArea(
         child: Container(
           child: ListView(

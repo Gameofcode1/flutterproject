@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myprofile/profile/mainpage.dart';
-import 'package:myprofile/profile/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:myprofile/InroductionScreen/introduction.dart';
 
