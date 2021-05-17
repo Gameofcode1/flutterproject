@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'newnotification.dart';
 import '../widgets/departmentalstore.dart';
+import '../widgets/departmentalstoreshimmer.dart';
 
 class NotificationAdder extends StatefulWidget {
+
   @override
   _NotificationAdderState createState() => _NotificationAdderState();
 }
@@ -26,7 +28,18 @@ class _NotificationAdderState extends State<NotificationAdder> {
     ),
    
   ];
+bool time=false;
 
+ @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 5), () {
+      setState(() {
+        time = true;
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +47,11 @@ class _NotificationAdderState extends State<NotificationAdder> {
      
      
         itemCount: _notifications.length,
+         physics:
+            time == false ? NeverScrollableScrollPhysics() : ScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
-          return StoreDetail(
+          return time==false?DepartmentalStoreShimmer(imagecheck:_notifications[index].image!=null?true:false):
+          StoreDetail(
             icons: _notifications[index].icons,
             description: _notifications[index].description,
             heading: _notifications[index].heading,

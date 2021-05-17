@@ -6,7 +6,23 @@ import 'package:intl/intl.dart';
 import './widgets/buttons.dart';
 import './models/addedresturents.dart';
 
-class NotificationSystem extends StatelessWidget {
+class NotificationSystem extends StatefulWidget {
+  @override
+  _NotificationSystemState createState() => _NotificationSystemState();
+}
+
+class _NotificationSystemState extends State<NotificationSystem> {
+  bool time=false;
+   @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 5), () {
+      setState(() {
+        time = true;
+      });
+    });
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -47,6 +63,10 @@ class NotificationSystem extends StatelessWidget {
                   height: height / 3.5,
                   width: double.infinity,
                   child: NotificationAdder()),
+
+                
+             
+                
               Container(
                   margin: EdgeInsets.only(
                       left: width / 8, top: height / 140, right: width / 1.6),
@@ -94,6 +114,7 @@ class NotificationSystem extends StatelessWidget {
                 width: width,
                 child: FoodDealsAdder(),
               ),
+            
               Container(
                 margin: EdgeInsets.only(
                     left: width / 7, bottom: height / 105, top: height / 200),
