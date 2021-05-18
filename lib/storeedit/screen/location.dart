@@ -78,53 +78,56 @@ class _EditLocationState extends State<EditLocation> {
               : Stack(
                   children: [
                     Container(
-                      height: height / 2,
-                      width: double.infinity,
-                      decoration: BoxDecoration(color: Color(0xffF3F3F3)),
-                      child: FlutterMap(
-                              children: [],
-                              mapController: widget.newlat == null?maps:next,
-                              options: MapOptions(                             
-                                minZoom: 11.0,
-                                maxZoom: 17.0,
-                                interactiveFlags: InteractiveFlag.pinchZoom |
-                                    InteractiveFlag.drag,
-                                onPositionChanged: (mapPosition, bool) {
-                                  widget.newlat == null?
-                                  setState(() {
-                                    latitude = maps.center.latitude;
-                                    longitude = maps.center.longitude;
-                                  }): setState(() {
-                                    widget.newlat = next.center.latitude;
-                                    widget.newlon = next.center.longitude;
-                                  });
-                                },
-                                center:widget.newlat == null? LatLng(latitude, longitude):LatLng(widget.newlat, widget.newlon),
-                                zoom: currentzoom,
-                              ),
-                              layers: [
-                                new TileLayerOptions(
-                                    urlTemplate:
-                                        "https://api.mapbox.com/styles/v1/saugatt/ckojr740403wm17pc74woklrr/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
-                                    additionalOptions: {
-                                      'access_token':
-                                          "pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
-                                      'id': "mapbox.mapbox-streets-v8"
-                                    }),
-                                MarkerLayerOptions(markers: [
-                                  Marker(
-                                    width: 80.0,
-                                    height: 80.0,
-                                    point: widget.newlat == null?LatLng(latitude, longitude): LatLng(widget.newlat, widget.newlon),
-                                    builder: (ctx) => new Container(
-                                      child: Icon(Icons.place,
-                                          size: height / 20, color: Colors.red),
-                                    ),
-                                  )
-                                ]),
-                              ])
-                        
-                    ),
+                        height: height / 2,
+                        width: double.infinity,
+                        decoration: BoxDecoration(color: Color(0xffF3F3F3)),
+                        child: FlutterMap(
+                            children: [],
+                            mapController: widget.newlat == null ? maps : next,
+                            options: MapOptions(
+                              minZoom: 11.0,
+                              maxZoom: 17.0,
+                              interactiveFlags: InteractiveFlag.pinchZoom |
+                                  InteractiveFlag.drag,
+                              onPositionChanged: (mapPosition, bool) {
+                                widget.newlat == null
+                                    ? setState(() {
+                                        latitude = maps.center.latitude;
+                                        longitude = maps.center.longitude;
+                                      })
+                                    : setState(() {
+                                        widget.newlat = next.center.latitude;
+                                        widget.newlon = next.center.longitude;
+                                      });
+                              },
+                              center: widget.newlat == null
+                                  ? LatLng(latitude, longitude)
+                                  : LatLng(widget.newlat, widget.newlon),
+                              zoom: currentzoom,
+                            ),
+                            layers: [
+                              new TileLayerOptions(
+                                  urlTemplate:
+                                      "https://api.mapbox.com/styles/v1/saugatt/ckojr740403wm17pc74woklrr/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                  additionalOptions: {
+                                    'access_token':
+                                        "pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29iMW9lNjYwNGhwMm9zOWZqMmV5OGlvIn0.F_v1FzPMI4YaTvOjLX0hxA",
+                                    'id': "mapbox.mapbox-streets-v8"
+                                  }),
+                              MarkerLayerOptions(markers: [
+                                Marker(
+                                  width: 80.0,
+                                  height: 80.0,
+                                  point: widget.newlat == null
+                                      ? LatLng(latitude, longitude)
+                                      : LatLng(widget.newlat, widget.newlon),
+                                  builder: (ctx) => new Container(
+                                    child: Icon(Icons.place,
+                                        size: height / 20, color: Colors.red),
+                                  ),
+                                )
+                              ]),
+                            ])),
                     Row(
                       children: [
                         IconButton(
@@ -202,10 +205,8 @@ class _EditLocationState extends State<EditLocation> {
                 margin: EdgeInsets.only(top: height / 30, right: width / 50),
                 child: TextField(
                   onChanged: (value) {
-                    
-                      Provider.of<ListCategory>(context, listen: false)
-                          .onstreetchange(value);
-                  
+                    Provider.of<ListCategory>(context, listen: false)
+                        .onstreetchange(value);
                   },
                   controller: streetname,
                   obscureText: false,
@@ -221,10 +222,8 @@ class _EditLocationState extends State<EditLocation> {
                 margin: EdgeInsets.only(top: height / 30, right: width / 50),
                 child: TextField(
                   onChanged: (value) {
-                   
-                      Provider.of<ListCategory>(context, listen: false)
-                          .onlocationchange(value);
-                    
+                    Provider.of<ListCategory>(context, listen: false)
+                        .onlocationchange(value);
                   },
                   controller: locationhint,
                   obscureText: false,
