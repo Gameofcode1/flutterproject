@@ -12,7 +12,7 @@ class DepartmentalStoreShimmer extends StatelessWidget {
      var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
-      color: Colors.white,
+     
       child: Padding(
       padding: EdgeInsets.only(top: height / 60),
       child: Row(
@@ -42,43 +42,15 @@ class DepartmentalStoreShimmer extends StatelessWidget {
                               top: height / 300, left: width / 80),
                           child: Container(
                               color: Colors.grey[300],
-                              height: height / 70,
+                              height: height / 40,
                               width: height / 6),
                         ),
                       ),
               SizedBox(
                 height: 1.0,
               ),
-               Shimmer.fromColors(
-                        baseColor: Colors.grey[300],
-                        highlightColor: Colors.grey[100],
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              top: height / 300, left: width / 80),
-                          child: Container(
-                              color: Colors.grey[300],
-                              height: height / 70,
-                              width: height / 6),
-                        ),
-                      ),
-              SizedBox(
-                height: 1.0,
-              ),
-               Shimmer.fromColors(
-                        baseColor: Colors.grey[300],
-                        highlightColor: Colors.grey[100],
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              top: height / 300, left: width / 80),
-                          child: Container(
-                              color: Colors.grey[300],
-                              height: height / 70,
-                              width: height / 6),
-                        ),
-                      ),
-              SizedBox(
-                height: height / 200,
-              ),
+              
+              
               imagecheck?
               Shimmer.fromColors(
                         baseColor: Colors.grey[300],
@@ -99,18 +71,7 @@ class DepartmentalStoreShimmer extends StatelessWidget {
                               width: height / 4),
                         ),
                       ):SizedBox.shrink() ,
-                        Shimmer.fromColors(
-                        baseColor: Colors.grey[300],
-                        highlightColor: Colors.grey[100],
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              top: height / 300, left: width / 80),
-                          child: Container(
-                              color: Colors.grey[300],
-                              height: height / 70,
-                              width: height / 20),
-                        ),
-                      ),             
+       
             ],
           ),
         ],

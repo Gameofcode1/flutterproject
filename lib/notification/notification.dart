@@ -87,7 +87,8 @@ class _NotificationSystemState extends State<NotificationSystem> {
                           margin: EdgeInsets.only(
                               left: width / 8,
                               top: height / 140,
-                              right: width / 1.6),
+                              right: width / 1.6,
+                              bottom: height/20),
                           height: height / 28,
                           width: width / 5,
                           decoration: BoxDecoration(
@@ -95,14 +96,15 @@ class _NotificationSystemState extends State<NotificationSystem> {
                             borderRadius: BorderRadius.circular(5.0),
                           )),
                     ),
-                    (time)?
-              SizedBox(
-                height: height / 25,
-                width: double.infinity,
-                child: Divider(
-                  color: Colors.black38,
-                ),
-              ):SizedBox.shrink(),
+              (time)
+                  ? SizedBox(
+                      height: height / 25,
+                      width: double.infinity,
+                      child: Divider(
+                        color: Colors.black38,
+                      ),
+                    )
+                  : SizedBox.shrink(),
               (time)
                   ? Container(
                       margin: EdgeInsets.only(left: width / 30),
@@ -160,23 +162,15 @@ class _NotificationSystemState extends State<NotificationSystem> {
                 width: width,
                 child: FoodDealsAdder(),
               ),
+              time?
               Container(
                   margin: EdgeInsets.only(
                       left: width / 7, bottom: height / 105, top: height / 200),
-                  child: (time)
-                      ? Text(
-                          DateFormat.MMMMd().add_jms().format(
-                                DateTime.now(),
-                              ),
-                          style: kDateAndTime.copyWith(fontSize: height / 80))
-                      : Shimmer.fromColors(
-                          baseColor: Colors.grey[300],
-                          highlightColor: Colors.grey[100],
-                          child: Container(
-                              color: Colors.grey[300],
-                              height: height / 70,
-                              width: height / 10),
-                        )),
+                  child: Text(
+                      DateFormat.MMMMd().add_jms().format(
+                            DateTime.now(),
+                          ),
+                      style: kDateAndTime.copyWith(fontSize: height / 80))):SizedBox.shrink(),
               time
                   ? Container(
                       margin: EdgeInsets.only(
@@ -266,23 +260,15 @@ class _NotificationSystemState extends State<NotificationSystem> {
                 width: width,
                 child: AddedResturent(),
               ),
+              time?
               Container(
                   margin: EdgeInsets.only(
                       left: width / 7, top: height / 140, bottom: height / 70),
-                  child: (time)
-                      ? Text(
-                          DateFormat.MMMMd().add_jms().format(
-                                DateTime.now(),
-                              ),
-                          style: kDateAndTime.copyWith(fontSize: height / 80))
-                      : Shimmer.fromColors(
-                          baseColor: Colors.grey[300],
-                          highlightColor: Colors.grey[100],
-                          child: Container(
-                              color: Colors.grey[300],
-                              height: height / 70,
-                              width: height / 6),
-                        )),
+                  child: Text(
+                      DateFormat.MMMMd().add_jms().format(
+                            DateTime.now(),
+                          ),
+                      style: kDateAndTime.copyWith(fontSize: height / 80))):SizedBox.shrink(),
               time
                   ? Container(
                       margin:

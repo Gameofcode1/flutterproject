@@ -12,24 +12,14 @@ class ResturantSlimmer extends StatelessWidget {
       padding: EdgeInsets.only(
           left: width / 30, right: width / 20, top: height / 150),
       decoration: BoxDecoration(
-          color: Colors.white,
+         
           borderRadius: BorderRadius.all(Radius.circular(6))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
          
-          Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
-            child: Padding(
-              padding: EdgeInsets.only(top: height / 200, left: width / 80),
-              child: Container(
-                  color: Colors.grey[300],
-                  height: height / 70,
-                  width: height / 6),
-            ),
-          ),
-          
+        
+         
           Shimmer.fromColors(
             baseColor: Colors.grey[300],
             highlightColor: Colors.grey[100],
@@ -37,19 +27,7 @@ class ResturantSlimmer extends StatelessWidget {
               padding: EdgeInsets.only(top: height / 150, left: width / 80),
               child: Container(
                   color: Colors.grey[300],
-                  height: height / 70,
-                  width: height / 6),
-            ),
-          ),
-          SizedBox(width: width / 10),
-          Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
-            child: Padding(
-              padding: EdgeInsets.only(top: height / 150, left: width / 80),
-              child: Container(
-                  color: Colors.grey[300],
-                  height: height / 70,
+                  height: height/13,
                   width: height / 6),
             ),
           ),

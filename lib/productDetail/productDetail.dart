@@ -101,7 +101,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                   margin: EdgeInsets.only(
                                     top: height / 140,
                                   ),
-                                  height: height / 4.5,
+                                  height: height / 4,
                                   width: height / 3,
                                   decoration: BoxDecoration(
                                     color: Colors.teal[300],
@@ -109,8 +109,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                   )),
                             ),
                           ),
-                    (time)
-                        ? Container(
+                   time? Container(
                             color: Colors.white,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,80 +159,21 @@ class _ProductDetailState extends State<ProductDetail> {
                               ],
                             ),
                           )
-                        : Container(
-                            margin: EdgeInsets.only(
-                                left: width / 30, top: height / 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Shimmer.fromColors(
-                                  baseColor: Colors.grey[300],
-                                  highlightColor: Colors.grey[100],
-                                  child: Container(
-                                      color: Colors.grey[300],
-                                      height: height / 70,
-                                      width: height / 13),
-                                ),
-                                SizedBox(
-                                  width: 10.0,
-                                ),
-                                Shimmer.fromColors(
-                                    baseColor: Colors.grey[300],
-                                    highlightColor: Colors.grey[100],
-                                    child: (CircleAvatar(
-                                      radius: height / 65,
-                                      backgroundColor: Colors.grey[300],
-                                    ))),
-                                Shimmer.fromColors(
-                                    baseColor: Colors.grey[300],
-                                    highlightColor: Colors.grey[100],
-                                    child: (CircleAvatar(
-                                      radius: height / 65,
-                                      backgroundColor: Colors.grey[300],
-                                    ))),
-                                Shimmer.fromColors(
-                                    baseColor: Colors.grey[300],
-                                    highlightColor: Colors.grey[100],
-                                    child: (CircleAvatar(
-                                      radius: height / 65,
-                                      backgroundColor: Colors.grey[300],
-                                    ))),
-                              ],
-                            ),
-                          ),
+                       :SizedBox.shrink(),
                     time
                         ? ContainerText()
                         : Column(
                             children: [
+                             
                               Shimmer.fromColors(
                                 baseColor: Colors.grey[300],
                                 highlightColor: Colors.grey[100],
                                 child: Container(
                                     margin: EdgeInsets.only(
-                                        left: width / 30, top: height / 90),
+                                        left: width / 30, top: height / 60),
                                     color: Colors.grey[300],
-                                    height: height / 50,
-                                    width: height / 4),
-                              ),
-                              Shimmer.fromColors(
-                                baseColor: Colors.grey[300],
-                                highlightColor: Colors.grey[100],
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: width / 30, top: height / 90),
-                                    color: Colors.grey[300],
-                                    height: height / 50,
-                                    width: height / 4),
-                              ),
-                              Shimmer.fromColors(
-                                baseColor: Colors.grey[300],
-                                highlightColor: Colors.grey[100],
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: width / 30, top: height / 90),
-                                    color: Colors.grey[300],
-                                    height: height / 50,
+
+                                    height: height / 8,
                                     width: height / 4),
                               ),
                             ],
@@ -249,31 +189,12 @@ class _ProductDetailState extends State<ProductDetail> {
                                 highlightColor: Colors.grey[100],
                                 child: Container(
                                     margin: EdgeInsets.only(
-                                        left: width / 30, top: height / 30),
+                                        left: width / 30, top: height / 30,bottom: height/70),
                                     color: Colors.grey[300],
-                                    height: height / 50,
+                                    height: height / 11,
                                     width: height / 4),
                               ),
-                              Shimmer.fromColors(
-                                baseColor: Colors.grey[300],
-                                highlightColor: Colors.grey[100],
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: width / 30, top: height / 90),
-                                    color: Colors.grey[300],
-                                    height: height / 50,
-                                    width: height / 3),
-                              ),
-                              Shimmer.fromColors(
-                                baseColor: Colors.grey[300],
-                                highlightColor: Colors.grey[100],
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: width / 30, top: height / 90),
-                                    color: Colors.grey[300],
-                                    height: height / 50,
-                                    width: height / 4),
-                              ),
+                              
                             ],
                           ),
                     time
@@ -520,8 +441,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                               left: height / 40,
                                               top: height / 140,
                                             ),
-                                            height: height / 50,
-                                            width: width / 3,
+                                            height: height / 8,
+                                            width: width / 2,
                                             decoration: BoxDecoration(
                                               color: Colors.teal[300],
                                               borderRadius:
@@ -529,78 +450,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                             )),
                                       ),
                                     ),
-                                    Shimmer.fromColors(
-                                      baseColor: Colors.grey[300],
-                                      highlightColor: Colors.grey[100],
-                                      child: Expanded(
-                                        child: Container(
-                                            margin: EdgeInsets.only(
-                                              left: height / 40,
-                                              top: height / 140,
-                                            ),
-                                            height: height / 50,
-                                            width: width / 3,
-                                            decoration: BoxDecoration(
-                                              color: Colors.teal[300],
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            )),
-                                      ),
-                                    ),
-                                    Shimmer.fromColors(
-                                      baseColor: Colors.grey[300],
-                                      highlightColor: Colors.grey[100],
-                                      child: Expanded(
-                                        child: Container(
-                                            margin: EdgeInsets.only(
-                                              left: height / 40,
-                                              top: height / 140,
-                                            ),
-                                            height: height / 50,
-                                            width: width / 3,
-                                            decoration: BoxDecoration(
-                                              color: Colors.teal[300],
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            )),
-                                      ),
-                                    ),
-                                    Shimmer.fromColors(
-                                      baseColor: Colors.grey[300],
-                                      highlightColor: Colors.grey[100],
-                                      child: Expanded(
-                                        child: Container(
-                                            margin: EdgeInsets.only(
-                                              left: height / 40,
-                                              top: height / 140,
-                                            ),
-                                            height: height / 50,
-                                            width: width / 3,
-                                            decoration: BoxDecoration(
-                                              color: Colors.teal[300],
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            )),
-                                      ),
-                                    ),
-                                    Shimmer.fromColors(
-                                      baseColor: Colors.grey[300],
-                                      highlightColor: Colors.grey[100],
-                                      child: Expanded(
-                                        child: Container(
-                                            margin: EdgeInsets.only(
-                                              left: height / 40,
-                                              top: height / 140,
-                                            ),
-                                            height: height / 50,
-                                            width: width / 3,
-                                            decoration: BoxDecoration(
-                                              color: Colors.teal[300],
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            )),
-                                      ),
-                                    ),
+                                   
                                   ],
                                 )
                               ],
@@ -639,7 +489,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               child: Center(
                                 child: Container(
                                     margin: EdgeInsets.only(
-                                      left: height / 40,
+                                      left: height / 40, 
                                       top: height / 40,
                                     ),
                                     height: height / 19,
