@@ -8,7 +8,7 @@ class InviteFriens extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     const code = "r5j5bbbq";
-    var link = "https://staging.oripari.com/user/signup?code={$code}";
+    var link = "https://staging.oripari.com/user/signup?code=$code";
 
     return Scaffold(
       body: SafeArea(
