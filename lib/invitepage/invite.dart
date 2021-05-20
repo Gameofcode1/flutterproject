@@ -3,14 +3,12 @@ import 'package:myprofile/referralcode/constant.dart';
 import 'package:share/share.dart';
 
 class InviteFriens extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    const code = "RRTYYSS";
-    var link = "https://staging.oripari.com/user/signup?code=1fc63c51";
-   
+    const code = "r5j5bbbq";
+    var link = "https://staging.oripari.com/user/signup?code={$code}";
 
     return Scaffold(
       body: SafeArea(
@@ -70,7 +68,7 @@ class InviteFriens extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            code.toUpperCase(),
+                            code.toString(),
                             textAlign: TextAlign.center,
                             style: kRefferOfferFont.copyWith(
                                 fontSize: 25.0,
@@ -82,11 +80,9 @@ class InviteFriens extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: GestureDetector(
-                     onTap: (){
-                       Share.share(link);
-
-
-                     },
+                      onTap: () {
+                        Share.share(link);
+                      },
                       child: Container(
                         width: double.infinity,
                         height: height / 17,
@@ -98,7 +94,7 @@ class InviteFriens extends StatelessWidget {
                         child: Center(
                           child: GestureDetector(
                               child:
-                                  Icon(Icons.ios_share, color:Colors.black45)),
+                                  Icon(Icons.ios_share, color: Colors.black45)),
                         ),
                       ),
                     ),
