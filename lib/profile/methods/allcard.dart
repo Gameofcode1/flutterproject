@@ -4,34 +4,27 @@ import '../widgets/newcard.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myprofile/productDetail/productDetail.dart';
 import 'package:myprofile/InroductionScreen/introduction.dart';
-import"package:myprofile/storeedit/storeedit.dart";
-
+import "package:myprofile/storeedit/storeedit.dart";
+import 'package:myprofile/invitepage/invite.dart';
 import 'package:myprofile/productadd/productadd.dart';
 
 import 'package:myprofile/changepassword/changepassword.dart';
-
-
 
 class CardColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-     
       child: Column(
         children: [
           GestureDetector(
-            onTap:(){
-               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>ChangePassword()));
-            } ,
-
-                      child: NewCard(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ChangePassword()));
+            },
+            child: NewCard(
                 icons: FontAwesomeIcons.passport,
                 text: "Change Password",
-                nexticons: Icons.arrow_forward
-                
-                
-                ),
+                nexticons: Icons.arrow_forward),
           ),
           GestureDetector(
             onTap: () {
@@ -46,7 +39,7 @@ class CardColumn extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => IntroSliderPage()));
+                  MaterialPageRoute(builder: (context) => InviteFriens()));
             },
             child: NewCard(
                 icons: FontAwesomeIcons.info,
@@ -66,7 +59,7 @@ class CardColumn extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>ProductAdd()));
+                  MaterialPageRoute(builder: (context) => ProductAdd()));
             },
             child: NewCard(
                 icons: FontAwesomeIcons.signOutAlt,

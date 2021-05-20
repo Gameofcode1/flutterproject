@@ -109,7 +109,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                   )),
                             ),
                           ),
-                   time? Container(
+                    time
+                        ? Container(
                             color: Colors.white,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,12 +160,11 @@ class _ProductDetailState extends State<ProductDetail> {
                               ],
                             ),
                           )
-                       :SizedBox.shrink(),
+                        : SizedBox.shrink(),
                     time
                         ? ContainerText()
                         : Column(
                             children: [
-                             
                               Shimmer.fromColors(
                                 baseColor: Colors.grey[300],
                                 highlightColor: Colors.grey[100],
@@ -172,7 +172,6 @@ class _ProductDetailState extends State<ProductDetail> {
                                     margin: EdgeInsets.only(
                                         left: width / 30, top: height / 60),
                                     color: Colors.grey[300],
-
                                     height: height / 8,
                                     width: height / 4),
                               ),
@@ -189,12 +188,13 @@ class _ProductDetailState extends State<ProductDetail> {
                                 highlightColor: Colors.grey[100],
                                 child: Container(
                                     margin: EdgeInsets.only(
-                                        left: width / 30, top: height / 30,bottom: height/70),
+                                        left: width / 30,
+                                        top: height / 30,
+                                        bottom: height / 70),
                                     color: Colors.grey[300],
                                     height: height / 11,
                                     width: height / 4),
                               ),
-                              
                             ],
                           ),
                     time
@@ -228,7 +228,8 @@ class _ProductDetailState extends State<ProductDetail> {
                               ],
                             ))
                         : Container(
-                            margin: EdgeInsets.only(left: width / 20,top: height/50),
+                            margin: EdgeInsets.only(
+                                left: width / 20, top: height / 50),
                             child: Row(
                               children: [
                                 Shimmer.fromColors(
@@ -305,7 +306,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               child: Container(
                                   margin: EdgeInsets.only(
                                     left: height / 40,
-                                    top: height /20,
+                                    top: height / 20,
                                   ),
                                   height: height / 40,
                                   width: width / 5,
@@ -450,7 +451,6 @@ class _ProductDetailState extends State<ProductDetail> {
                                             )),
                                       ),
                                     ),
-                                   
                                   ],
                                 )
                               ],
@@ -489,7 +489,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               child: Center(
                                 child: Container(
                                     margin: EdgeInsets.only(
-                                      left: height / 40, 
+                                      left: height / 40,
                                       top: height / 40,
                                     ),
                                     height: height / 19,

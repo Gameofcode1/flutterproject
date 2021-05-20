@@ -24,14 +24,9 @@ dependencies:
   flutter_map: ^0.11.0
   latlng: ^0.0.2
   curved_navigation_bar: ^0.3.7
-
- 
-
-  
- 
+  share: ^0.6.2
   carousel_slider: ^3.0.0
   image_picker: ^0.6.3+4
- 
   flutter_form_builder: ^4.0.1
   
 
@@ -63,35 +58,14 @@ flutter:
     - images/pays.png
     - images/payment.png
     - images/locations.png
-
-
-
-    
-
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
+    - images/intive.jpg
+   
   fonts:
     - family: Roboto
       fonts:
         - asset: fonts/Roboto-Black.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+ 
     - family: RoboroM
       fonts:
         - asset: fonts/Roboto-Medium.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+ 

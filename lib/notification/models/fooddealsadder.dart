@@ -1,7 +1,6 @@
 import "../widgets/fooddeals.dart";
 import 'package:flutter/material.dart';
 import 'fooddeals.dart';
-import 'package:shimmer/shimmer.dart';
 import '../widgets/foodnearyoushimmer.dart';
 
 class FoodDealsAdder extends StatefulWidget {
