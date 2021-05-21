@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:myprofile/editpage/edit.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-
 import './methods/allcard.dart';
 import 'constants.dart';
 import 'package:myprofile/notification/notification.dart';

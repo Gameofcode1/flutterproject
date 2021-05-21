@@ -7,6 +7,7 @@ import 'package:myprofile/InroductionScreen/introduction.dart';
 import "package:myprofile/storeedit/storeedit.dart";
 import 'package:myprofile/invitepage/invite.dart';
 import 'package:myprofile/productadd/productadd.dart';
+import 'package:myprofile/Shimmer_effect/dashboard.dart';
 
 import 'package:myprofile/changepassword/changepassword.dart';
 
@@ -19,7 +20,7 @@ class CardColumn extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ChangePassword()));
+                  MaterialPageRoute(builder: (context) => Dashboard()));
             },
             child: NewCard(
                 icons: FontAwesomeIcons.passport,

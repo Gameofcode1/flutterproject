@@ -88,7 +88,7 @@ class _NotificationSystemState extends State<NotificationSystem> {
                               left: width / 8,
                               top: height / 140,
                               right: width / 1.6,
-                              bottom: height/20),
+                              bottom: height / 20),
                           height: height / 28,
                           width: width / 5,
                           decoration: BoxDecoration(
@@ -162,15 +162,18 @@ class _NotificationSystemState extends State<NotificationSystem> {
                 width: width,
                 child: FoodDealsAdder(),
               ),
-              time?
-              Container(
-                  margin: EdgeInsets.only(
-                      left: width / 7, bottom: height / 105, top: height / 200),
-                  child: Text(
-                      DateFormat.MMMMd().add_jms().format(
-                            DateTime.now(),
-                          ),
-                      style: kDateAndTime.copyWith(fontSize: height / 80))):SizedBox.shrink(),
+              time
+                  ? Container(
+                      margin: EdgeInsets.only(
+                          left: width / 7,
+                          bottom: height / 105,
+                          top: height / 200),
+                      child: Text(
+                          DateFormat.MMMMd().add_jms().format(
+                                DateTime.now(),
+                              ),
+                          style: kDateAndTime.copyWith(fontSize: height / 80)))
+                  : SizedBox.shrink(),
               time
                   ? Container(
                       margin: EdgeInsets.only(
@@ -260,15 +263,18 @@ class _NotificationSystemState extends State<NotificationSystem> {
                 width: width,
                 child: AddedResturent(),
               ),
-              time?
-              Container(
-                  margin: EdgeInsets.only(
-                      left: width / 7, top: height / 140, bottom: height / 70),
-                  child: Text(
-                      DateFormat.MMMMd().add_jms().format(
-                            DateTime.now(),
-                          ),
-                      style: kDateAndTime.copyWith(fontSize: height / 80))):SizedBox.shrink(),
+              time
+                  ? Container(
+                      margin: EdgeInsets.only(
+                          left: width / 7,
+                          top: height / 140,
+                          bottom: height / 70),
+                      child: Text(
+                          DateFormat.MMMMd().add_jms().format(
+                                DateTime.now(),
+                              ),
+                          style: kDateAndTime.copyWith(fontSize: height / 80)))
+                  : SizedBox.shrink(),
               time
                   ? Container(
                       margin:
