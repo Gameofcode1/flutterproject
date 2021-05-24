@@ -7,7 +7,7 @@ class ListShimmer extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return Container(
       height: height / 2.4,
-      margin: EdgeInsets.only(top: height / 85),
+      margin: EdgeInsets.only(top: height / 125),
       child: ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,

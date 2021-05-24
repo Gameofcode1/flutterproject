@@ -18,7 +18,7 @@ class CategoryShimmer extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       margin: EdgeInsets.only(left: height / 95),
-                      width: height / 8,
+                      width: height / 7,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
