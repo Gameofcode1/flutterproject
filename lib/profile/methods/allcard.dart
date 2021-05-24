@@ -30,7 +30,7 @@ class CardColumn extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProductDetail()));
+                  MaterialPageRoute(builder: (context) => IntroSliderPage()));
             },
             child: NewCard(
                 icons: FontAwesomeIcons.history,

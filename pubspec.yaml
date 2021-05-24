@@ -59,6 +59,9 @@ flutter:
     - images/payment.png
     - images/locations.png
     - images/intive.jpg
+    - images/grow.png
+    - images/time.png
+    - images/nearby.png
    
   fonts:
     - family: Roboto
