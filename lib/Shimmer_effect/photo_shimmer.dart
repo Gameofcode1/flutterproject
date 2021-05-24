@@ -15,7 +15,7 @@ class PhotoShimmer extends StatelessWidget {
                 padding: EdgeInsets.only(top: height / 150),
                 child: Container(
                     color: Colors.grey[300],
-                    height: height / 5,
+                    height: height / 4,
                     width: double.infinity),
               ),
             )

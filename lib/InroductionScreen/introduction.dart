@@ -57,27 +57,32 @@ class _IntroSliderPageState extends State<IntroSliderPage> {
             width: double.infinity,
             height: double.infinity,
             child: Container(
-              margin: EdgeInsets.only(bottom: height / 90, top: height / 5),
+              margin: EdgeInsets.only(bottom: height / 90, top: height / 5,left: height/20,right: height/60),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
+                     margin: EdgeInsets.only(left: height / 20),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.white,
                     ),
                     child: Image.asset(
                       currentSlide.pathImage,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.cover, 
                       matchTextDirection: true,
                       height: height / 4,
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: height / 30,bottom: height/90),
+                    margin: EdgeInsets.only(top: height / 17,bottom: height/90),
                     child: Text(
                       currentSlide.title,
                       style:
-                          TextStyle(color: Colors.black, fontSize: height / 30),
+                          TextStyle(color: Colors.black, 
+                          fontSize: height / 30,                       
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                   Container(
@@ -85,17 +90,16 @@ class _IntroSliderPageState extends State<IntroSliderPage> {
                     child: Text(
                       currentSlide.description,
                       style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: height / 55,
+                        
+                        fontSize: height / 50,
                       ),
-                      maxLines: 3,
-                      textAlign: TextAlign.center,
+                    maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                     margin: EdgeInsets.only(
                       top: height / 90,
-                      left: height / 90,
-                      right: height / 90,
+                     
+                  
                     ),
                   ),
                 ],

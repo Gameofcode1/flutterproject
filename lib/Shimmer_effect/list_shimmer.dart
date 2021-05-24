@@ -7,7 +7,7 @@ class ListShimmer extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return Container(
       height: height / 2.4,
-      margin: EdgeInsets.only(top: height / 35),
+      margin: EdgeInsets.only(top: height / 85),
       child: ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -15,10 +15,7 @@ class ListShimmer extends StatelessWidget {
           itemCount: 2,
           itemBuilder: (BuildContext context, int index) {
             return Container(
-              decoration: BoxDecoration(
-               
-               
-              ),
+              decoration: BoxDecoration(),
               margin: EdgeInsets.only(
                   left: height / 125, top: height / 100, right: height / 185),
               width: double.infinity,
@@ -33,35 +30,72 @@ class ListShimmer extends StatelessWidget {
                       child: Container(
                         margin: EdgeInsets.only(
                             left: height / 95,
-                            top: height / 100,
+                            top: height / 50,
                             right: height / 95,
                             bottom: height / 100),
                         decoration: BoxDecoration(
                           color: Colors.grey[300],
                         ),
-                        height: height / 7,
-                        width: height / 10,
+                        height: height / 8.3,
+                        width: height / 8,
                       ),
                     ),
                   ),
-                  Shimmer.fromColors(
-                    baseColor: Colors.grey[300],
-                    highlightColor: Colors.grey[100],
-                    child: Expanded(
-                      flex: 2,
-                      child: Container(
-                        width: height / 3.2,
-                        margin: EdgeInsets.only(
-                            top: height / 100,
-                           
-                            bottom: height / 100),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
+                  Container(
+                    margin: EdgeInsets.only(top: height / 80),
+                    child: Column(
+                      children: [
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300],
+                          highlightColor: Colors.grey[100],
+                          child: Expanded(
+                            flex: 2,
+                            child: Container(
+                              width: height / 3.5,
+                              margin: EdgeInsets.only(
+                                  top: height / 100, bottom: height / 100),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                              ),
+                              height: height / 40,
+                            ),
+                          ),
                         ),
-                        height: height / 7,
-                      ),
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300],
+                          highlightColor: Colors.grey[100],
+                          child: Expanded(
+                            flex: 2,
+                            child: Container(
+                              width: height / 3.5,
+                              margin: EdgeInsets.only(
+                                  top: height / 100, bottom: height / 100),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                              ),
+                              height: height / 40,
+                            ),
+                          ),
+                        ),
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300],
+                          highlightColor: Colors.grey[100],
+                          child: Expanded(
+                            flex: 2,
+                            child: Container(
+                              width: height / 3.5,
+                              margin: EdgeInsets.only(
+                                  top: height / 100, bottom: height / 100),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                              ),
+                              height: height / 40,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                  )
                 ],
               ),
             );
