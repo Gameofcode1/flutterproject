@@ -8,6 +8,8 @@ class PhotoShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     return Container(
+      margin: EdgeInsets.only(top:height/70),
+    
     child:  Shimmer.fromColors(
               baseColor: Colors.grey[300],
               highlightColor: Colors.grey[100],
@@ -15,7 +17,7 @@ class PhotoShimmer extends StatelessWidget {
                 padding: EdgeInsets.only(top: height / 150),
                 child: Container(
                     color: Colors.grey[300],
-                    height: height / 4,
+                    height: height / 3.5,
                     width: double.infinity),
               ),
             )

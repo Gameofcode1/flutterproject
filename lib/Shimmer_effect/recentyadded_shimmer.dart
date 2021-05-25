@@ -8,7 +8,7 @@ class RecentlyAddedShimmer extends StatelessWidget {
 var height = MediaQuery.of(context).size.height;
     return Container(
               height: height / 6,
-              margin: EdgeInsets.only(top: height / 25),
+              margin: EdgeInsets.only(top: height / 18),
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
@@ -17,7 +17,7 @@ var height = MediaQuery.of(context).size.height;
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       margin: EdgeInsets.only(left: height / 95),
-                      width: height / 5,
+                      width: height / 4.5,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +30,7 @@ var height = MediaQuery.of(context).size.height;
                                 borderRadius: BorderRadius.circular(10.0),
                                 color: Colors.grey[300],
                               ),
-                              height: height / 7,
+                              height: height / 6,
                               width: double.infinity,
                             ),
                           ),

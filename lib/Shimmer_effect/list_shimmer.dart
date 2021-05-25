@@ -7,17 +7,17 @@ class ListShimmer extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return Container(
       height: height / 2.4,
-      margin: EdgeInsets.only(top: height / 125),
+      margin: EdgeInsets.only(top: height / 80),
       child: ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: 2,
+          itemCount: 1,
           itemBuilder: (BuildContext context, int index) {
             return Container(
               decoration: BoxDecoration(),
               margin: EdgeInsets.only(
-                  left: height / 125, top: height / 100, right: height / 185),
+                  left: height / 125, top: height / 200, ),
               width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -36,13 +36,13 @@ class ListShimmer extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.grey[300],
                         ),
-                        height: height / 8.3,
+                        height: height / 7,
                         width: height / 8,
                       ),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: height / 80),
+                    margin: EdgeInsets.only(top: height / 60),
                     child: Column(
                       children: [
                         Shimmer.fromColors(
@@ -57,7 +57,7 @@ class ListShimmer extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.grey[300],
                               ),
-                              height: height / 40,
+                              height: height / 35,
                             ),
                           ),
                         ),
@@ -73,7 +73,7 @@ class ListShimmer extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.grey[300],
                               ),
-                              height: height / 40,
+                              height: height / 35,
                             ),
                           ),
                         ),
@@ -89,7 +89,7 @@ class ListShimmer extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.grey[300],
                               ),
-                              height: height / 40,
+                              height: height / 35,
                             ),
                           ),
                         ),

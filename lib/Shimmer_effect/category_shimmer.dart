@@ -8,13 +8,14 @@ class CategoryShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     return Container(
+      margin: EdgeInsets.only(top:height/20),
               height: height / 15,
-              margin: EdgeInsets.only(top: height / 80),
+          
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: 6,
+                  itemCount: 4,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       margin: EdgeInsets.only(left: height / 95),
