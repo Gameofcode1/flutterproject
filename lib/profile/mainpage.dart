@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myprofile/notification/notification.dart';
 import 'package:myprofile/productDetail/productDetail.dart';
 import 'package:myprofile/profile/profile.dart';
+import 'package:myprofile/storeedit/screen/instruction.dart';
 import 'package:myprofile/storeedit/screen/paymentedit.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class _MainPageState extends State<MainPage> {
 
   final MyProfile editpay = MyProfile();
 
-  final NotificationSystem edtpay = NotificationSystem();
+  final InstructionScreen edtpay = InstructionScreen();
 
   final ProductDetail edpay = ProductDetail();
 

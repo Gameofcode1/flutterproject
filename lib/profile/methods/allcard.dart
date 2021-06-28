@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myprofile/storeedit/screen/instruction.dart';
 
 import '../widgets/newcard.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,7 +41,7 @@ class CardColumn extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => InviteFriens()));
+                  MaterialPageRoute(builder: (context) => InstructionScreen()));
             },
             child: NewCard(
                 icons: FontAwesomeIcons.info,

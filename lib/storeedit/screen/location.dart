@@ -1,14 +1,16 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
-
 import 'package:latlong/latlong.dart';
 import 'package:myprofile/editpage/constant.dart';
-
 import 'package:myprofile/storeedit/provider/provider.dart';
 import 'package:myprofile/storeedit/storeedit.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class EditLocation extends StatefulWidget {
   double newlat;
   double newlon;
@@ -46,6 +48,33 @@ class _EditLocationState extends State<EditLocation> {
   MapController maps = MapController();
   MapController next = MapController();
   double currentzoom = 17;
+  List<double> datas;
+  List saugat;
+
+  Future<void> getlatlon(String city) async {
+    try {
+      final response = await Dio().get(
+          "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+              city +
+              ".json?access_token=pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29ib2l6ODAxZmxxMndtdWtiMWNyaHFwIn0.8ck81q06xvJl5ps8pLUg8w");
+      final data = json.decode(response.data)['features'];
+
+      final latlong = (data[0]['center']);
+      setState(() {
+        latitude=latlong[1];
+        longitude=latlong[0];
+        
+      });
+     
+
+      saugat = latlong;
+
+      print(city);
+      print(latlong);
+    } catch (e) {
+      throw (e);
+    }
+  }
 
   Future getcurrentlocation() async {
     try {
@@ -147,6 +176,22 @@ class _EditLocationState extends State<EditLocation> {
                                   fontSize: height / 45)),
                         ),
                       ],
+                    ),
+                    Container(
+                      height: height / 15,
+                      margin:
+                          EdgeInsets.only(top: height / 30, right: width / 50),
+                      child: TextField(
+                        onSubmitted: (value) {
+                          getlatlon(value);
+                        },
+                        obscureText: false,
+                        textAlign: TextAlign.left,
+                        decoration: kEditDecoration.copyWith(
+                          hintText: "search",
+                          labelText: "search",
+                        ),
+                      ),
                     ),
                   ],
                 ),

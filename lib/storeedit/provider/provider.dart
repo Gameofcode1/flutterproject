@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:myprofile/storeedit/provider/catclass.dart';
 import 'package:myprofile/storeedit/provider/categoryselect.dart';
@@ -65,4 +67,35 @@ class ListCategory extends ChangeNotifier {
     dummydata["LocationHint"] = value;
     notifyListeners();
   }
+
+List<double> _latlong=[];
+
+List<double>  get  latlon{
+  return [..._latlong];
 }
+
+Future<void> getlatlon(String city)async{
+  try{
+  final response=await Dio().get("https://api.mapbox.com/geocoding/v5/mapbox.places/"+city+".json?access_token=pk.eyJ1Ijoic2F1Z2F0dCIsImEiOiJja29ib2l6ODAxZmxxMndtdWtiMWNyaHFwIn0.8ck81q06xvJl5ps8pLUg8w");
+  final data=json.decode(response.data)['features'];
+ final latlong=(data[0]['center']);
+ print(city);
+ print(latlong);
+ _latlong=latlong;
+ notifyListeners();
+  }
+  catch(e){
+  throw(e);
+  }
+
+}
+
+
+
+
+
+
+
+}
+
+
